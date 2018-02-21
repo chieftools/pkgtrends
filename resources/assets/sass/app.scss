@@ -1,0 +1,74 @@
+// Variables
+@import "variables";
+// Bootstrap
+@import '~bootstrap/scss/bootstrap';
+@import 'selectize/selectize.bootstrap4';
+
+.navbar-laravel {
+  background-color: #ffffff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+}
+
+.selectize-control {
+  &::before {
+    -moz-transition: opacity 0.2s;
+    -webkit-transition: opacity 0.2s;
+    transition: opacity 0.2s;
+    content: ' ';
+    z-index: 2;
+    position: absolute;
+    display: block;
+    top: 50%;
+    right: 16px;
+    width: 16px;
+    height: 16px;
+    margin: -10px 0 0 0;
+    background: url(/img/spinner.gif);
+    background-size: 16px 16px;
+    opacity: 0;
+  }
+
+  &.loading::before {
+    opacity: 0.4;
+  }
+
+  .selectize-input {
+    i {
+      width: 16px;
+      height: 16px;
+      display: inline-block;
+      vertical-align: middle;
+      background-size: 16px 16px;
+      margin: 0 6px 0 0;
+    }
+  }
+
+  .selectize-dropdown {
+    .item {
+      padding: 5px 10px;
+    }
+
+    .title {
+      display: block;
+    }
+
+    .description {
+      font-size: 12px;
+      display: block;
+      opacity: 0.5;
+      white-space: nowrap;
+      width: 100%;
+      text-overflow: ellipsis;
+      overflow: hidden;
+    }
+
+    i {
+      width: 16px;
+      height: 16px;
+      display: inline-block;
+      vertical-align: middle;
+      background-size: 16px 16px;
+      margin: 0 6px 0 0;
+    }
+  }
+}
