@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class PyPI extends Model
 {
-    public    $incrementing = false;
+    public $incrementing    = false;
     protected $primaryKey   = 'project';
     protected $table        = 'packages_pypi';
     protected $fillable     = [
