@@ -12,7 +12,7 @@ use Illuminate\Database\Eloquent\Model;
 class PyPI extends Model
 {
     protected $table      = 'stats_pypi';
-    public    $timestamps = false;
+    public $timestamps    = false;
     protected $fillable   = [
         'date',
         'project',

@@ -1,7 +1,6 @@
 <?php
 
 return [
-
     /*
     |--------------------------------------------------------------------------
     | Application Name & Title & Description
@@ -14,8 +13,8 @@ return [
     */
 
     'name'        => env('APP_NAME', 'Package Trends'),
-    'title'       => 'Package Trends: Compare Packagist, PyPI, Hex & npm package downloads',
-    'description' => 'A quick way to compare package downloads across languages. Compare Packagist, PyPI, Hex & npm package download statistics.',
+    'title'       => 'Package Trends: Compare Packagist, PyPI, Hex, npm & WordPress package downloads',
+    'description' => 'A quick way to compare package downloads across languages. Compare Packagist, PyPI, Hex, npm & WordPress package download statistics.',
 
     /*
     |--------------------------------------------------------------------------
@@ -28,6 +27,7 @@ return [
         \IronGate\Pkgtrends\Repositories\PyPIRepository::class,
         \IronGate\Pkgtrends\Repositories\NpmRepository::class,
         \IronGate\Pkgtrends\Repositories\HexRepository::class,
+        \IronGate\Pkgtrends\Repositories\WordPressRepository::class,
     ],
 
     /*
