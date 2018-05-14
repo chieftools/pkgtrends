@@ -33,11 +33,49 @@
                     })->values()) !!}'>
             </div>
         </div>
+
+        <br>
+
+        <div class="row">
+            <div class="col-12">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Package</th>
+                            <th>Last 7 days</th>
+                            <th>Last week</th>
+                            <th>4 weeks ago</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach($dependencies as $dependency)
+                            @php($stats = $dependency['stats']->reverse()->values())
+                            <tr>
+                                <td>
+                                    <i class="{{ $vendors[$dependency['info']['vendor']] }}"></i> {{ $dependency['info']['name'] }}
+                                </td>
+                                <td>
+                                    {{ $stats[0] }}
+                                    (<span class="{{ $stats[0] > $stats[1] ? 'text-success' : 'text-warning' }}" data-title="Compared to last 7 days" data-toggle="tooltip">{{ $stats[0] > $stats[1] ? '+' : '' }}{{ $stats[0] - $stats[1] }}</span>)
+                                </td>
+                                <td>
+                                    {{ $stats[1] }}
+                                    (<span class="{{ $stats[1] > $stats[4] ? 'text-success' : 'text-warning' }}" data-title="Compared to 4 weeks ago" data-toggle="tooltip">{{ $stats[1] > $stats[4] ? '+' : '' }}{{ $stats[1] - $stats[4] }}</span>)
+                                </td>
+                                <td>
+                                    {{ $stats[4] }}
+                                </td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+        </div>
     @endif
 @endsection
 
 @push('body.before_script')
     <script>
-        window.pkgtrends = {!! json_encode(['vendors' => collect(config('app.sources'))->mapWithKeys(function ($source) { return [$source::getKey() => $source::getIcon()]; })]) !!};
+        window.pkgtrends = {!! json_encode(compact('vendors')) !!};
     </script>
 @endpush

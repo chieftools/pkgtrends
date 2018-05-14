@@ -83,7 +83,12 @@ class TrendsController extends Controller
             return $this->getRepository($dependency['info']['vendor'])->formatPackageName($dependency['info']);
         })->implode(' vs ');
 
-        return view('trends.index', compact('title', 'dependencies', 'statLabels'));
+        // Build a list of all vendors and their icons
+        $vendors = collect(config('app.sources'))->mapWithKeys(function ($source) {
+            return [$source::getKey() => $source::getIcon()];
+        });
+
+        return view('trends.index', compact('title', 'dependencies', 'statLabels', 'vendors'));
     }
 
     /**

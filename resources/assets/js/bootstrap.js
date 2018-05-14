@@ -17,3 +17,5 @@ try {
     require('selectize');
 } catch (e) {
 }
+
+jQuery('[data-toggle*="tooltip"]').tooltip();
