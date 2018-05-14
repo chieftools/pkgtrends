@@ -27,8 +27,7 @@ class NpmRepository extends PackageRepository
      * @var array
      */
     protected static $sources = [
-        'npm'  => 'https://www.npmjs.com/',
-        'npms' => 'https://npms.io/',
+        'npm' => 'https://www.npmjs.com/',
     ];
 
     /**
