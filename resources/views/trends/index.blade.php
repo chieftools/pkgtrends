@@ -56,11 +56,10 @@
                                 </td>
                                 <td>
                                     {{ $stats[0] }}
-                                    (<span class="{{ $stats[0] > $stats[1] ? 'text-success' : 'text-warning' }}" data-title="Compared to last 7 days" data-toggle="tooltip">{{ $stats[0] > $stats[1] ? '+' : '' }}{{ $stats[0] - $stats[1] }}</span>)
+                                    (<span class="{{ $stats[0] > $stats[4] ? 'text-success' : 'text-warning' }}" data-title="Compared to 4 weeks ago" data-toggle="tooltip">{{ $stats[0] > $stats[4] ? '+' : '' }}{{ $stats[0] - $stats[4] }}</span>)
                                 </td>
                                 <td>
                                     {{ $stats[1] }}
-                                    (<span class="{{ $stats[1] > $stats[4] ? 'text-success' : 'text-warning' }}" data-title="Compared to 4 weeks ago" data-toggle="tooltip">{{ $stats[1] > $stats[4] ? '+' : '' }}{{ $stats[1] - $stats[4] }}</span>)
                                 </td>
                                 <td>
                                     {{ $stats[4] }}
