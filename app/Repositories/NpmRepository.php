@@ -139,7 +139,7 @@ class NpmRepository extends PackageRepository
             'id'          => self::getKey() . ":{$package['name']}",
             'name'        => $package['name'],
             'vendor'      => self::getKey(),
-            'description' => $package['description'],
+            'description' => $package['description'] ?? 'No description provided',
             'permalink'   => "https://www.npmjs.com/package/{$package['name']}",
         ];
     }
