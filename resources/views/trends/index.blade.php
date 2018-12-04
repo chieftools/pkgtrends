@@ -52,7 +52,9 @@
                             @php($stats = $dependency['stats']->reverse()->values())
                             <tr>
                                 <td>
-                                    <i class="{{ $vendors[$dependency['info']['vendor']] }}"></i> {{ $dependency['info']['name'] }}
+                                    <i class="{{ $vendors[$dependency['info']['vendor']] }} fa-fw"></i> <a href="{{ $dependency['info']['permalink'] }}" target="_blank" rel="noopener">
+                                        {{ $dependency['info']['name'] }}
+                                    </a>
                                 </td>
                                 <td>
                                     {{ $stats[0] }}
