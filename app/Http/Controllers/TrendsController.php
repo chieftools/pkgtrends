@@ -20,9 +20,14 @@ class TrendsController extends Controller
      */
     public function showTrends($packages = null)
     {
+        // Build a list of all vendors and their icons
+        $vendors = collect(config('app.sources'))->mapWithKeys(function ($source) {
+            return [$source::getKey() => $source::getIcon()];
+        });
+
         // If there are no packages just show an empty view
         if (empty($packages)) {
-            return view('trends.index');
+            return view('trends.index', compact('vendors'));
         }
 
         // This should probably be configurable at some time
@@ -82,11 +87,6 @@ class TrendsController extends Controller
         $title = $dependencies->map(function (array $dependency) {
             return $this->getRepository($dependency['info']['vendor'])->formatPackageName($dependency['info']);
         })->implode(' vs ');
-
-        // Build a list of all vendors and their icons
-        $vendors = collect(config('app.sources'))->mapWithKeys(function ($source) {
-            return [$source::getKey() => $source::getIcon()];
-        });
 
         return view('trends.index', compact('title', 'dependencies', 'statLabels', 'vendors'));
     }
