@@ -113,10 +113,10 @@ class WordPressRepository extends PackageRepository
     {
         return [
             'id'          => self::getKey() . ":{$package['slug']}",
-            'name'        => $package['slug'],
+            'name'        => $package['name'],
             'vendor'      => self::getKey(),
             'description' => $package['short_description'] ?? null,
-            'permalink'   => "https://wordpress.org/plugins/{$package['name']}/",
+            'permalink'   => "https://wordpress.org/plugins/{$package['slug']}/",
         ];
     }
 
