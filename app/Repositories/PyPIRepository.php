@@ -104,7 +104,7 @@ class PyPIRepository extends PackageRepository
             'name'        => $package->project,
             'vendor'      => self::getKey(),
             'description' => $package->description,
-            'permalink'   => "https://pypi.org/{$package->project}",
+            'permalink'   => "https://pypi.org/project/{$package->project}",
         ];
     }
 
