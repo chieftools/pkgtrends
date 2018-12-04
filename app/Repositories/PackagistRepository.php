@@ -117,7 +117,7 @@ class PackagistRepository extends PackageRepository
             'name'        => $package['name'],
             'vendor'      => self::getKey(),
             'description' => $package['description'],
-            'permalink'   => "https://packagist.org/{$package['name']}",
+            'permalink'   => "https://packagist.org/packages/{$package['name']}",
         ];
     }
 
