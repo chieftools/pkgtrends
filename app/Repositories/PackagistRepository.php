@@ -113,24 +113,12 @@ class PackagistRepository extends PackageRepository
     private function formatPackagistPackage(array $package): array
     {
         return [
-            'id'          => self::getKey() . ":{$package['name']}",
-            'name'        => $package['name'],
-            'vendor'      => self::getKey(),
-            'description' => $package['description'],
-            'permalink'   => "https://packagist.org/packages/{$package['name']}",
+            'id'             => self::getKey() . ":{$package['name']}",
+            'name'           => $package['name'],
+            'vendor'         => self::getKey(),
+            'description'    => $package['description'],
+            'permalink'      => "https://packagist.org/packages/{$package['name']}",
+            'name_formatted' => "{$package['name']} (PHP)",
         ];
-    }
-
-    /**
-     * Format the package name for use in titles or labels.
-     * This should include the language / repository name for clarity.
-     *
-     * @param array $package
-     *
-     * @return string
-     */
-    public function formatPackageName(array $package): string
-    {
-        return "{$package['name']} (PHP)";
     }
 }

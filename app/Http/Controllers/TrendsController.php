@@ -85,7 +85,7 @@ class TrendsController extends Controller
 
         // Build a "nice" page title
         $title = $dependencies->map(function (array $dependency) {
-            return $this->getRepository($dependency['info']['vendor'])->formatPackageName($dependency['info']);
+            return $dependency['info']['name_formatted'];
         })->implode(' vs ');
 
         return view('trends.index', compact('title', 'dependencies', 'statLabels', 'vendors'));

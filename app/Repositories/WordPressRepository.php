@@ -112,24 +112,12 @@ class WordPressRepository extends PackageRepository
     private function formatWordPressPackage(array $package): array
     {
         return [
-            'id'          => self::getKey() . ":{$package['slug']}",
-            'name'        => $package['name'],
-            'vendor'      => self::getKey(),
-            'description' => $package['short_description'] ?? null,
-            'permalink'   => "https://wordpress.org/plugins/{$package['slug']}/",
+            'id'             => self::getKey() . ":{$package['slug']}",
+            'name'           => $package['name'],
+            'vendor'         => self::getKey(),
+            'description'    => $package['short_description'] ?? null,
+            'permalink'      => "https://wordpress.org/plugins/{$package['slug']}/",
+            'name_formatted' => "{$package['name']} (WordPress)",
         ];
-    }
-
-    /**
-     * Format the package name for use in titles or labels.
-     * This should include the language / repository name for clarity.
-     *
-     * @param array $package
-     *
-     * @return string
-     */
-    public function formatPackageName(array $package): string
-    {
-        return "{$package['name']} (WordPress)";
     }
 }

@@ -136,24 +136,12 @@ class NpmRepository extends PackageRepository
     private function formatNpmPackage(array $package): array
     {
         return [
-            'id'          => self::getKey() . ":{$package['name']}",
-            'name'        => $package['name'],
-            'vendor'      => self::getKey(),
-            'description' => $package['description'] ?? 'No description provided',
-            'permalink'   => "https://www.npmjs.com/package/{$package['name']}",
+            'id'             => self::getKey() . ":{$package['name']}",
+            'name'           => $package['name'],
+            'vendor'         => self::getKey(),
+            'description'    => $package['description'] ?? 'No description provided',
+            'permalink'      => "https://www.npmjs.com/package/{$package['name']}",
+            'name_formatted' => "{$package['name']} (JS)",
         ];
-    }
-
-    /**
-     * Format the package name for use in titles or labels.
-     * This should include the language / repository name for clarity.
-     *
-     * @param array $package
-     *
-     * @return string
-     */
-    public function formatPackageName(array $package): string
-    {
-        return "{$package['name']} (JS)";
     }
 }

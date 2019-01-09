@@ -100,24 +100,12 @@ class PyPIRepository extends PackageRepository
     private function formatePyPIPackage(Packages\PyPI $package): array
     {
         return [
-            'id'          => self::getKey() . ":{$package->project}",
-            'name'        => $package->project,
-            'vendor'      => self::getKey(),
-            'description' => $package->description,
-            'permalink'   => "https://pypi.org/project/{$package->project}",
+            'id'             => self::getKey() . ":{$package->project}",
+            'name'           => $package->project,
+            'vendor'         => self::getKey(),
+            'description'    => $package->description,
+            'permalink'      => "https://pypi.org/project/{$package->project}",
+            'name_formatted' => "{$package->project} (Python)",
         ];
-    }
-
-    /**
-     * Format the package name for use in titles or labels.
-     * This should include the language / repository name for clarity.
-     *
-     * @param array $package
-     *
-     * @return string
-     */
-    public function formatPackageName(array $package): string
-    {
-        return "{$package['name']} (Python)";
     }
 }
