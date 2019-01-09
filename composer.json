@@ -1,5 +1,5 @@
 {
-    "name": "irongate/packagetrends",
+    "name": "irongate/pkgtrends",
     "description": "A quick way to compare package downloads across languages.",
     "keywords": [
         "package",
