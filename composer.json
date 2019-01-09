@@ -37,7 +37,10 @@
     },
     "extra": {
         "laravel": {
-            "dont-discover": []
+            "dont-discover": [
+                "laravel/nexmo-notification-channel",
+                "laravel/slack-notification-channel"
+            ]
         }
     },
     "scripts": {
