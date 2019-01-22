@@ -74,7 +74,7 @@ class HexRepository extends PackageRepository
             $package = json_decode($response->getBody()->getContents(), true);
 
             return empty($package['name']) ? null : $this->formatHexPackage($package);
-        }, null);
+        });
     }
 
     /**
@@ -94,7 +94,7 @@ class HexRepository extends PackageRepository
             $package = json_decode($response->getBody()->getContents(), true);
 
             return empty($package['name']) ? null : [Carbon::yesterday()->format('Y-m-d') => $package['downloads']['day'] ?? 0];
-        }, null);
+        });
     }
 
     /**
@@ -107,12 +107,13 @@ class HexRepository extends PackageRepository
     private function formatHexPackage(array $package): array
     {
         return [
-            'id'             => self::getKey() . ":{$package['name']}",
-            'name'           => $package['name'],
-            'vendor'         => self::getKey(),
-            'description'    => $package['meta']['description'],
-            'permalink'      => "https://hex.pm/packages/{$package['name']}",
-            'name_formatted' => "{$package['name']} (Erlang)",
+            'id'               => self::getKey() . ":{$package['name']}",
+            'name'             => $package['name'],
+            'vendor'           => self::getKey(),
+            'description'      => $package['meta']['description'],
+            'permalink'        => "https://hex.pm/packages/{$package['name']}",
+            'name_formatted'   => "{$package['name']} (Erlang)",
+            'source_formatted' => 'Hex (Erlang)',
         ];
     }
 }

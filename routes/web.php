@@ -12,4 +12,5 @@
 */
 
 Route::get('search', 'TrendsController@searchPackages');
+Route::get('{query}/weekly', 'TrendsController@showWeekly')->where('query', '.*');
 Route::get('{query?}', 'TrendsController@showTrends')->where('query', '.*');

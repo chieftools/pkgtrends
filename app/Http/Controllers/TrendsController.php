@@ -5,7 +5,7 @@ namespace IronGate\Pkgtrends\Http\Controllers;
 use Illuminate\Http\Request;
 use IronGate\Pkgtrends\Repositories;
 use IronGate\Pkgtrends\TrendsProvider;
-use IronGate\Pkgtrends\Mail\WeeklyOverview;
+use IronGate\Pkgtrends\Mail\WeeklyReport;
 
 class TrendsController extends Controller
 {
@@ -44,6 +44,32 @@ class TrendsController extends Controller
         $statLabels = $query->getGraphLabels();
 
         return view('trends.index', compact('title', 'dependencies', 'statLabels', 'vendors'));
+    }
+
+    /**
+     * Example route for the weekly e-mail.
+     *
+     * @param string $packages
+     *
+     * @return \Illuminate\Http\RedirectResponse|\IronGate\Pkgtrends\Mail\WeeklyReport
+     */
+    public function showWeekly(string $packages)
+    {
+        // Build the trends query
+        $query = new TrendsProvider($packages);
+
+        // Retrieve the dependency data
+        $dependencies = $query->getTrendsData();
+
+        // If we could not find data for any of the dependencies (could be bogus data for example) return to the homepage
+        if ($dependencies->isEmpty()) {
+            return redirect()->action('TrendsController@showTrends');
+        }
+
+        // Build a "nice" subject line
+        $title = $query->getFormattedTitle();
+
+        return new WeeklyReport($title, $dependencies);
     }
 
     /**
