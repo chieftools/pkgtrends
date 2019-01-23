@@ -51,5 +51,12 @@ class SendWeeklyReports extends Command
                 }
             });
         });
+
+        // If the range has been changed presume we are not running in the cron and therefore should not ping the healthcheck url
+        if (!empty(config('app.ping.weekly'))) {
+            retry(3, function () {
+                file_get_contents(config('app.ping.weekly'));
+            }, 15);
+        }
     }
 }

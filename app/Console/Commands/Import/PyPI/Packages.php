@@ -84,7 +84,9 @@ class Packages extends Command
 
         // Fire the health check url
         if (!empty(config('app.ping.import.pypi.packages'))) {
-            file_get_contents(config('app.ping.import.pypi.packages'));
+            retry(3, function () {
+                file_get_contents(config('app.ping.import.pypi.packages'));
+            }, 15);
         }
     }
 }

@@ -31,5 +31,12 @@ class PurgeSubscribers extends Command
         $count = Subscriber::query()->hasNotConfirmedInHours()->delete();
 
         $this->info("Purged {$count} subscribers!");
+
+        // If the range has been changed presume we are not running in the cron and therefore should not ping the healthcheck url
+        if (!empty(config('app.ping.purge_subscribers'))) {
+            retry(3, function () {
+                file_get_contents(config('app.ping.purge_subscribers'));
+            }, 15);
+        }
     }
 }

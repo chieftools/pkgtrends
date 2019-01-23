@@ -38,6 +38,10 @@ return [
 
     'ping' => [
 
+        'weekly'            => env('PING_WEEKLY'),
+        'purge_reports'     => env('PING_PURGE_REPORTS'),
+        'purge_subscribers' => env('PING_PURGE_SUBSCRIBERS'),
+
         'import' => [
 
             'pypi' => [

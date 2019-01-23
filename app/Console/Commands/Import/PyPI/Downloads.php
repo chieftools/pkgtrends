@@ -70,7 +70,9 @@ class Downloads extends Command
 
         // If the range has been changed presume we are not running in the cron and therefore should not ping the healthcheck url
         if ($fromDays === 1 && $toDays === 1 && !empty(config('app.ping.import.pypi.downloads'))) {
-            file_get_contents(config('app.ping.import.pypi.downloads'));
+            retry(3, function () {
+                file_get_contents(config('app.ping.import.pypi.downloads'));
+            }, 15);
         }
     }
 }
