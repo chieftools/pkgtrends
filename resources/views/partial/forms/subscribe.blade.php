@@ -6,7 +6,7 @@
     <form class="form" method="POST" action="/{{ $packages }}/subscribe">
         @csrf
         <div class="form-row justify-content-center">
-            <div class="col-3 my-1">
+            <div class="col-lg-3 col-md-5 col-sm-7 my-1">
                 <input type="email" class="form-control {{ $errors->has('email') ? 'is-invalid' : '' }}"  placeholder="Your e-mail" name="email" >
                 @if($error = $errors->has('email'))
                     <div class="invalid-feedback">
