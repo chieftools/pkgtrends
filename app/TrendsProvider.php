@@ -147,7 +147,7 @@ class TrendsProvider
     }
 
     /**
-     * Get the formated title for the query.
+     * Get the formatted title for the query.
      *
      * @return string
      */

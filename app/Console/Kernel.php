@@ -13,6 +13,9 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
+        Commands\PurgeReports::class,
+        Commands\PurgeSubscribers::class,
+        Commands\SendWeeklyReports::class,
         Commands\Import\PyPI\Packages::class,
         Commands\Import\PyPI\Downloads::class,
     ];
@@ -37,5 +40,24 @@ class Kernel extends ConsoleKernel
                  ->runInBackground()
                  ->at('06:00')
                  ->saturdays();
+
+        // Every monday at 08:00 we send the weekly reports to our subscribers
+        $schedule->command(Commands\SendWeeklyReports::class)
+                 ->withoutOverlapping()
+                 ->runInBackground()
+                 ->at('08:00')
+                 ->mondays();
+
+        // Every day purge the unconfirmed subscribers
+        $schedule->command(Commands\PurgeSubscribers::class)
+                 ->withoutOverlapping()
+                 ->runInBackground()
+                 ->dailyAt('01:00');
+
+        // Every day purge the unsubscribed reports
+        $schedule->command(Commands\PurgeReports::class)
+                 ->withoutOverlapping()
+                 ->runInBackground()
+                 ->dailyAt('02:00');
     }
 }

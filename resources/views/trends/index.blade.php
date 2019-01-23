@@ -1,6 +1,8 @@
 @extends('layout.default')
 
 @section('content')
+    @include('partial.alert')
+
     <div class="row pb-5">
         <div class="col-12">
             <input type="text" class="form-control" id="packages" placeholder="Search for packages" value="">
@@ -73,6 +75,11 @@
             </div>
         </div>
     @endif
+
+    @isset($packages)
+        @include('partial.forms.subscribe')
+    @endisset
+
 @endsection
 
 @push('body.before_script')
@@ -80,3 +87,4 @@
         window.pkgtrends = {!! json_encode(compact('vendors')) !!};
     </script>
 @endpush
+

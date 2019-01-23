@@ -1,16 +1,15 @@
 <?php
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
+use IronGate\Pkgtrends\Http\Controllers\TrendsController;
+use IronGate\Pkgtrends\Http\Controllers\SubscriptionController;
 
-Route::get('search', 'TrendsController@searchPackages');
-Route::get('{query}/weekly', 'TrendsController@showWeekly')->where('query', '.*');
-Route::get('{query?}', 'TrendsController@showTrends')->where('query', '.*');
+Route::post('{query}/subscribe', [SubscriptionController::class, 'postSubscribe'])->where('query', '.*');
+Route::get('subscription/{id}/confirm', [SubscriptionController::class, 'getConfirm'])->name('subscription.confirm');
+Route::post('subscription/{id}/confirm', [SubscriptionController::class, 'postConfirm']);
+Route::get('subscription/{id}/unsubscribe', [SubscriptionController::class, 'getUnsubscribe'])->name('subscription.unsubscribe');
+Route::post('subscription/{id}/unsubscribe', [SubscriptionController::class, 'postUnsubscribe']);
+Route::get('subscription/{email}/unsubscribe-all', [SubscriptionController::class, 'getUnsubscribeAll'])->name('subscription.unsubscribe_all');
+Route::post('subscription/{email}/unsubscribe-all', [SubscriptionController::class, 'postUnsubscribeAll']);
+
+Route::get('search', [TrendsController::class, 'searchPackages']);
+Route::get('{query?}', [TrendsController::class, 'showTrends'])->where('query', '.*');

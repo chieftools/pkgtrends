@@ -16,10 +16,10 @@ The number below "last 7 days" compares to "4 weeks ago".
 @endcomponent
 </div>
 
-Don't want to receive these weekly updates?<br>
-Unsubscribe for <a href="#">this one</a>, or <a href="#">all of them</a>.
+Don't want to receive these weekly updates anymore?<br>
+Unsubscribe for <a href="{{ url()->signedRoute('subscription.unsubscribe', [$subscription->id]) }}">this one</a>, or <a href="{{ url()->signedRoute('subscription.unsubscribe_all', [$subscription->email]) }}">all of them</a>.
 
-Greatings,<br>
+Greetings,<br>
 {{ config('app.name') }}
 <style>#deps table { width: 100%; }</style>
 @endcomponent
