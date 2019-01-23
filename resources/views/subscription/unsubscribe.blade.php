@@ -3,15 +3,17 @@
 @section('content')
     @include('partial.alert')
 
-    <div class="my-5 pb-3 text-muted text-center text-small">
-        <h4 class="mb-2">
-            <i class="fa fa-fw fa-heart-broken text-black-50"></i>&nbsp;&nbsp;Just one more thing...
-        </h4>
+    <div class="my-5 pb-3 text-center text-small">
+        <h3>
+            <i class="fa fa-fw fa-heart-broken text-black-50"></i>&nbsp;Just one more thing...
+        </h3>
         <form class="form" method="POST" action="">
             @csrf
             <div class="form-row justify-content-center">
-                <div class="col-auto my-1">
-                    <button type="submit" class="btn btn-primary form-control">Unsubscribe!</button>
+                <div class="col-auto mt-3">
+                    <button type="submit" class="btn btn-outline-danger btn-lg">
+                        Unsubscribe!
+                    </button>
                 </div>
             </div>
         </form>
