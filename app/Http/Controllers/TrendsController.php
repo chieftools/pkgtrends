@@ -5,7 +5,6 @@ namespace IronGate\Pkgtrends\Http\Controllers;
 use Illuminate\Http\Request;
 use IronGate\Pkgtrends\Repositories;
 use IronGate\Pkgtrends\TrendsProvider;
-use IronGate\Pkgtrends\Mail\WeeklyReport;
 
 class TrendsController extends Controller
 {
