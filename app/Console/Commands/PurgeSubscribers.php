@@ -30,6 +30,6 @@ class PurgeSubscribers extends Command
     {
         $count = Subscriber::query()->hasNotConfirmedInHours()->delete();
 
-        $this->info('Purged ' . $count . ' subscribers!');
+        $this->info("Purged {$count} subscribers!");
     }
 }

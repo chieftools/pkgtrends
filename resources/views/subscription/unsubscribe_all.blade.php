@@ -8,7 +8,7 @@
             <i class="fa fa-fw fa-bomb text-black-50"></i>&nbsp;&nbsp;Just one more thing...
         </h4>
         <p>
-            You will be unsubscribed from all <b>{{ $subsriptions->count() }}</b> subscriptions.
+            You will be unsubscribed from all <b>{{ $subscriptions->count() }}</b> subscriptions.
         </p>
         <form class="form" method="POST" action="">
             @csrf

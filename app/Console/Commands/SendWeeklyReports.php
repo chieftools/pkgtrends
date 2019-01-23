@@ -40,9 +40,11 @@ class SendWeeklyReports extends Command
 
                 if ($trends->hasData()) {
                     $report->subscribers->each(function (Subscriber $subscriber) use ($trends, $report) {
-                        $this->info('Sending weekly report: ' . $report->id . ' to subscriber: ' . $subscriber->id);
+                        $this->info("Sending weekly report:{$report->id} to subscriber:{$subscriber->id}");
 
-                        Mail::to($subscriber)->send(new WeeklyReport($trends->getFormattedTitle(), $trends->getTrendsData(), $subscriber));
+                        Mail::to($subscriber)->send(
+                            new WeeklyReport($trends->getFormattedTitle(), $trends->getTrendsData(), $subscriber)
+                        );
 
                         $subscriber->wasNotified();
                     });

@@ -208,8 +208,6 @@ return [
          * Application Service Providers...
          */
         IronGate\Pkgtrends\Providers\AppServiceProvider::class,
-        // IronGate\Pkgtrends\Providers\AuthServiceProvider::class,
-        // IronGate\Pkgtrends\Providers\BroadcastServiceProvider::class,
         IronGate\Pkgtrends\Providers\EventServiceProvider::class,
         IronGate\Pkgtrends\Providers\RouteServiceProvider::class,
 

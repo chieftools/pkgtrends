@@ -95,7 +95,7 @@ class SubscriptionController extends Controller
             ]);
         }
 
-        return view('subscription.unsubscribe' . $subscriptions->count() > 1 ? '_all' : '', compact('subscriptions'));
+        return view('subscription.unsubscribe' . ($subscriptions->count() > 1 ? '_all' : ''), compact('subscriptions'));
     }
 
     public function postUnsubscribeAll(string $email)
