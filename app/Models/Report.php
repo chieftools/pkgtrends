@@ -2,9 +2,9 @@
 
 namespace IronGate\Pkgtrends\Models;
 
+use IronGate\Pkgtrends\TrendsProvider;
 use Illuminate\Database\Eloquent\Model;
 use IronGate\Pkgtrends\Models\Traits\UsesUUID;
-use IronGate\Pkgtrends\TrendsProvider;
 
 class Report extends Model
 {

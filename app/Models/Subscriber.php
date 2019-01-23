@@ -90,5 +90,4 @@ class Subscriber extends Model
     {
         return self::query()->where('email', '=', $email)->get();
     }
-
 }
