@@ -59,7 +59,7 @@
                                 </td>
                                 <td>
                                     {{ number_format($stats[0]) }}<br>
-                                    <small><span class="{{ $stats[0] > $stats[4] ? 'text-success' : 'text-warning' }}" data-title="Compared to 4 weeks ago" data-toggle="tooltip">{{ $stats[0] > $stats[4] ? '+' : '' }}{{ abs(100 - (int)(100 * $stats[0] / $stats[4])) }}%</span></small>
+                                    <small><span class="{{ $stats[0] > $stats[4] ? 'text-success' : 'text-warning' }}" data-title="Compared to 4 weeks ago" data-toggle="tooltip">{{ $stats[0] > $stats[4] ? '+' : '' }}{{ abs(100 - (int)(100 * ($stats[0] ?: 1) / ($stats[4] ?: 1))) }}%</span></small>
                                 </td>
                                 <td>
                                     {{ number_format($stats[1]) }}
