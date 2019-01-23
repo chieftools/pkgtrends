@@ -5,6 +5,7 @@ namespace IronGate\Pkgtrends;
 use DatePeriod;
 use DateInterval;
 use Carbon\Carbon;
+use RuntimeException;
 use Illuminate\Support\Collection;
 
 class TrendsProvider
@@ -52,15 +53,29 @@ class TrendsProvider
     }
 
     /**
-     * Get the formated title for the query.
+     * Check if the provided query has valid packages.
+     *
+     * @return bool
+     */
+    public function hasData(): bool
+    {
+        return $this->getTrendsData()->isNotEmpty();
+    }
+
+    /**
+     * Get the SHA1 hash for this query.
      *
      * @return string
      */
-    public function getFormattedTitle(): string
+    public function getHash(): string
     {
-        return $this->getTrendsData()->map(function (array $dependency) {
-            return $dependency['info']['name_formatted'];
-        })->implode(' vs ');
+        if (!$this->hasData()) {
+            throw new RuntimeException('Cannot create a hash for empty dataset.');
+        }
+
+        return sha1($this->getTrendsData()->map(function ($trend) {
+            return $trend['info']['id'];
+        })->sort());
     }
 
     /**
@@ -129,6 +144,18 @@ class TrendsProvider
                 ],
             ];
         })->filter();
+    }
+
+    /**
+     * Get the formated title for the query.
+     *
+     * @return string
+     */
+    public function getFormattedTitle(): string
+    {
+        return $this->getTrendsData()->map(function (array $dependency) {
+            return $dependency['info']['name_formatted'];
+        })->implode(' vs ');
     }
 
     /**
