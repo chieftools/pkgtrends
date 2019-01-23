@@ -10,7 +10,7 @@
         @yield('content')
 
         <footer class="my-5 pt-5 text-muted text-center text-small">
-            <p class="mb-2">Made with ❤ in The Netherlands by <a href="https://twitter.com/@stayallive" target="_blank" rel="noopener">@stayallive</a></p>
+            <p class="mb-2">Made with ❤ by <a href="https://github.com/irongate/pkgtrends/graphs/contributors" target="_blank" rel="noopener">all contributors</a>.</p>
             Data sourced from
             <p class="mb-1">
                 @foreach(config('app.sources') as $source)
@@ -19,6 +19,7 @@
                     })->implode(' & ') !!}{!! $loop->last ? '' : '&nbsp;&nbsp;&middot;&nbsp;&nbsp;' !!}
                 @endforeach
             </p>
+            <small class="text-muted">v{{ config('app.version') }}</small>
         </footer>
     </div>
 @endsection
