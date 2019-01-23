@@ -20,6 +20,7 @@
         "laravel/framework": "5.7.*",
         "laravel/tinker": "1.0.*",
         "predis/predis": "1.1.*",
+        "ramsey/uuid": "^3.8",
         "sentry/sentry-laravel": "0.11.*"
     },
     "autoload": {

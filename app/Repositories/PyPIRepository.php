@@ -67,7 +67,7 @@ class PyPIRepository extends PackageRepository
             $package = Packages\PyPI::query()->where('project', '=', $name)->first();
 
             return empty($package) ? null : $this->formatePyPIPackage($package);
-        }, null);
+        });
     }
 
     /**
@@ -87,7 +87,7 @@ class PyPIRepository extends PackageRepository
             return $stats->isEmpty() ? null : $stats->keyBy('date')->map(function (Stats\PyPI $stat) {
                 return $stat->downloads;
             })->all();
-        }, null);
+        });
     }
 
     /**
@@ -100,12 +100,13 @@ class PyPIRepository extends PackageRepository
     private function formatePyPIPackage(Packages\PyPI $package): array
     {
         return [
-            'id'             => self::getKey() . ":{$package->project}",
-            'name'           => $package->project,
-            'vendor'         => self::getKey(),
-            'description'    => $package->description,
-            'permalink'      => "https://pypi.org/project/{$package->project}",
-            'name_formatted' => "{$package->project} (Python)",
+            'id'               => self::getKey() . ":{$package->project}",
+            'name'             => $package->project,
+            'vendor'           => self::getKey(),
+            'description'      => $package->description,
+            'permalink'        => "https://pypi.org/project/{$package->project}",
+            'name_formatted'   => "{$package->project} (Python)",
+            'source_formatted' => 'PyPI (Python)',
         ];
     }
 }

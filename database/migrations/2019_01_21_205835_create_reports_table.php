@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreatePypiPackages extends Migration
+class CreateReportsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,10 @@ class CreatePypiPackages extends Migration
      */
     public function up()
     {
-        Schema::create('packages_pypi', function (Blueprint $table) {
-            $table->string('project')->primary();
-            $table->text('description')->nullable();
-
+        Schema::create('reports', function (Blueprint $table) {
+            $table->uuid('id')->primary();
+            $table->text('packages');
+            $table->string('hash', 40)->unique();
             $table->timestamps();
         });
     }
@@ -28,6 +28,6 @@ class CreatePypiPackages extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('packages_pypi');
+        Schema::dropIfExists('reports');
     }
 }

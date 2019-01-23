@@ -77,7 +77,7 @@ class WordPressRepository extends PackageRepository
             $package = json_decode($response->getBody()->getContents(), true);
 
             return empty($package['slug']) ? null : $this->formatWordPressPackage($package);
-        }, null);
+        });
     }
 
     /**
@@ -99,7 +99,7 @@ class WordPressRepository extends PackageRepository
             $stats = collect(json_decode($response->getBody()->getContents(), true) ?? []);
 
             return $stats->isEmpty() ? null : $stats->reverse()->all();
-        }, null);
+        });
     }
 
     /**
@@ -112,12 +112,13 @@ class WordPressRepository extends PackageRepository
     private function formatWordPressPackage(array $package): array
     {
         return [
-            'id'             => self::getKey() . ":{$package['slug']}",
-            'name'           => $package['name'],
-            'vendor'         => self::getKey(),
-            'description'    => $package['short_description'] ?? null,
-            'permalink'      => "https://wordpress.org/plugins/{$package['slug']}/",
-            'name_formatted' => "{$package['name']} (WordPress)",
+            'id'               => self::getKey() . ":{$package['slug']}",
+            'name'             => $package['name'],
+            'vendor'           => self::getKey(),
+            'description'      => $package['short_description'] ?? null,
+            'permalink'        => "https://wordpress.org/plugins/{$package['slug']}/",
+            'name_formatted'   => "{$package['name']} (WordPress)",
+            'source_formatted' => 'WordPress Plugin (PHP)',
         ];
     }
 }

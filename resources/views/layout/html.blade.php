@@ -40,9 +40,9 @@
     <link rel="icon" type="image/png" sizes="16x16" href="/img/favicon/favicon-16x16.png">
 
     <link media="all" type="text/css" rel="stylesheet" href="{{ mix('css/app.css') }}">
-    <link href="https://use.fontawesome.com/releases/v5.0.6/css/fontawesome.css" rel="stylesheet">
-    <link href="https://use.fontawesome.com/releases/v5.0.6/css/brands.css" rel="stylesheet">
-    <link href="https://use.fontawesome.com/releases/v5.0.6/css/solid.css" rel="stylesheet">
+    <link href="https://use.fontawesome.com/releases/v5.6.3/css/fontawesome.css" rel="stylesheet">
+    <link href="https://use.fontawesome.com/releases/v5.6.3/css/brands.css" rel="stylesheet">
+    <link href="https://use.fontawesome.com/releases/v5.6.3/css/solid.css" rel="stylesheet">
     @stack('head.style')
 </head>
 <body class="{{ $bodyClass or '' }}">
