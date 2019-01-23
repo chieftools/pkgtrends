@@ -74,7 +74,7 @@ class PackagistRepository extends PackageRepository
             $package = json_decode($response->getBody()->getContents(), true);
 
             return empty($package['package']) ? null : $this->formatPackagistPackage($package['package']);
-        }, null);
+        });
     }
 
     /**
@@ -100,7 +100,7 @@ class PackagistRepository extends PackageRepository
             $stats = collect(json_decode($response->getBody()->getContents(), true) ?? []);
 
             return $stats->isEmpty() ? null : array_combine($stats->get('labels'), $stats->get('values'));
-        }, null);
+        });
     }
 
     /**
@@ -113,24 +113,13 @@ class PackagistRepository extends PackageRepository
     private function formatPackagistPackage(array $package): array
     {
         return [
-            'id'          => self::getKey() . ":{$package['name']}",
-            'name'        => $package['name'],
-            'vendor'      => self::getKey(),
-            'description' => $package['description'],
-            'permalink'   => "https://packagist.org/packages/{$package['name']}",
+            'id'               => self::getKey() . ":{$package['name']}",
+            'name'             => $package['name'],
+            'vendor'           => self::getKey(),
+            'description'      => $package['description'],
+            'permalink'        => "https://packagist.org/packages/{$package['name']}",
+            'name_formatted'   => "{$package['name']} (PHP)",
+            'source_formatted' => 'Packagist (PHP)',
         ];
-    }
-
-    /**
-     * Format the package name for use in titles or labels.
-     * This should include the language / repository name for clarity.
-     *
-     * @param array $package
-     *
-     * @return string
-     */
-    public function formatPackageName(array $package): string
-    {
-        return "{$package['name']} (PHP)";
     }
 }

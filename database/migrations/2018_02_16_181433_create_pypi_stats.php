@@ -23,4 +23,14 @@ class CreatePypiStats extends Migration
             $table->index('project');
         });
     }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::dropIfExists('stats_pypi');
+    }
 }

@@ -1,6 +1,8 @@
 @extends('layout.default')
 
 @section('content')
+    @include('partial.alert')
+
     <div class="row pb-5">
         <div class="col-12">
             <input type="text" class="form-control" id="packages" placeholder="Search for packages" value="">
@@ -38,13 +40,13 @@
 
         <div class="row">
             <div class="col-12">
-                <table class="table">
+                <table class="table table-hover">
                     <thead>
                         <tr>
-                            <th>Package</th>
-                            <th>Last 7 days</th>
-                            <th>Last week</th>
-                            <th>4 weeks ago</th>
+                            <th class="border-top-0">Package</th>
+                            <th class="border-top-0">Last 7 days</th>
+                            <th class="border-top-0">Last week</th>
+                            <th class="border-top-0">4 weeks ago</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -52,19 +54,18 @@
                             @php($stats = $dependency['stats']->reverse()->values())
                             <tr>
                                 <td>
-                                    <i class="{{ $vendors[$dependency['info']['vendor']] }} fa-fw"></i> <a href="{{ $dependency['info']['permalink'] }}" target="_blank" rel="noopener">
-                                        {{ $dependency['info']['name'] }}
-                                    </a>
+                                    <i class="{{ $vendors[$dependency['info']['vendor']] }} fa-fw"></i> <a href="{{ $dependency['info']['permalink'] }}" target="_blank" rel="noopener">{{ $dependency['info']['name'] }}</a><br>
+                                    <small class="text-muted">{{ $dependency['info']['source_formatted'] }}</small>
                                 </td>
                                 <td>
-                                    {{ $stats[0] }}
-                                    (<span class="{{ $stats[0] > $stats[4] ? 'text-success' : 'text-warning' }}" data-title="Compared to 4 weeks ago" data-toggle="tooltip">{{ $stats[0] > $stats[4] ? '+' : '' }}{{ $stats[0] - $stats[4] }}</span>)
+                                    {{ number_format($stats[0]) }}<br>
+                                    <small><span class="{{ $stats[0] > $stats[4] ? 'text-success' : 'text-warning' }}" data-title="Compared to 4 weeks ago" data-toggle="tooltip">{{ $stats[0] > $stats[4] ? '+' : '' }}{{ abs(100 - (int)(100 * $stats[0] / $stats[4])) }}%</span></small>
                                 </td>
                                 <td>
-                                    {{ $stats[1] }}
+                                    {{ number_format($stats[1]) }}
                                 </td>
                                 <td>
-                                    {{ $stats[4] }}
+                                    {{ number_format($stats[4]) }}
                                 </td>
                             </tr>
                         @endforeach
@@ -73,6 +74,8 @@
             </div>
         </div>
     @endif
+
+    @includeWhen(isset($packages), 'partial.forms.subscribe')
 @endsection
 
 @push('body.before_script')
@@ -80,3 +83,4 @@
         window.pkgtrends = {!! json_encode(compact('vendors')) !!};
     </script>
 @endpush
+

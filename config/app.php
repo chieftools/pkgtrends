@@ -38,6 +38,10 @@ return [
 
     'ping' => [
 
+        'weekly'            => env('PING_WEEKLY'),
+        'purge_reports'     => env('PING_PURGE_REPORTS'),
+        'purge_subscribers' => env('PING_PURGE_SUBSCRIBERS'),
+
         'import' => [
 
             'pypi' => [
@@ -188,7 +192,7 @@ return [
         Illuminate\Filesystem\FilesystemServiceProvider::class,
         Illuminate\Foundation\Providers\FoundationServiceProvider::class,
         Illuminate\Hashing\HashServiceProvider::class,
-        // Illuminate\Mail\MailServiceProvider::class,
+        Illuminate\Mail\MailServiceProvider::class,
         // Illuminate\Notifications\NotificationServiceProvider::class,
         Illuminate\Pagination\PaginationServiceProvider::class,
         Illuminate\Pipeline\PipelineServiceProvider::class,
@@ -208,8 +212,6 @@ return [
          * Application Service Providers...
          */
         IronGate\Pkgtrends\Providers\AppServiceProvider::class,
-        // IronGate\Pkgtrends\Providers\AuthServiceProvider::class,
-        // IronGate\Pkgtrends\Providers\BroadcastServiceProvider::class,
         IronGate\Pkgtrends\Providers\EventServiceProvider::class,
         IronGate\Pkgtrends\Providers\RouteServiceProvider::class,
 

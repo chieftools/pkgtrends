@@ -120,14 +120,4 @@ abstract class PackageRepository
      * @return array|null
      */
     abstract public function getPackageStats(string $name, Carbon $start, Carbon $end): ?array;
-
-    /**
-     * Format the package name for use in titles or labels.
-     * This should include the language / repository name for clarity.
-     *
-     * @param array $package
-     *
-     * @return string
-     */
-    abstract public function formatPackageName(array $package): string;
 }

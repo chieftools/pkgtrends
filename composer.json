@@ -1,5 +1,5 @@
 {
-    "name": "irongate/packagetrends",
+    "name": "irongate/pkgtrends",
     "description": "A quick way to compare package downloads across languages.",
     "keywords": [
         "package",
@@ -20,6 +20,7 @@
         "laravel/framework": "5.7.*",
         "laravel/tinker": "1.0.*",
         "predis/predis": "1.1.*",
+        "ramsey/uuid": "^3.8",
         "sentry/sentry-laravel": "0.11.*"
     },
     "autoload": {
@@ -37,7 +38,10 @@
     },
     "extra": {
         "laravel": {
-            "dont-discover": []
+            "dont-discover": [
+                "laravel/nexmo-notification-channel",
+                "laravel/slack-notification-channel"
+            ]
         }
     },
     "scripts": {

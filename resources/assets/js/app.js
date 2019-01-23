@@ -30,24 +30,15 @@ require('./bootstrap');
                 var icon = getIconForVendor(item.vendor);
 
                 return '<div class="selected-item">' +
-                    '<i class="' + icon + '"></i>' +
-                    '<span class="name">' + escape(item.name) + '</span>' +
-                    '</div>';
+                    '<i class="' + icon + '"></i><span class="name">' + escape(item.name) + '</span></div>';
             },
 
             option: function (item, escape) {
                 var icon = getIconForVendor(item.vendor);
 
                 return '<div class="item">' +
-                    '<span class="title">' +
-                    '<span class="name">' +
-                    '<i class="' + icon + '"></i>' + escape(item.name) +
-                    '</span>' +
-                    '</span>' +
-                    '<span class="description">' +
-                    escape(item.description) +
-                    '</span>' +
-                    '</div>';
+                    '<span class="title"><span class="name"><i class="' + icon + '"></i>' + escape(item.name) + '</span></span>' +
+                    (item.description !== undefined ? '<span class="description">' + escape(item.description) + '</span>' : '') + '</div>';
             }
         },
 
