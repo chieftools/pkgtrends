@@ -93,7 +93,7 @@ class PyPIRepository extends PackageRepository
     /**
      * Format the PyPI response to something we can use internally.
      *
-     * @param \IronGate\Pkgtrends\Packages\PyPI $package
+     * @param \IronGate\Pkgtrends\Models\Packages\PyPI $package
      *
      * @return array
      */

@@ -5,30 +5,15 @@ namespace IronGate\Pkgtrends\Console\Commands\Import\PyPI;
 use DOMDocument;
 use GuzzleHttp\Client;
 use Illuminate\Console\Command;
-use IronGate\Pkgtrends\Packages\PyPI;
+use IronGate\Pkgtrends\Models\Packages\PyPI;
 
 class Packages extends Command
 {
-    /**
-     * The name and signature of the console command.
-     *
-     * @var string
-     */
     protected $signature = 'import:pypi:packages';
 
-    /**
-     * The console command description.
-     *
-     * @var string
-     */
     protected $description = 'Import data from the PyPI simple API.';
 
-    /**
-     * Execute the console command.
-     *
-     * @return mixed
-     */
-    public function handle()
+    public function handle(): void
     {
         // The HTTP client we are going to use to retrieve package information
         $client = new Client(['base_uri' => 'https://pypi.org/pypi/']);
@@ -60,21 +45,21 @@ class Packages extends Command
                     // Make sure the response code is good
                     if ($response->getStatusCode() === 200) {
                         // Either find the package in the database or create a new instance
+                        /** @var \IronGate\Pkgtrends\Models\Packages\PyPI $localPackage */
                         $localPackage = PyPI::query()->findOrNew((string)$package);
 
-                        // Json decode the package info
+                        $localPackage->project = (string)$package;
+
+                        // Retrieve and decode the package info
                         $info = rescue(function () use ($response) {
                             return json_decode($response->getBody()->getContents(), true) ?? [];
                         }, []);
 
-                        // If the summary is empty something probably went wrong, so discard the update
-                        if (!empty(array_get($info, 'info.summary'))) {
-                            $localPackage->project     = (string)$package;
-                            $localPackage->description = array_get($info, 'info.summary');
+                        // Either update with the new summary or use the old summary
+                        $localPackage->description = array_get($info, 'info.summary', $localPackage->description);
 
-                            // Store the package in the database, if nothing has changed nothing gets updated
-                            $localPackage->save();
-                        }
+                        // Either store or update the updated at timestamp
+                        !$localPackage->exists || $localPackage->isDirty() ? $localPackage->save() : $localPackage->touch();
                     }
                 }
             }

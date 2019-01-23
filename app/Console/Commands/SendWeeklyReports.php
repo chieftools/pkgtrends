@@ -5,8 +5,9 @@ namespace IronGate\Pkgtrends\Console\Commands;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Mail;
 use IronGate\Pkgtrends\Models\Report;
+use Illuminate\Database\Eloquent\Builder;
 use IronGate\Pkgtrends\Mail\WeeklyReport;
-use IronGate\Pkgtrends\Models\Subscriber;
+use IronGate\Pkgtrends\Models\Subscription;
 use Illuminate\Database\Eloquent\Collection;
 
 class SendWeeklyReports extends Command
@@ -23,7 +24,7 @@ class SendWeeklyReports extends Command
      *
      * @var string
      */
-    protected $description = 'Send weekly trend reports to subscribers.';
+    protected $description = 'Send weekly trend reports to subscriptions.';
 
     /**
      * Execute the console command.
@@ -32,21 +33,21 @@ class SendWeeklyReports extends Command
      */
     public function handle()
     {
-        Report::query()->whereHas('subscribers', function ($query) {
+        Report::query()->whereHas('subscriptions', function (Builder $query) {
             $query->confirmed()->notNotifiedInLastDays();
         })->chunk(50, function (Collection $reports) {
             $reports->each(function (Report $report) {
                 $trends = $report->getTrends();
 
                 if ($trends->hasData()) {
-                    $report->subscribers->each(function (Subscriber $subscriber) use ($trends, $report) {
-                        $this->info("Sending weekly report:{$report->id} to subscriber:{$subscriber->id}");
+                    $report->subscriptions->each(function (Subscription $subscription) use ($trends, $report) {
+                        $this->info("Sending weekly report:{$report->id} to subscription:{$subscription->id}");
 
-                        Mail::to($subscriber)->send(
-                            new WeeklyReport($trends->getFormattedTitle(), $trends->getTrendsData(), $subscriber)
+                        Mail::to($subscription)->send(
+                            new WeeklyReport($trends->getFormattedTitle(), $trends->getData(), $subscription)
                         );
 
-                        $subscriber->wasNotified();
+                        $subscription->markNotified();
                     });
                 }
             });

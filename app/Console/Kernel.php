@@ -7,26 +7,23 @@ use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
 class Kernel extends ConsoleKernel
 {
-    /**
-     * The Artisan commands provided by your application.
-     *
-     * @var array
-     */
     protected $commands = [
         Commands\PurgeReports::class,
-        Commands\PurgeSubscribers::class,
         Commands\SendWeeklyReports::class,
+        Commands\PurgeSubscriptions::class,
+
+        Commands\Import\PyPI\Cleanup::class,
         Commands\Import\PyPI\Packages::class,
         Commands\Import\PyPI\Downloads::class,
     ];
 
-    /**
-     * Define the application's command schedule.
-     *
-     * @param \Illuminate\Console\Scheduling\Schedule $schedule
-     *
-     */
     protected function schedule(Schedule $schedule)
+    {
+        $this->schedulePyPI($schedule);
+        $this->scheduleSubscriptions($schedule);
+    }
+
+    private function schedulePyPI(Schedule $schedule): void
     {
         // Every day at 04:00 we import the daily download statistics for PyPI
         $schedule->command(Commands\Import\PyPI\Downloads::class)
@@ -41,6 +38,16 @@ class Kernel extends ConsoleKernel
                  ->at('06:00')
                  ->saturdays();
 
+        // Every sunday at 03:00 we cleanup our internal package index / stats that are old or no longer in use
+        $schedule->command(Commands\Import\PyPI\Cleanup::class)
+                 ->withoutOverlapping()
+                 ->runInBackground()
+                 ->at('03:00')
+                 ->sundays();
+    }
+
+    private function scheduleSubscriptions(Schedule $schedule): void
+    {
         // Every monday at 08:00 we send the weekly reports to our subscribers
         $schedule->command(Commands\SendWeeklyReports::class)
                  ->withoutOverlapping()
@@ -48,8 +55,8 @@ class Kernel extends ConsoleKernel
                  ->at('08:00')
                  ->mondays();
 
-        // Every day purge the unconfirmed subscribers
-        $schedule->command(Commands\PurgeSubscribers::class)
+        // Every day purge the unconfirmed subscriptions
+        $schedule->command(Commands\PurgeSubscriptions::class)
                  ->withoutOverlapping()
                  ->runInBackground()
                  ->dailyAt('01:00');

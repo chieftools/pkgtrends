@@ -28,7 +28,7 @@ class PurgeReports extends Command
      */
     public function handle()
     {
-        $count = Report::query()->whereDoesntHave('subscribers')->delete();
+        $count = Report::query()->whereDoesntHave('subscriptions')->delete();
 
         $this->info("Purged {$count} reports!");
 

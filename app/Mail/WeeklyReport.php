@@ -6,51 +6,32 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Support\Collection;
 use Illuminate\Queue\SerializesModels;
-use IronGate\Pkgtrends\Models\Subscriber;
+use IronGate\Pkgtrends\Models\Subscription;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
 class WeeklyReport extends Mailable implements ShouldQueue
 {
     use Queueable, SerializesModels;
 
-    /**
-     * The trends data "nice" title.
-     *
-     * @var string
-     */
     public $title;
 
-    /**
-     * The trends data to render.
-     *
-     * @var \Illuminate\Support\Collection
-     */
     public $dependencies;
 
-    public $subscriber;
+    public $subscription;
 
-    /**
-     * Create a new message instance.
-     *
-     * @param string                                $title
-     * @param \Illuminate\Support\Collection        $dependencies
-     * @param \IronGate\Pkgtrends\Models\Subscriber $subscriber
-     */
-    public function __construct(string $title, Collection $dependencies, Subscriber $subscriber)
+    public function __construct(string $title, Collection $dependencies, Subscription $subscription)
     {
         $this->title        = $title;
         $this->dependencies = $dependencies;
-        $this->subscriber   = $subscriber;
+        $this->subscription = $subscription;
     }
 
-    /**
-     * Build the message.
-     *
-     * @return $this
-     */
     public function build(): self
     {
-        return $this->subject('Weekly Update: ' . $this->title)
-                    ->markdown('emails.weekly', ['title' => $this->title, 'deps' => $this->dependencies, 'subscription' => $this->subscriber]);
+        return $this->markdown('emails.weekly', [
+            'title'        => $this->title,
+            'deps'         => $this->dependencies,
+            'subscription' => $this->subscription,
+        ])->subject("Weekly trends update: {$this->title}");
     }
 }

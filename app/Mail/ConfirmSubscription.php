@@ -5,37 +5,27 @@ namespace IronGate\Pkgtrends\Mail;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
-use IronGate\Pkgtrends\Models\Subscriber;
+use IronGate\Pkgtrends\Models\Subscription;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
 class ConfirmSubscription extends Mailable implements ShouldQueue
 {
     use Queueable, SerializesModels;
 
-    public $subscriber;
+    public $subscription;
 
-    /**
-     * Create a new message instance.
-     *
-     * @param \IronGate\Pkgtrends\Models\Subscriber $subscriber
-     */
-    public function __construct(Subscriber $subscriber)
+    public function __construct(Subscription $subscription)
     {
-        $this->subscriber = $subscriber;
+        $this->subscription = $subscription;
     }
 
-    /**
-     * Build the message.
-     *
-     * @return $this
-     */
-    public function build()
+    public function build(): self
     {
-        $packages = $this->subscriber->report->getTrends()->getFormattedTitle();
+        $packages = $this->subscription->report->getTrends()->getFormattedTitle();
 
         return $this->markdown('emails.confirm', [
-            'subscription' => $this->subscriber,
+            'subscription' => $this->subscription,
             'packages'     => $packages,
-        ])->subject('Confirm your weekly Package Trends subscription');
+        ])->subject('Confirm your weekly Package Trends subscription!');
     }
 }
