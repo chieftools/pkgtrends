@@ -41,9 +41,15 @@ return [
 
         'weekly'              => env('PING_WEEKLY'),
         'purge_reports'       => env('PING_PURGE_REPORTS'),
-        'purge_subscriptions' => env('PING_PURGE_SUBSCRIPTIONS', env('PING_PURGE_SUBSCRIBERS')),
+        'purge_subscriptions' => env('PING_PURGE_SUBSCRIPTIONS'),
 
         'import' => [
+
+            'hex' => [
+
+                'downloads' => env('PING_IMPORT_HEX_DOWNLOADS'),
+
+            ],
 
             'pypi' => [
 
