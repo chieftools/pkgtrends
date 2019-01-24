@@ -9,7 +9,7 @@ class Recaptcha implements Rule
 {
     public function passes($attribute, $value)
     {
-        return rescue(function() use($value) {
+        return rescue(function () use ($value) {
             $http = new Client(['base_uri' => 'https://www.google.com/recaptcha/api/']);
 
             $response = $http->post('siteverify', [
