@@ -3,6 +3,8 @@
 namespace IronGate\Pkgtrends\Repositories;
 
 use Carbon\Carbon;
+use IronGate\Pkgtrends\Models\Stats;
+use IronGate\Pkgtrends\Models\Packages;
 
 class HexRepository extends PackageRepository
 {
@@ -46,14 +48,7 @@ class HexRepository extends PackageRepository
     public function searchPackage(string $query): array
     {
         return rescue(function () use ($query) {
-            $response = $this->http->get('packages', [
-                'query' => [
-                    'search'   => $query,
-                    'per_page' => 10,
-                ],
-            ]);
-
-            return collect(json_decode($response->getBody()->getContents(), true) ?? [])->map(function ($package) {
+            return Packages\Hex::query()->selectRaw("*, MATCH(`name`) AGAINST ('{$query}' IN NATURAL LANGUAGE MODE) as `score`")->orderByDesc('score')->take(100)->get()->take(10)->map(function (Packages\Hex $package) {
                 return $this->formatHexPackage($package);
             })->all();
         }, []);
@@ -69,11 +64,9 @@ class HexRepository extends PackageRepository
     public function getPackage(string $name): ?array
     {
         return rescue(function () use ($name) {
-            $response = $this->http->get("packages/{$name}");
+            $package = Packages\Hex::query()->where('name', '=', $name)->first();
 
-            $package = json_decode($response->getBody()->getContents(), true);
-
-            return empty($package['name']) ? null : $this->formatHexPackage($package);
+            return empty($package) ? null : $this->formatHexPackage($package);
         });
     }
 
@@ -89,11 +82,11 @@ class HexRepository extends PackageRepository
     public function getPackageStats(string $name, Carbon $start, Carbon $end): ?array
     {
         return rescue(function () use ($name, $start, $end) {
-            $response = $this->http->get("packages/{$name}");
+            $stats = Stats\Hex::query()->where('package', '=', $name)->whereBetween('date', [$start->format('Y-m-d'), $end->format('Y-m-d')])->get();
 
-            $package = json_decode($response->getBody()->getContents(), true);
-
-            return empty($package['name']) ? null : [Carbon::yesterday()->format('Y-m-d') => $package['downloads']['day'] ?? 0];
+            return $stats->isEmpty() ? null : $stats->keyBy('date')->map(function (Stats\Hex $stat) {
+                return $stat->downloads;
+            })->all();
         });
     }
 
@@ -104,15 +97,15 @@ class HexRepository extends PackageRepository
      *
      * @return array
      */
-    private function formatHexPackage(array $package): array
+    private function formatHexPackage(Packages\Hex $package): array
     {
         return [
-            'id'               => self::getKey() . ":{$package['name']}",
-            'name'             => $package['name'],
+            'id'               => self::getKey() . ":{$package->name}",
+            'name'             => $package->name,
             'vendor'           => self::getKey(),
-            'description'      => $package['meta']['description'],
-            'permalink'        => "https://hex.pm/packages/{$package['name']}",
-            'name_formatted'   => "{$package['name']} (Erlang)",
+            'description'      => $package->description,
+            'permalink'        => "https://hex.pm/packages/{$package->name}",
+            'name_formatted'   => "{$package->name} (Erlang)",
             'source_formatted' => 'Hex (Erlang)',
         ];
     }
