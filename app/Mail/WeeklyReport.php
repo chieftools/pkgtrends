@@ -6,8 +6,8 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Support\Collection;
 use Illuminate\Queue\SerializesModels;
-use IronGate\Pkgtrends\Models\Subscription;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use IronGate\Pkgtrends\Models\Subscription;
 
 class WeeklyReport extends Mailable implements ShouldQueue
 {

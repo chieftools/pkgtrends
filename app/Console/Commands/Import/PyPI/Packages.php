@@ -5,7 +5,6 @@ namespace IronGate\Pkgtrends\Console\Commands\Import\PyPI;
 use GuzzleHttp\Client;
 use Illuminate\Console\Command;
 use function GuzzleHttp\Promise\settle;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use IronGate\Pkgtrends\Models\Packages\PyPI;
 
