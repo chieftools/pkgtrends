@@ -38,7 +38,7 @@ require('./bootstrap');
 
                 return '<div class="item">' +
                     '<span class="title"><span class="name"><i class="' + icon + '"></i>' + escape(item.name) + '</span></span>' +
-                    (item.description !== undefined ? '<span class="description">' + escape(item.description) + '</span>' : '') + '</div>';
+                    (item.description !== undefined && item.description !== null ? '<span class="description">' + escape(item.description) + '</span>' : '') + '</div>';
             }
         },
 

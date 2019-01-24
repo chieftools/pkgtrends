@@ -8,13 +8,6 @@ use IronGate\Pkgtrends\TrendsProvider;
 
 class TrendsController extends Controller
 {
-    /**
-     * Show the trends view.
-     *
-     * @param string $packages
-     *
-     * @return \Illuminate\Http\RedirectResponse|\Illuminate\View\View
-     */
     public function showTrends($packages = null)
     {
         // Build a list of all vendors and their icons
@@ -30,19 +23,12 @@ class TrendsController extends Controller
         // Build the trends query
         $query = new TrendsProvider($packages);
 
-        // Retrieve the dependency data
-        $dependencies = $query->getTrendsData();
-
         // If we could not find data for any of the dependencies (could be bogus data for example) return to the homepage
-        if ($dependencies->isEmpty()) {
+        if (!$query->hasData()) {
             return redirect()->action('TrendsController@showTrends');
         }
 
-        // Build a "nice" page title and the graph labels
-        $title      = $query->getFormattedTitle();
-        $statLabels = $query->getGraphLabels();
-
-        return view('trends.index', compact('title', 'dependencies', 'statLabels', 'vendors', 'packages'));
+        return view('trends.index', compact('query', 'vendors', 'packages'));
     }
 
     /**

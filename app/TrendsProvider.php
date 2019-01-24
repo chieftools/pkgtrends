@@ -59,7 +59,7 @@ class TrendsProvider
      */
     public function hasData(): bool
     {
-        return $this->getTrendsData()->isNotEmpty();
+        return $this->getData()->isNotEmpty();
     }
 
     /**
@@ -73,7 +73,7 @@ class TrendsProvider
             throw new RuntimeException('Cannot create a hash for empty dataset.');
         }
 
-        return sha1($this->getTrendsData()->map(function ($trend) {
+        return sha1($this->getData()->map(function ($trend) {
             return $trend['info']['id'];
         })->sort());
     }
@@ -83,7 +83,7 @@ class TrendsProvider
      *
      * @return \Illuminate\Support\Collection
      */
-    public function getTrendsData(): Collection
+    public function getData(): Collection
     {
         return $this->data ?? $this->data = $this->buildTrendsData();
     }
@@ -153,7 +153,7 @@ class TrendsProvider
      */
     public function getFormattedTitle(): string
     {
-        return $this->getTrendsData()->map(function (array $dependency) {
+        return $this->getData()->map(function (array $dependency) {
             return $dependency['info']['name_formatted'];
         })->implode(' vs ');
     }

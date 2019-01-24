@@ -6,14 +6,16 @@ use Illuminate\Support\Facades\Mail;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
-use IronGate\Pkgtrends\Models\Traits\UsesUUID;
 use IronGate\Pkgtrends\Mail\ConfirmSubscription;
+use IronGate\Pkgtrends\Models\Concerns\UsesUUID;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class Subscriber extends Model
+/**
+ * @property \IronGate\Pkgtrends\Models\Report report
+ */
+class Subscription extends Model
 {
     use UsesUUID;
-
-    public $incrementing = false;
 
     protected $fillable = [
         'email',
@@ -23,17 +25,17 @@ class Subscriber extends Model
     {
         parent::boot();
 
-        self::created(function (self $subscriber) {
-            Mail::to($subscriber)->send(new ConfirmSubscription($subscriber));
+        self::created(function (self $subscription) {
+            Mail::to($subscription)->send(new ConfirmSubscription($subscription));
         });
     }
 
-    public function scopeConfirmed(Builder $query)
+    public function scopeConfirmed(Builder $query): void
     {
         $query->whereNotNull('confirmed_at');
     }
 
-    public function scopeNotNotifiedInLastDays(Builder $query, int $days = 6)
+    public function scopeNotNotifiedInLastDays(Builder $query, int $days = 6): void
     {
         $query->where(function (Builder $query) use ($days) {
             $query->whereNull('last_notified_at')
@@ -41,7 +43,7 @@ class Subscriber extends Model
         });
     }
 
-    public function scopeHasNotConfirmedInHours(Builder $query, int $hours = 48)
+    public function scopeHasNotConfirmedInHours(Builder $query, int $hours = 48): void
     {
         $query->where(function (Builder $query) use ($hours) {
             $query->whereNull('confirmed_at')
@@ -49,7 +51,12 @@ class Subscriber extends Model
         });
     }
 
-    public function confirm()
+    public function report(): BelongsTo
+    {
+        return $this->belongsTo(Report::class);
+    }
+
+    public function confirm(): void
     {
         if (!$this->is_confirmed) {
             $this->confirmed_at = now();
@@ -57,37 +64,24 @@ class Subscriber extends Model
         }
     }
 
-    public function wasNotified()
+    public function markNotified(): void
     {
         $this->last_notified_at = now();
         $this->save();
     }
 
-    public function getIsConfirmedAttribute()
+    public function getIsConfirmedAttribute(): bool
     {
         return $this->confirmed_at !== null;
     }
 
-    public function report()
-    {
-        return $this->belongsTo(Report::class);
-    }
-
-    public static function findOrCreate(string $email, Report $report)
-    {
-        $email = strtolower(trim($email));
-
-        $subscriber = self::query()->where('email', '=', $email)->where('report_id', '=', $report->id)->first();
-
-        if ($subscriber === null) {
-            $subscriber = $report->subscribers()->save(new self(compact('email')));
-        }
-
-        return $subscriber;
-    }
-
     public static function findByEmail(string $email): Collection
     {
-        return self::query()->where('email', '=', $email)->get();
+        return self::query()->where('email', '=', strtolower(trim($email)))->get();
+    }
+
+    public static function findOrCreate(string $email, Report $report): self
+    {
+        return $report->subscriptions()->firstOrCreate(['email' => strtolower(trim($email))]);
     }
 }

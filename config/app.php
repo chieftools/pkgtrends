@@ -14,7 +14,7 @@ return [
 
     'name'        => env('APP_NAME', 'Package Trends'),
     'title'       => 'Package Trends: Compare Packagist, PyPI, Hex, npm & WordPress package downloads',
-    'version'     => '0.2.3',
+    'version'     => '0.3.0',
     'description' => 'A quick way to compare package downloads across languages. Compare Packagist, PyPI, Hex, npm & WordPress package download statistics.',
 
     /*
@@ -39,9 +39,9 @@ return [
 
     'ping' => [
 
-        'weekly'            => env('PING_WEEKLY'),
-        'purge_reports'     => env('PING_PURGE_REPORTS'),
-        'purge_subscribers' => env('PING_PURGE_SUBSCRIBERS'),
+        'weekly'              => env('PING_WEEKLY'),
+        'purge_reports'       => env('PING_PURGE_REPORTS'),
+        'purge_subscriptions' => env('PING_PURGE_SUBSCRIPTIONS', env('PING_PURGE_SUBSCRIBERS')),
 
         'import' => [
 

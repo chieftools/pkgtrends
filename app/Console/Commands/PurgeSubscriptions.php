@@ -3,23 +3,23 @@
 namespace IronGate\Pkgtrends\Console\Commands;
 
 use Illuminate\Console\Command;
-use IronGate\Pkgtrends\Models\Subscriber;
+use IronGate\Pkgtrends\Models\Subscription;
 
-class PurgeSubscribers extends Command
+class PurgeSubscriptions extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'pkgtrends:purge-subscribers';
+    protected $signature = 'pkgtrends:purge-subscriptions';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Purge all unconfirmed subscribers after 48 hours.';
+    protected $description = 'Purge all unconfirmed subscriptions after 48 hours.';
 
     /**
      * Execute the console command.
@@ -28,14 +28,14 @@ class PurgeSubscribers extends Command
      */
     public function handle()
     {
-        $count = Subscriber::query()->hasNotConfirmedInHours()->delete();
+        $count = Subscription::query()->hasNotConfirmedInHours()->delete();
 
-        $this->info("Purged {$count} subscribers!");
+        $this->info("Purged {$count} subscriptions!");
 
         // If the range has been changed presume we are not running in the cron and therefore should not ping the healthcheck url
-        if (!empty(config('app.ping.purge_subscribers'))) {
+        if (!empty(config('app.ping.purge_subscriptions'))) {
             retry(3, function () {
-                file_get_contents(config('app.ping.purge_subscribers'));
+                file_get_contents(config('app.ping.purge_subscriptions'));
             }, 15);
         }
     }

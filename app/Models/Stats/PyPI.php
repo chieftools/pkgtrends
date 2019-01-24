@@ -1,6 +1,6 @@
 <?php
 
-namespace IronGate\Pkgtrends\Stats;
+namespace IronGate\Pkgtrends\Models\Stats;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -11,9 +11,10 @@ use Illuminate\Database\Eloquent\Model;
  */
 class PyPI extends Model
 {
-    protected $table      = 'stats_pypi';
-    public $timestamps    = false;
-    protected $fillable   = [
+    public $timestamps = false;
+
+    protected $table    = 'stats_pypi';
+    protected $fillable = [
         'date',
         'project',
         'downloads',

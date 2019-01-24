@@ -2,33 +2,20 @@
 
 namespace IronGate\Pkgtrends\Console\Commands\Import\PyPI;
 
+use RuntimeException;
 use Illuminate\Console\Command;
-use IronGate\Pkgtrends\Stats\PyPI;
 use Illuminate\Database\QueryException;
 use Google\Cloud\BigQuery\BigQueryClient;
+use IronGate\Pkgtrends\Models\Stats\PyPI as PyPIStat;
+use IronGate\Pkgtrends\Models\Packages\PyPI as PyPIPackage;
 
 class Downloads extends Command
 {
-    /**
-     * The name and signature of the console command.
-     *
-     * @var string
-     */
     protected $signature = 'import:pypi:downloads { --from=1 : how many days back } { --to=1 : to how many days back }';
 
-    /**
-     * The console command description.
-     *
-     * @var string
-     */
     protected $description = 'Import data from PyPI BigQuery datasets.';
 
-    /**
-     * Execute the console command.
-     *
-     * @return mixed
-     */
-    public function handle()
+    public function handle(): void
     {
         // Extract the range from the CLI options passed
         $fromDays = (int)$this->option('from');
@@ -36,7 +23,7 @@ class Downloads extends Command
 
         // Make sure the range is a good range
         if ($fromDays < $toDays) {
-            throw new \RuntimeException('You should specify either the same or a larger --from number than --to.');
+            throw new RuntimeException('You should specify either the same or a larger --from number than --to.');
         }
 
         // Configure the Google Big Query client
@@ -60,11 +47,17 @@ class Downloads extends Command
 
         // Run the query and page the result by 1000 to prevent memory related issues
         foreach ($bigQuery->runQuery($query, ['maxResults' => 1000]) as $row) {
+            // Make sure the package exists
+            $package = PyPIPackage::query()->firstOrCreate(['project' => $row['project']]);
+
+            // Update the package timestamp so we know the package is still actively being downloaded
+            $package->touch();
+
             try {
                 // Insert the download count into the database
-                (new PyPI(['date' => $row['yyyymmdd'], 'project' => $row['project'], 'downloads' => $row['downloads']]))->save();
+                (new PyPIStat(['date' => $row['yyyymmdd'], 'project' => $row['project'], 'downloads' => $row['downloads']]))->save();
             } catch (QueryException $e) {
-                // Ignore them all, this is mostly here to ignore duplicates (which are not allowed)
+                // Ignore them all, this is mostly here to ignore duplicates
             }
         }
 

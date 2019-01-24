@@ -2,27 +2,28 @@
 
 namespace IronGate\Pkgtrends\Http\Controllers;
 
+use Illuminate\Http\RedirectResponse;
 use IronGate\Pkgtrends\Models\Report;
 use IronGate\Pkgtrends\TrendsProvider;
-use IronGate\Pkgtrends\Models\Subscriber;
+use IronGate\Pkgtrends\Models\Subscription;
 use IronGate\Pkgtrends\Http\Requests\SubscribeToReport;
 
 class SubscriptionController extends Controller
 {
-    public function postSubscribe(SubscribeToReport $request, $packages)
+    public function postSubscribe(SubscribeToReport $request, $packages): RedirectResponse
     {
-        $trend = new TrendsProvider($packages);
+        $trends = new TrendsProvider($packages);
 
-        if (!$trend->hasData()) {
+        if (!$trends->hasData()) {
             return redirect()->action('TrendsController@showTrends', [$packages]);
         }
 
-        $report = Report::findOrCreate($trend->getHash(), $packages);
+        $report = Report::findOrCreate($trends->getHash(), $packages);
 
-        $subscriber = Subscriber::findOrCreate($request->email, $report);
+        $subscription = Subscription::findOrCreate($request->input('email'), $report);
 
-        if ($subscriber->wasRecentlyCreated) {
-            $text = "A validation e-mail was send to {$request->email}, check your inbox (and maybe spam) in a few minutes.";
+        if ($subscription->wasRecentlyCreated) {
+            $text = "A validation e-mail was send to {$request->input('email')}, check your inbox (and maybe spam) in a few minutes.";
             $type = 'success';
         } else {
             $text = "You're already subscribed to this report, it is send out every week!";
@@ -34,7 +35,14 @@ class SubscriptionController extends Controller
 
     public function getConfirm(string $id)
     {
-        $subscription = Subscriber::findOrFailByUuid($id);
+        $subscription = Subscription::findByUuid($id);
+
+        if ($subscription === null) {
+            return redirect()->action('TrendsController@showTrends')->with('message', [
+                'text' => 'That subscription does not exist anymore!',
+                'type' => 'danger',
+            ]);
+        }
 
         if ($subscription->is_confirmed) {
             return redirect()->action('TrendsController@showTrends', [$subscription->report->packages])->with('message', [
@@ -46,9 +54,9 @@ class SubscriptionController extends Controller
         return view('subscription.confirm', compact('subscription'));
     }
 
-    public function postConfirm(string $id)
+    public function postConfirm(string $id): RedirectResponse
     {
-        $subscription = Subscriber::findOrFailByUuid($id);
+        $subscription = Subscription::findOrFailByUuid($id);
 
         $subscription->confirm();
 
@@ -60,7 +68,7 @@ class SubscriptionController extends Controller
 
     public function getUnsubscribe(string $id)
     {
-        $subscription = Subscriber::findByUuid($id);
+        $subscription = Subscription::findByUuid($id);
 
         if ($subscription === null) {
             return redirect()->action('TrendsController@showTrends')->with('message', [
@@ -72,11 +80,9 @@ class SubscriptionController extends Controller
         return view('subscription.unsubscribe');
     }
 
-    public function postUnsubscribe(string $id)
+    public function postUnsubscribe(string $id): RedirectResponse
     {
-        $subscription = Subscriber::findOrFailByUuid($id);
-
-        $subscription->delete();
+        Subscription::findOrFailByUuid($id)->delete();
 
         return redirect()->action('TrendsController@showTrends')->with('message', [
             'text' => 'Successfully unsubscribed. So long, and thanks for all the fish!',
@@ -86,7 +92,7 @@ class SubscriptionController extends Controller
 
     public function getUnsubscribeAll(string $email)
     {
-        $subscriptions = Subscriber::findByEmail($email);
+        $subscriptions = Subscription::findByEmail($email);
 
         if ($subscriptions->isEmpty()) {
             return redirect()->action('TrendsController@showTrends')->with('message', [
@@ -98,11 +104,11 @@ class SubscriptionController extends Controller
         return view('subscription.unsubscribe' . ($subscriptions->count() > 1 ? '_all' : ''), compact('subscriptions'));
     }
 
-    public function postUnsubscribeAll(string $email)
+    public function postUnsubscribeAll(string $email): RedirectResponse
     {
-        $subscriptions = Subscriber::findByEmail($email);
-
-        $subscriptions->each->delete();
+        Subscription::findByEmail($email)->each(function (Subscription $subscription) {
+            $subscription->delete();
+        });
 
         return redirect()->action('TrendsController@showTrends')->with('message', [
             'text' => 'Successfully unsubscribed for all subscriptions. So long, and thanks for all the fish!',

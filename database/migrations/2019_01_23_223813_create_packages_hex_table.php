@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreatePypiPackages extends Migration
+class CreatePackagesHexTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,14 @@ class CreatePypiPackages extends Migration
      */
     public function up()
     {
-        Schema::create('packages_pypi', function (Blueprint $table) {
-            $table->string('project')->primary();
+        Schema::create('packages_hex', function (Blueprint $table) {
+            $table->string('name')->primary();
             $table->text('description')->nullable();
 
             $table->timestamps();
         });
 
-        DB::statement('ALTER TABLE packages_pypi ADD FULLTEXT project (project);');
+        DB::statement('ALTER TABLE packages_hex ADD FULLTEXT name (name);');
     }
 
     /**
@@ -30,6 +30,6 @@ class CreatePypiPackages extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('packages_pypi');
+        Schema::dropIfExists('packages_hex');
     }
 }

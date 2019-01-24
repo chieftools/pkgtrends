@@ -2,85 +2,58 @@
 
 namespace IronGate\Pkgtrends\Console\Commands\Import\PyPI;
 
-use DOMDocument;
 use GuzzleHttp\Client;
 use Illuminate\Console\Command;
-use IronGate\Pkgtrends\Packages\PyPI;
+use function GuzzleHttp\Promise\settle;
+use Illuminate\Database\Eloquent\Collection;
+use IronGate\Pkgtrends\Models\Packages\PyPI;
 
 class Packages extends Command
 {
-    /**
-     * The name and signature of the console command.
-     *
-     * @var string
-     */
     protected $signature = 'import:pypi:packages';
 
-    /**
-     * The console command description.
-     *
-     * @var string
-     */
-    protected $description = 'Import data from the PyPI simple API.';
+    protected $description = 'Import package summaries from the PyPI API.';
 
-    /**
-     * Execute the console command.
-     *
-     * @return mixed
-     */
-    public function handle()
+    public function handle(): void
     {
         // The HTTP client we are going to use to retrieve package information
         $client = new Client(['base_uri' => 'https://pypi.org/pypi/']);
 
-        // The full package list (contains only package names)
-        $document = new DOMDocument;
-        $document->loadHTML(file_get_contents('https://pypi.org/simple/'));
+        // Get all packages chunked in sets of 50 to not slam the PyPI API too hard
+        PyPI::query()->chunk(50, function (Collection $packages) use ($client) {
+            $promises = [];
 
-        $promises = [];
+            // Fire of a API request for each package
+            $packages->each(function (PyPI $package) use (&$promises, $client) {
+                $promises[$package->project] = $client->getAsync("{$package->project}/json");
+            });
 
-        // Find all <a> elements which are linked to the package pages
-        foreach ($document->getElementsByTagName('a') as $element) {
-            // Create a async promise to retrieve the package information
-            $promises[$element->nodeValue] = $client->getAsync("{$element->nodeValue}/json");
-
-            // Queue up 25 promises before waiting for them to complete
-            if (count($promises) < 25) {
-                continue;
-            }
-
-            // Wait for all promises to return a result
-            $results = \GuzzleHttp\Promise\settle($promises)->wait();
+            // Wait for all requests to finish
+            $results = settle($promises)->wait();
 
             // Loop over the results
             foreach ($results as $package => $result) {
-                if ($result['state'] === 'fulfilled') {
-                    $response = $result['value'];
+                /** @var \IronGate\Pkgtrends\Models\Packages\PyPI $localPackage */
+                $localPackage = $packages->find($package);
 
-                    // Make sure the response code is good
-                    if ($response->getStatusCode() === 200) {
-                        // Either find the package in the database or create a new instance
-                        $localPackage = PyPI::query()->findOrNew((string)$package);
+                // Make sure the response was fullfilled and the response code is good
+                if ($result['state'] === 'fulfilled' && ($response = $result['value'] ?? null) !== null && $response->getStatusCode() === 200) {
+                    // Retrieve and decode the package info
+                    $info = rescue(function () use ($response) {
+                        return json_decode($response->getBody()->getContents(), true) ?? [];
+                    }, []);
 
-                        // Json decode the package info
-                        $info = rescue(function () use ($response) {
-                            return json_decode($response->getBody()->getContents(), true) ?? [];
-                        }, []);
+                    // Get the description from the response or use the old summary
+                    $description = array_get($info, 'info.summary', $localPackage->description);
 
-                        // If the summary is empty something probably went wrong, so discard the update
-                        if (!empty(array_get($info, 'info.summary'))) {
-                            $localPackage->project     = (string)$package;
-                            $localPackage->description = array_get($info, 'info.summary');
+                    // Guard against inserting "UNKNOWN"
+                    $localPackage->description = $description === 'UNKNOWN' ? null : $description;
 
-                            // Store the package in the database, if nothing has changed nothing gets updated
-                            $localPackage->save();
-                        }
-                    }
+                    // Persist changes if any
+                    $localPackage->save();
                 }
             }
-
-            $promises = [];
-        }
+        });
 
         // Fire the health check url
         if (!empty(config('app.ping.import.pypi.packages'))) {

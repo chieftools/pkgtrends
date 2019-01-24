@@ -4,13 +4,15 @@ namespace IronGate\Pkgtrends\Models;
 
 use IronGate\Pkgtrends\TrendsProvider;
 use Illuminate\Database\Eloquent\Model;
-use IronGate\Pkgtrends\Models\Traits\UsesUUID;
+use IronGate\Pkgtrends\Models\Concerns\UsesUUID;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
+/**
+ * @property \Illuminate\Database\Eloquent\Collection subscriptions
+ */
 class Report extends Model
 {
     use UsesUUID;
-
-    public $incrementing = false;
 
     protected $fillable = [
         'hash',
@@ -22,20 +24,13 @@ class Report extends Model
         return new TrendsProvider($this->packages);
     }
 
-    public function subscribers()
+    public function subscriptions(): HasMany
     {
-        return $this->hasMany(Subscriber::class);
+        return $this->hasMany(Subscription::class);
     }
 
     public static function findOrCreate(string $hash, string $packages): self
     {
-        $report = self::query()->where('hash', '=', $hash)->first();
-
-        if ($report === null) {
-            $report = new self(compact('hash', 'packages'));
-            $report->save();
-        }
-
-        return $report;
+        return self::query()->firstOrCreate(compact('hash'), compact('hash', 'packages'));
     }
 }
