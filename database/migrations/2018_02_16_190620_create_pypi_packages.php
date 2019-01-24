@@ -19,6 +19,8 @@ class CreatePypiPackages extends Migration
 
             $table->timestamps();
         });
+
+        DB::statement('ALTER TABLE packages_pypi ADD FULLTEXT project (project);');
     }
 
     /**

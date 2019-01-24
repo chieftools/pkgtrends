@@ -14,10 +14,14 @@ class Cleanup extends Command
 
     public function handle(): void
     {
-        // Delete all stats older than 13 months (we only display 12 really)
-        PyPIStats::query()->whereDate('date', '<', now()->subMonths(13))->delete();
+        // Delete all packages that we're not touched for 13 months since they're probably deleted
+        $packages = PyPIPackages::query()->where('updated_at', '<', now()->subMonths(13))->delete();
 
-        // Delete all packages that we're not touched for over a month since they're probably deleted
-        PyPIPackages::query()->where('updated_at', '<', now()->subMonth())->delete();
+        $this->info('Cleaned ' . $packages . ' packages');
+
+        // Delete all stats older than 13 months (we only display 12 really)
+        $stats = PyPIStats::query()->whereDate('date', '<', now()->subMonths(13))->delete();
+
+        $this->info('Cleaned ' . $stats . ' stats');
     }
 }

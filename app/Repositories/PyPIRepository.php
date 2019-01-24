@@ -3,8 +3,8 @@
 namespace IronGate\Pkgtrends\Repositories;
 
 use Carbon\Carbon;
-use IronGate\Pkgtrends\Stats;
-use IronGate\Pkgtrends\Packages;
+use IronGate\Pkgtrends\Models\Stats;
+use IronGate\Pkgtrends\Models\Packages;
 
 class PyPIRepository extends PackageRepository
 {
@@ -49,7 +49,7 @@ class PyPIRepository extends PackageRepository
     {
         return rescue(function () use ($query) {
             return Packages\PyPI::query()->selectRaw("*, MATCH(`project`) AGAINST ('{$query}' IN NATURAL LANGUAGE MODE) as `score`")->orderByDesc('score')->take(100)->get()->take(10)->map(function (Packages\PyPI $package) {
-                return $this->formatePyPIPackage($package);
+                return $this->formatPyPIPackage($package);
             })->all();
         }, []);
     }
@@ -66,7 +66,7 @@ class PyPIRepository extends PackageRepository
         return rescue(function () use ($name) {
             $package = Packages\PyPI::query()->where('project', '=', $name)->first();
 
-            return empty($package) ? null : $this->formatePyPIPackage($package);
+            return empty($package) ? null : $this->formatPyPIPackage($package);
         });
     }
 
@@ -97,7 +97,7 @@ class PyPIRepository extends PackageRepository
      *
      * @return array
      */
-    private function formatePyPIPackage(Packages\PyPI $package): array
+    private function formatPyPIPackage(Packages\PyPI $package): array
     {
         return [
             'id'               => self::getKey() . ":{$package->project}",

@@ -6,7 +6,8 @@ use RuntimeException;
 use Illuminate\Console\Command;
 use Illuminate\Database\QueryException;
 use Google\Cloud\BigQuery\BigQueryClient;
-use IronGate\Pkgtrends\Models\Stats\PyPI;
+use IronGate\Pkgtrends\Models\Stats\PyPI as PyPIStat;
+use IronGate\Pkgtrends\Models\Packages\PyPI as PyPIPackage;
 
 class Downloads extends Command
 {
@@ -46,11 +47,17 @@ class Downloads extends Command
 
         // Run the query and page the result by 1000 to prevent memory related issues
         foreach ($bigQuery->runQuery($query, ['maxResults' => 1000]) as $row) {
+            // Make sure the package exists
+            $package = PyPIPackage::query()->firstOrCreate(['project' => $row['project']]);
+
+            // Update the package timestamp so we know the package is still actively being downloaded
+            $package->touch();
+
             try {
                 // Insert the download count into the database
-                (new PyPI(['date' => $row['yyyymmdd'], 'project' => $row['project'], 'downloads' => $row['downloads']]))->save();
+                (new PyPIStat(['date' => $row['yyyymmdd'], 'project' => $row['project'], 'downloads' => $row['downloads']]))->save();
             } catch (QueryException $e) {
-                // Ignore them all, this is mostly here to ignore duplicates (which are not allowed)
+                // Ignore them all, this is mostly here to ignore duplicates
             }
         }
 
