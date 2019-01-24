@@ -6,8 +6,8 @@ use Illuminate\Support\Facades\Mail;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
-use IronGate\Pkgtrends\Models\Concerns\UsesUUID;
 use IronGate\Pkgtrends\Mail\ConfirmSubscription;
+use IronGate\Pkgtrends\Models\Concerns\UsesUUID;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
