@@ -5,7 +5,7 @@ namespace IronGate\Pkgtrends\Console\Commands\Import\Hex;
 use GuzzleHttp\Client;
 use Illuminate\Console\Command;
 use Illuminate\Database\QueryException;
-use IronGate\Pkgtrends\Models\Stats\Hex as HexStat;
+use IronGate\Pkgtrends\Models\Stats\Hex as HexStats;
 use IronGate\Pkgtrends\Models\Packages\Hex as HexPackage;
 
 class Downloads extends Command
@@ -46,11 +46,16 @@ class Downloads extends Command
 
                     if (!$localPackage->wasRecentlyCreated) {
                         $localPackage->description = $description ?? $localPackage->description;
-                        $localPackage->save();
+
+                        if ($localPackage->isDirty('description')) {
+                            $localPackage->save();
+                        } else {
+                            $localPackage->touch();
+                        }
                     }
 
                     try {
-                        (new HexStat([
+                        (new HexStats([
                             'date'      => $yesterday,
                             'package'   => $name,
                             'downloads' => array_get($package, 'downloads.day', 0),
