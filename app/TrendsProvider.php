@@ -121,11 +121,11 @@ class TrendsProvider
                 return [$dependency => null];
             }
 
-            $package = cache()->remember("{$provider}:{$name}.info", 60 * 6, function () use ($repository, $name) {
+            $package = cache()->remember("{$provider}:{$name}.info", now()->addHours(6), function () use ($repository, $name) {
                 return $repository->getPackage($name);
             });
 
-            $statistics = cache()->remember("{$provider}:{$name}.stats", 60 * 4, function () use ($repository, $name) {
+            $statistics = cache()->remember("{$provider}:{$name}.stats", now()->addHours(4), function () use ($repository, $name) {
                 return $repository->getPackageStats($name, $this->start, $this->end);
             });
 
