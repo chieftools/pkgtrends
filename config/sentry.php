@@ -2,15 +2,10 @@
 
 return [
 
-    'dsn'                      => env('APP_DEBUG', false) ? null : env('SENTRY_DSN'),
+    'dsn' => env('APP_DEBUG', false) ? null : env('SENTRY_DSN'),
 
-    // capture release as git sha
-    // 'release' => trim(exec('git log --pretty="%h" -n1 HEAD')),
+    'release' => env('APP_DEBUG', false) ? '@develop' : config('app.version'),
 
-    // Capture bindings on SQL queries
     'breadcrumbs.sql_bindings' => true,
-
-    // Capture default user context
-    'user_context'             => false,
 
 ];
