@@ -23,7 +23,7 @@ environments:
     database: db-micro
     database-user: pkgtrnds-staging
     build:
-      - 'composer install --classmap-authoritative'
+      - 'composer install --no-dev --classmap-authoritative'
       - 'php artisan event:cache'
       - 'php artisan route:cache'
       - 'yarn install && yarn run prod && rm -rf node_modules'
