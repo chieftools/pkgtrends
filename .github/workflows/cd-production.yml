@@ -10,7 +10,6 @@ on:
 jobs:
   cd-prod:
     if: github.event_name == 'push' && github.ref == 'refs/heads/master'
-    needs: [ci]
     runs-on: ubuntu-latest
     container:
       image: stayallive/php:7.3
