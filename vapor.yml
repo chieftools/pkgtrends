@@ -13,7 +13,7 @@ environments:
       - 'composer install --no-dev --classmap-authoritative'
       - 'php artisan event:cache'
       - 'php artisan route:cache'
-#      - 'yarn install && yarn run prod && rm -rf node_modules'
+      - 'yarn install && yarn run prod && rm -rf node_modules'
     deploy:
       - 'php artisan migrate --force'
   staging:
@@ -26,6 +26,6 @@ environments:
       - 'composer install --classmap-authoritative'
       - 'php artisan event:cache'
       - 'php artisan route:cache'
-#      - 'yarn install && yarn run dev && rm -rf node_modules'
+      - 'yarn install && yarn run prod && rm -rf node_modules'
     deploy:
       - 'php artisan migrate --force'
