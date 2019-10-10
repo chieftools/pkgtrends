@@ -11,7 +11,14 @@ use IronGate\Pkgtrends\Models\Concerns\UsesUUID;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
- * @property \IronGate\Pkgtrends\Models\Report report
+ * @property string                            $id
+ * @property string                            $email
+ * @property string                            $report_id
+ * @property \Carbon\Carbon|null               $confirmed_at
+ * @property \Carbon\Carbon|null               $last_notified_at
+ * @property \Carbon\Carbon                    $created_at
+ * @property \Carbon\Carbon                    $updated_at
+ * @property \IronGate\Pkgtrends\Models\Report $report
  */
 class Subscription extends Model
 {

@@ -3,7 +3,7 @@
 return [
     /*
     |--------------------------------------------------------------------------
-    | Application Name & Title & Description
+    | Application Name
     |--------------------------------------------------------------------------
     |
     | This value is the name of your application. This value is used when the
@@ -14,7 +14,7 @@ return [
 
     'name'        => env('APP_NAME', 'Package Trends'),
     'title'       => 'Package Trends: Compare Packagist, PyPI, Hex, npm & WordPress package downloads',
-    'version'     => '0.3.4',
+    'version'     => '0.3.5',
     'description' => 'A quick way to compare package downloads across languages. Compare Packagist, PyPI, Hex, npm & WordPress package download statistics.',
 
     /*
@@ -24,11 +24,11 @@ return [
     */
 
     'sources' => [
-        \IronGate\Pkgtrends\Repositories\PackagistRepository::class,
-        \IronGate\Pkgtrends\Repositories\PyPIRepository::class,
-        \IronGate\Pkgtrends\Repositories\NpmRepository::class,
-        \IronGate\Pkgtrends\Repositories\HexRepository::class,
-        \IronGate\Pkgtrends\Repositories\WordPressRepository::class,
+        IronGate\Pkgtrends\Repositories\PackagistRepository::class,
+        IronGate\Pkgtrends\Repositories\PyPIRepository::class,
+        IronGate\Pkgtrends\Repositories\NpmRepository::class,
+        IronGate\Pkgtrends\Repositories\HexRepository::class,
+        IronGate\Pkgtrends\Repositories\WordPressRepository::class,
     ],
 
     /*
@@ -36,6 +36,8 @@ return [
     | Ping urls
     |--------------------------------------------------------------------------
     */
+
+    'cron' => env('APP_CRON', true),
 
     'ping' => [
 
@@ -86,7 +88,7 @@ return [
     |
     | This value determines the "environment" your application is currently
     | running in. This may determine how you prefer to configure various
-    | services your application utilizes. Set this in your ".env" file.
+    | services the application utilizes. Set this in your ".env" file.
     |
     */
 
@@ -116,7 +118,9 @@ return [
     |
     */
 
-    'url' => env('APP_URL', 'https://packagetrends.com'),
+    'url' => env('APP_URL', 'https://pkgtrends.app'),
+
+    'asset_url' => env('ASSET_URL', null),
 
     /*
     |--------------------------------------------------------------------------
@@ -156,6 +160,19 @@ return [
     */
 
     'fallback_locale' => 'en',
+
+    /*
+    |--------------------------------------------------------------------------
+    | Faker Locale
+    |--------------------------------------------------------------------------
+    |
+    | This locale will be used by the Faker PHP library when generating fake
+    | data for your database seeds. For example, this will be used to get
+    | localized telephone numbers, street address information and more.
+    |
+    */
+
+    'faker_locale' => 'en_US',
 
     /*
     |--------------------------------------------------------------------------
@@ -238,6 +255,7 @@ return [
     'aliases' => [
 
         'App'          => Illuminate\Support\Facades\App::class,
+        'Arr'          => Illuminate\Support\Arr::class,
         'Artisan'      => Illuminate\Support\Facades\Artisan::class,
         'Auth'         => Illuminate\Support\Facades\Auth::class,
         'Blade'        => Illuminate\Support\Facades\Blade::class,
@@ -267,6 +285,7 @@ return [
         'Schema'       => Illuminate\Support\Facades\Schema::class,
         'Session'      => Illuminate\Support\Facades\Session::class,
         'Storage'      => Illuminate\Support\Facades\Storage::class,
+        'Str'          => Illuminate\Support\Str::class,
         'URL'          => Illuminate\Support\Facades\URL::class,
         'Validator'    => Illuminate\Support\Facades\Validator::class,
         'View'         => Illuminate\Support\Facades\View::class,

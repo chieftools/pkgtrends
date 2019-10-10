@@ -6,6 +6,8 @@ return [
 
     'release' => env('APP_DEBUG', false) ? '@develop' : config('app.version'),
 
-    'breadcrumbs.sql_bindings' => true,
+    'error_types' => E_ALL ^ E_DEPRECATED ^ E_USER_DEPRECATED,
+
+    'send_default_pii' => true,
 
 ];

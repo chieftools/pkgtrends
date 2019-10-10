@@ -5,9 +5,9 @@ namespace IronGate\Pkgtrends\Models\Stats;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * @property string date
- * @property string projects
- * @property int    downloads
+ * @property string $date
+ * @property string $project
+ * @property int    $downloads
  */
 class PyPI extends Model
 {
