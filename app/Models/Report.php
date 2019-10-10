@@ -8,7 +8,12 @@ use IronGate\Pkgtrends\Models\Concerns\UsesUUID;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
- * @property \Illuminate\Database\Eloquent\Collection subscriptions
+ * @property string                                   $id
+ * @property string                                   $packages
+ * @property string                                   $hash
+ * @property \Carbon\Carbon                           $created_at
+ * @property \Carbon\Carbon                           $updated_at
+ * @property \Illuminate\Database\Eloquent\Collection $subscriptions
  */
 class Report extends Model
 {

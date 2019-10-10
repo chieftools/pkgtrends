@@ -5,9 +5,9 @@ namespace IronGate\Pkgtrends\Models\Stats;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * @property string date
- * @property string package
- * @property int    downloads
+ * @property string $date
+ * @property string $package
+ * @property int    $downloads
  */
 class Hex extends Model
 {
