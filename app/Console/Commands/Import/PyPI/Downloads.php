@@ -4,10 +4,8 @@ namespace IronGate\Pkgtrends\Console\Commands\Import\PyPI;
 
 use RuntimeException;
 use Illuminate\Console\Command;
-use Illuminate\Database\QueryException;
 use Google\Cloud\BigQuery\BigQueryClient;
-use IronGate\Pkgtrends\Models\Stats\PyPI as PyPIStat;
-use IronGate\Pkgtrends\Models\Packages\PyPI as PyPIPackage;
+use IronGate\Pkgtrends\Jobs\PyPI\ProcessDownloadsQuery;
 
 class Downloads extends Command
 {
@@ -15,7 +13,7 @@ class Downloads extends Command
 
     protected $description = 'Import data from PyPI BigQuery datasets.';
 
-    public function handle(): void
+    public function handle(BigQueryClient $bigQuery): void
     {
         // Extract the range from the CLI options passed
         $fromDays = (int)$this->option('from');
@@ -25,12 +23,6 @@ class Downloads extends Command
         if ($fromDays < $toDays) {
             throw new RuntimeException('You should specify either the same or a larger --from number than --to.');
         }
-
-        // Configure the Google Big Query client
-        $bigQuery = new BigQueryClient([
-            'projectId'   => 'package-trends',
-            'keyFilePath' => storage_path('creds/google-bigquery.json'),
-        ]);
 
         // Construct the query to find all PyPI projects and group them by project and date
         $query = $bigQuery->query('
@@ -45,27 +37,14 @@ class Downloads extends Command
               project;
         ')->useLegacySql(true);
 
-        // Run the query and page the result by 1000 to prevent memory related issues
-        foreach ($bigQuery->runQuery($query, ['maxResults' => 1000]) as $row) {
-            // Make sure the package exists
-            $package = PyPIPackage::query()->firstOrCreate(['project' => $row['project']]);
+        $this->info('Executing the BigQuery query...');
 
-            // Update the package timestamp so we know the package is still actively being downloaded
-            $package->touch();
+        $job = $bigQuery->startQuery($query);
 
-            try {
-                // Insert the download count into the database
-                (new PyPIStat(['date' => $row['yyyymmdd'], 'project' => $row['project'], 'downloads' => $row['downloads']]))->save();
-            } catch (QueryException $e) {
-                // Ignore them all, this is mostly here to ignore duplicates
-            }
-        }
+        $job->waitUntilComplete();
 
-        // If the range has been changed presume we are not running in the cron and therefore should not ping the healthcheck url
-        if ($fromDays === 1 && $toDays === 1 && !empty(config('app.ping.import.pypi.downloads'))) {
-            retry(3, function () {
-                file_get_contents(config('app.ping.import.pypi.downloads'));
-            }, 15);
-        }
+        $this->info('Finished the BigQuery query and kicking of processing jobs.');
+
+        dispatch(new ProcessDownloadsQuery($job->id(), 0, $fromDays === 1 && $toDays === 1));
     }
 }
