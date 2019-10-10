@@ -37,6 +37,8 @@ return [
     |--------------------------------------------------------------------------
     */
 
+    'cron' => env('APP_CRON', true),
+
     'ping' => [
 
         'weekly'              => env('PING_WEEKLY'),
@@ -116,7 +118,7 @@ return [
     |
     */
 
-    'url' => env('APP_URL', 'https://packagetrends.com'),
+    'url' => env('APP_URL', 'https://pkgtrends.app'),
 
     'asset_url' => env('ASSET_URL', null),
 

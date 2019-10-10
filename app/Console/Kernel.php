@@ -22,6 +22,10 @@ class Kernel extends ConsoleKernel
 
     protected function schedule(Schedule $schedule)
     {
+        if (!config('app.cron')) {
+            return;
+        }
+
         $this->scheduleHex($schedule);
         $this->schedulePyPI($schedule);
         $this->scheduleSubscriptions($schedule);
@@ -29,13 +33,13 @@ class Kernel extends ConsoleKernel
 
     private function scheduleHex(Schedule $schedule): void
     {
-        // Every day at 04:00 we import the daily download statistics
+        // Every day we import the daily download statistics
         $schedule->command(Commands\Import\Hex\Downloads::class)
                  ->withoutOverlapping()
                  ->runInBackground()
                  ->dailyAt('04:00');
 
-        // Every sunday at 03:00 we cleanup our internal package index / stats that are old or no longer in use
+        // Every sunday we cleanup our internal package index / stats that are old or no longer in use
         $schedule->command(Commands\Import\Hex\Cleanup::class)
                  ->withoutOverlapping()
                  ->runInBackground()
@@ -45,30 +49,30 @@ class Kernel extends ConsoleKernel
 
     private function schedulePyPI(Schedule $schedule): void
     {
-        // Every day at 04:00 we import the daily download statistics
+        // Every day we import the daily download statistics
         $schedule->command(Commands\Import\PyPI\Downloads::class)
                  ->withoutOverlapping()
                  ->runInBackground()
-                 ->dailyAt('04:00');
+                 ->dailyAt('04:15');
 
-        // Every saterday at 06:00 we update our internal package index with new and/or updated package descriptions
+        // Every sunday we cleanup our internal package index / stats that are old or no longer in use
+        $schedule->command(Commands\Import\PyPI\Cleanup::class)
+                 ->withoutOverlapping()
+                 ->runInBackground()
+                 ->at('03:15')
+                 ->sundays();
+
+        // Every saterday we update our internal package index with new and/or updated package descriptions
         $schedule->command(Commands\Import\PyPI\Packages::class)
                  ->withoutOverlapping()
                  ->runInBackground()
                  ->at('06:00')
                  ->saturdays();
-
-        // Every sunday at 03:00 we cleanup our internal package index / stats that are old or no longer in use
-        $schedule->command(Commands\Import\PyPI\Cleanup::class)
-                 ->withoutOverlapping()
-                 ->runInBackground()
-                 ->at('03:00')
-                 ->sundays();
     }
 
     private function scheduleSubscriptions(Schedule $schedule): void
     {
-        // Every monday at 08:00 we send the weekly reports to our subscribers
+        // Every monday we send the weekly reports to our subscribers
         $schedule->command(Commands\SendWeeklyReports::class)
                  ->withoutOverlapping()
                  ->runInBackground()
@@ -85,6 +89,6 @@ class Kernel extends ConsoleKernel
         $schedule->command(Commands\PurgeReports::class)
                  ->withoutOverlapping()
                  ->runInBackground()
-                 ->dailyAt('02:00');
+                 ->dailyAt('01:15');
     }
 }
