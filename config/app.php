@@ -1,7 +1,6 @@
 <?php
 
 return [
-
     /*
     |--------------------------------------------------------------------------
     | Application Name
@@ -25,11 +24,11 @@ return [
     */
 
     'sources' => [
-        \IronGate\Pkgtrends\Repositories\PackagistRepository::class,
-        \IronGate\Pkgtrends\Repositories\PyPIRepository::class,
-        \IronGate\Pkgtrends\Repositories\NpmRepository::class,
-        \IronGate\Pkgtrends\Repositories\HexRepository::class,
-        \IronGate\Pkgtrends\Repositories\WordPressRepository::class,
+        IronGate\Pkgtrends\Repositories\PackagistRepository::class,
+        IronGate\Pkgtrends\Repositories\PyPIRepository::class,
+        IronGate\Pkgtrends\Repositories\NpmRepository::class,
+        IronGate\Pkgtrends\Repositories\HexRepository::class,
+        IronGate\Pkgtrends\Repositories\WordPressRepository::class,
     ],
 
     /*
