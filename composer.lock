@@ -4,20 +4,20 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "eeb9775b2cd5a82f54fe128fb4d11b15",
+    "content-hash": "f9092efdff0b64a2d0f3925550a81f81",
     "packages": [
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.112.18",
+            "version": "3.112.19",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "462398dcebaa4586089ce30d44750dcf7179b844"
+                "reference": "8e69a518ff058612b94d328c2cde644621a4c0cc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/462398dcebaa4586089ce30d44750dcf7179b844",
-                "reference": "462398dcebaa4586089ce30d44750dcf7179b844",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/8e69a518ff058612b94d328c2cde644621a4c0cc",
+                "reference": "8e69a518ff058612b94d328c2cde644621a4c0cc",
                 "shasum": ""
             },
             "require": {
@@ -87,7 +87,7 @@
                 "s3",
                 "sdk"
             ],
-            "time": "2019-10-09T18:13:06+00:00"
+            "time": "2019-10-10T18:23:11+00:00"
         },
         {
             "name": "clue/stream-filter",
@@ -1425,16 +1425,16 @@
         },
         {
             "name": "laravel/vapor-core",
-            "version": "v2.0.9",
+            "version": "v2.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/vapor-core.git",
-                "reference": "63203c14baccd27c3f6142a997ba2cf9594ca333"
+                "reference": "a4a3b58d14a034190dfb9fdd55f6f684afbe3d2e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/vapor-core/zipball/63203c14baccd27c3f6142a997ba2cf9594ca333",
-                "reference": "63203c14baccd27c3f6142a997ba2cf9594ca333",
+                "url": "https://api.github.com/repos/laravel/vapor-core/zipball/a4a3b58d14a034190dfb9fdd55f6f684afbe3d2e",
+                "reference": "a4a3b58d14a034190dfb9fdd55f6f684afbe3d2e",
                 "shasum": ""
             },
             "require": {
@@ -1489,7 +1489,7 @@
                 "laravel",
                 "vapor"
             ],
-            "time": "2019-09-25T12:33:30+00:00"
+            "time": "2019-10-10T13:27:54+00:00"
         },
         {
             "name": "league/flysystem",
@@ -4924,16 +4924,16 @@
         },
         {
             "name": "zendframework/zend-diactoros",
-            "version": "2.1.4",
+            "version": "2.1.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/zendframework/zend-diactoros.git",
-                "reference": "a16378c4db99be661afc76805242281603d20a7c"
+                "reference": "6dcf9e760a6b476f3e9d80abbc9ce9c4aa921f9c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/zendframework/zend-diactoros/zipball/a16378c4db99be661afc76805242281603d20a7c",
-                "reference": "a16378c4db99be661afc76805242281603d20a7c",
+                "url": "https://api.github.com/repos/zendframework/zend-diactoros/zipball/6dcf9e760a6b476f3e9d80abbc9ce9c4aa921f9c",
+                "reference": "6dcf9e760a6b476f3e9d80abbc9ce9c4aa921f9c",
                 "shasum": ""
             },
             "require": {
@@ -4987,7 +4987,7 @@
                 "psr",
                 "psr-7"
             ],
-            "time": "2019-10-08T20:08:44+00:00"
+            "time": "2019-10-10T17:38:20+00:00"
         }
     ],
     "packages-dev": [
