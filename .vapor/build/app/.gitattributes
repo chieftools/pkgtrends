@@ -1,0 +1,4 @@
+* text=auto
+public/js/*.js -diff
+public/css/*.css -diff
+CHANGELOG.md export-ignore
