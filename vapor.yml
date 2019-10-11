@@ -10,6 +10,7 @@ environments:
     database: db-micro
     database-user: pkgtrnds-prod
     timeout: 30
+    queue-timeout: 600
     build:
       - 'composer install --no-dev --classmap-authoritative'
       - 'php artisan event:cache'
@@ -24,6 +25,7 @@ environments:
     database: db-micro
     database-user: pkgtrnds-staging
     timeout: 30
+    queue-timeout: 600
     build:
       - 'composer install --no-dev --classmap-authoritative'
       - 'php artisan event:cache'
