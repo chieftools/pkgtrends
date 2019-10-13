@@ -4,7 +4,6 @@ namespace IronGate\Pkgtrends\Jobs\PyPI;
 
 use RuntimeException;
 use Illuminate\Bus\Queueable;
-use Illuminate\Database\QueryException;
 use Illuminate\Queue\InteractsWithQueue;
 use Google\Cloud\BigQuery\BigQueryClient;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -61,23 +60,27 @@ class ProcessDownloadsQuery implements ShouldQueue
             'startIndex' => $this->offset,
         ]);
 
+        $packagesToInsert = [];
+        $statsToInsert    = [];
+        $projectKeys      = [];
+
         foreach ($queryResults->rows() as $row) {
-            // Make sure the package exists
-            $package = PyPIPackage::query()->firstOrCreate(['project' => $row['project']]);
+            // Collect all the packages
+            $packagesToInsert[] = [
+                'project'    => $row['project'],
+                'created_at' => now(),
+                'updated_at' => now(),
+            ];
 
-            // Update the package timestamp so we know the package is still actively being downloaded
-            $package->touch();
+            // Collect all the stats
+            $statsToInsert[] = [
+                'date'      => $row['yyyymmdd'],
+                'project'   => $row['project'],
+                'downloads' => $row['downloads'],
+            ];
 
-            try {
-                // Insert the download count into the database
-                (new PyPIStat([
-                    'date'      => $row['yyyymmdd'],
-                    'project'   => $row['project'],
-                    'downloads' => $row['downloads'],
-                ]))->save();
-            } catch (QueryException $e) {
-                // Ignore them all, this is mostly here to ignore duplicates
-            }
+            // Collect all the project keys
+            $projectKeys[] = $row['project'];
 
             $processedRows++;
 
@@ -86,6 +89,17 @@ class ProcessDownloadsQuery implements ShouldQueue
                 break;
             }
         }
+
+        // Insert all missing packages
+        PyPIPackage::query()->insertOrIgnore($packagesToInsert);
+
+        // Update the updated at timestamp to indicate the package is still downloaded
+        PyPIPackage::query()->whereIn('project', $projectKeys)->update([
+            'updated_at' => now(),
+        ]);
+
+        // Insert all missing stats
+        PyPIStat::query()->insertOrIgnore($statsToInsert);
 
         $this->logMessage("Processed {$processedRows} packages for job:{$this->jobId} with offset:{$this->offset}!");
 
