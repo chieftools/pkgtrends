@@ -1,6 +1,6 @@
 id: 2993
 name: pkgtrends
-separate-vendor: true
+#separate-vendor: true
 environments:
   production:
     domain: pkgtrends.app
