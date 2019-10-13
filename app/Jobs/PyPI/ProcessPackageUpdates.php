@@ -8,10 +8,11 @@ use function GuzzleHttp\Promise\settle;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use IronGate\Pkgtrends\Models\Packages\PyPI;
+use IronGate\Pkgtrends\Jobs\Concerns\LogsMessages;
 
 class ProcessPackageUpdates implements ShouldQueue
 {
-    use InteractsWithQueue, Queueable;
+    use InteractsWithQueue, Queueable, LogsMessages;
 
     /**
      * @var int
@@ -33,10 +34,14 @@ class ProcessPackageUpdates implements ShouldQueue
         $packages = PyPI::query()->orderBy('project')->skip(($this->page - 1) * self::$perPage)->take(self::$perPage)->get();
 
         if ($packages->isEmpty()) {
+            $this->logMessage('Finished processing all pages!');
+
             $this->pingForCompletion();
 
             return;
         }
+
+        $this->logMessage("Processing page:{$this->page}...");
 
         // The HTTP client we are going to use to retrieve package information
         $client = new Client(['base_uri' => 'https://pypi.org/pypi/']);
@@ -73,6 +78,8 @@ class ProcessPackageUpdates implements ShouldQueue
                 $localPackage->save();
             }
         }
+
+        $this->logMessage("Processed page:{$this->page}!");
 
         dispatch(new self($this->page + 1));
     }

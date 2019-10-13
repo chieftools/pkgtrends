@@ -7,12 +7,13 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Database\QueryException;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use IronGate\Pkgtrends\Jobs\Concerns\LogsMessages;
 use IronGate\Pkgtrends\Models\Stats\Hex as HexStats;
 use IronGate\Pkgtrends\Models\Packages\Hex as HexPackage;
 
 class ProcessPackageDownloads implements ShouldQueue
 {
-    use InteractsWithQueue, Queueable;
+    use InteractsWithQueue, Queueable, LogsMessages;
 
     /**
      * @var string
@@ -32,6 +33,8 @@ class ProcessPackageDownloads implements ShouldQueue
 
     public function handle(): void
     {
+        $this->logMessage("Processing page:{$this->page} for date:{$this->date}...");
+
         $client = new Client(['base_uri' => 'https://hex.pm/api/']);
 
         $response = retry(3, function () use ($client) {
@@ -78,11 +81,15 @@ class ProcessPackageDownloads implements ShouldQueue
             $processed++;
         }
 
+        $this->logMessage("Processed {$processed} packages for page:{$this->page} for date:{$this->date}!");
+
         if ($processed > 0) {
             dispatch(new self($this->date, $this->page + 1));
 
             return;
         }
+
+        $this->logMessage('Finished processing all pages!');
 
         $this->pingForCompletion();
     }
