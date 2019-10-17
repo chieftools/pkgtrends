@@ -1,6 +1,6 @@
 id: 2993
 name: pkgtrends
-separate-vendor: true
+#separate-vendor: true
 environments:
   production:
     domain: pkgtrends.app
@@ -9,21 +9,6 @@ environments:
     cli-memory: 512
     database: db-micro
     database-user: pkgtrnds-prod
-    timeout: 30
-    queue-timeout: 600
-    build:
-      - 'composer install --no-dev --classmap-authoritative'
-      - 'php artisan event:cache'
-      - 'php artisan route:cache'
-      - 'yarn install && yarn run prod && rm -rf node_modules'
-    deploy:
-      - 'php artisan migrate --force'
-  staging:
-    balancer: ingress
-    memory: 1024
-    cli-memory: 512
-    database: db-micro
-    database-user: pkgtrnds-staging
     timeout: 30
     queue-timeout: 600
     build:
