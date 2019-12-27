@@ -14,10 +14,10 @@ class Hex extends Model
 {
     public $incrementing = false;
 
-    protected $table      = 'packages_hex';
-    protected $keyType    = 'string';
+    protected $table = 'packages_hex';
+    protected $keyType = 'string';
     protected $primaryKey = 'name';
-    protected $fillable   = [
+    protected $fillable = [
         'name',
         'description',
     ];

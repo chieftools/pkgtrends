@@ -13,7 +13,7 @@ class PyPI extends Model
 {
     public $timestamps = false;
 
-    protected $table    = 'stats_pypi';
+    protected $table = 'stats_pypi';
     protected $fillable = [
         'date',
         'project',

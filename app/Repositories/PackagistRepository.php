@@ -113,7 +113,7 @@ class PackagistRepository extends PackageRepository
     private function formatPackagistPackage(array $package): array
     {
         return [
-            'id'               => self::getKey() . ":{$package['name']}",
+            'id'               => self::getKey().":{$package['name']}",
             'name'             => $package['name'],
             'vendor'           => self::getKey(),
             'description'      => $package['description'],

@@ -2,10 +2,10 @@
 
 namespace IronGate\Pkgtrends\Models;
 
-use IronGate\Pkgtrends\TrendsProvider;
 use Illuminate\Database\Eloquent\Model;
-use IronGate\Pkgtrends\Models\Concerns\UsesUUID;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use IronGate\Pkgtrends\Models\Concerns\UsesUUID;
+use IronGate\Pkgtrends\TrendsProvider;
 
 /**
  * @property string                                   $id

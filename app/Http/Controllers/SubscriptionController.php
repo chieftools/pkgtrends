@@ -3,10 +3,10 @@
 namespace IronGate\Pkgtrends\Http\Controllers;
 
 use Illuminate\Http\RedirectResponse;
-use IronGate\Pkgtrends\Models\Report;
-use IronGate\Pkgtrends\TrendsProvider;
-use IronGate\Pkgtrends\Models\Subscription;
 use IronGate\Pkgtrends\Http\Requests\SubscribeToReport;
+use IronGate\Pkgtrends\Models\Report;
+use IronGate\Pkgtrends\Models\Subscription;
+use IronGate\Pkgtrends\TrendsProvider;
 
 class SubscriptionController extends Controller
 {
@@ -101,7 +101,7 @@ class SubscriptionController extends Controller
             ]);
         }
 
-        return view('subscription.unsubscribe' . ($subscriptions->count() > 1 ? '_all' : ''), compact('subscriptions'));
+        return view('subscription.unsubscribe'.($subscriptions->count() > 1 ? '_all' : ''), compact('subscriptions'));
     }
 
     public function postUnsubscribeAll(string $email): RedirectResponse

@@ -14,10 +14,10 @@ class PyPI extends Model
 {
     public $incrementing = false;
 
-    protected $table      = 'packages_pypi';
-    protected $keyType    = 'string';
+    protected $table = 'packages_pypi';
+    protected $keyType = 'string';
     protected $primaryKey = 'project';
-    protected $fillable   = [
+    protected $fillable = [
         'project',
         'description',
     ];

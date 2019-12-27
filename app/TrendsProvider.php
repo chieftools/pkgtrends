@@ -2,11 +2,11 @@
 
 namespace IronGate\Pkgtrends;
 
-use DatePeriod;
-use DateInterval;
 use Carbon\Carbon;
-use RuntimeException;
+use DateInterval;
+use DatePeriod;
 use Illuminate\Support\Collection;
+use RuntimeException;
 
 class TrendsProvider
 {
@@ -49,7 +49,7 @@ class TrendsProvider
 
         // TODO: This should probably be user configurable at some time
         $this->start = Carbon::now()->subDays(27 * 7);
-        $this->end   = Carbon::now()->subDays(1);
+        $this->end = Carbon::now()->subDays(1);
     }
 
     /**

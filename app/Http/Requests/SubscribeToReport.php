@@ -2,8 +2,8 @@
 
 namespace IronGate\Pkgtrends\Http\Requests;
 
-use IronGate\Pkgtrends\Rules\Recaptcha;
 use Illuminate\Foundation\Http\FormRequest;
+use IronGate\Pkgtrends\Rules\Recaptcha;
 
 class SubscribeToReport extends FormRequest
 {
@@ -11,7 +11,7 @@ class SubscribeToReport extends FormRequest
     {
         return [
             'email'                => 'required|max:255|email',
-            'g-recaptcha-response' => ['required', new Recaptcha],
+            'g-recaptcha-response' => ['required', new Recaptcha()],
         ];
     }
 }

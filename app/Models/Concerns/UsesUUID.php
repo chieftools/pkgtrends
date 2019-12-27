@@ -2,8 +2,8 @@
 
 namespace IronGate\Pkgtrends\Models\Concerns;
 
-use Ramsey\Uuid\Uuid;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Ramsey\Uuid\Uuid;
 
 trait UsesUUID
 {
@@ -18,13 +18,13 @@ trait UsesUUID
 
     public function initializeUsesUUID(): void
     {
-        $this->keyType      = 'string';
+        $this->keyType = 'string';
         $this->incrementing = false;
     }
 
     public static function findByUuid($uuid): ?self
     {
-        return self::query()->where((new self)->getUUIDAttributeName(), $uuid)->first();
+        return self::query()->where((new self())->getUUIDAttributeName(), $uuid)->first();
     }
 
     public static function findOrFailByUuid($uuid): self
@@ -32,7 +32,7 @@ trait UsesUUID
         $entity = self::findByUuid($uuid);
 
         if ($entity === null) {
-            throw (new ModelNotFoundException)->setModel(self::class, $uuid);
+            throw (new ModelNotFoundException())->setModel(self::class, $uuid);
         }
 
         return $entity;

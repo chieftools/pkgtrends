@@ -3,8 +3,8 @@
 namespace IronGate\Pkgtrends\Repositories;
 
 use Carbon\Carbon;
-use IronGate\Pkgtrends\Models\Stats;
 use IronGate\Pkgtrends\Models\Packages;
+use IronGate\Pkgtrends\Models\Stats;
 
 class PyPIRepository extends PackageRepository
 {
@@ -100,7 +100,7 @@ class PyPIRepository extends PackageRepository
     private function formatPyPIPackage(Packages\PyPI $package): array
     {
         return [
-            'id'               => self::getKey() . ":{$package->project}",
+            'id'               => self::getKey().":{$package->project}",
             'name'             => $package->project,
             'vendor'           => self::getKey(),
             'description'      => $package->description,

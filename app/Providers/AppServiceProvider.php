@@ -2,8 +2,8 @@
 
 namespace IronGate\Pkgtrends\Providers;
 
-use Illuminate\Support\ServiceProvider;
 use Google\Cloud\BigQuery\BigQueryClient;
+use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -29,9 +29,9 @@ class AppServiceProvider extends ServiceProvider
     public function register()
     {
         // Register all the package sources as singletons
-        foreach ((array)config('app.sources') as $provider) {
+        foreach ((array) config('app.sources') as $provider) {
             $this->app->singleton($provider, function () use ($provider) {
-                return new $provider;
+                return new $provider();
             });
         }
     }

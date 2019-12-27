@@ -2,10 +2,10 @@
 
 namespace IronGate\Pkgtrends\Console\Commands\Import\PyPI;
 
-use RuntimeException;
-use Illuminate\Console\Command;
 use Google\Cloud\BigQuery\BigQueryClient;
+use Illuminate\Console\Command;
 use IronGate\Pkgtrends\Jobs\PyPI\ProcessDownloadsQuery;
+use RuntimeException;
 
 class Downloads extends Command
 {
@@ -16,8 +16,8 @@ class Downloads extends Command
     public function handle(BigQueryClient $bigQuery): void
     {
         // Extract the range from the CLI options passed
-        $fromDays = (int)$this->option('from');
-        $toDays   = (int)$this->option('to');
+        $fromDays = (int) $this->option('from');
+        $toDays = (int) $this->option('to');
 
         // Make sure the range is a good range
         if ($fromDays < $toDays) {
@@ -31,7 +31,7 @@ class Downloads extends Command
               COUNT(*) AS downloads,
               file.project as project
             FROM
-              TABLE_DATE_RANGE( [the-psf:pypi.downloads], DATE_ADD(CURRENT_TIMESTAMP(), -' . $fromDays . ', "day"), DATE_ADD(CURRENT_TIMESTAMP(), -' . $toDays . ', "day") )
+              TABLE_DATE_RANGE( [the-psf:pypi.downloads], DATE_ADD(CURRENT_TIMESTAMP(), -'.$fromDays.', "day"), DATE_ADD(CURRENT_TIMESTAMP(), -'.$toDays.', "day") )
             GROUP BY
               yyyymmdd,
               project;

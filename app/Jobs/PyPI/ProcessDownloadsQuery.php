@@ -2,14 +2,14 @@
 
 namespace IronGate\Pkgtrends\Jobs\PyPI;
 
-use RuntimeException;
-use Illuminate\Bus\Queueable;
-use Illuminate\Queue\InteractsWithQueue;
 use Google\Cloud\BigQuery\BigQueryClient;
+use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Queue\InteractsWithQueue;
 use IronGate\Pkgtrends\Jobs\Concerns\LogsMessages;
-use IronGate\Pkgtrends\Models\Stats\PyPI as PyPIStat;
 use IronGate\Pkgtrends\Models\Packages\PyPI as PyPIPackage;
+use IronGate\Pkgtrends\Models\Stats\PyPI as PyPIStat;
+use RuntimeException;
 
 class ProcessDownloadsQuery implements ShouldQueue
 {
@@ -37,8 +37,8 @@ class ProcessDownloadsQuery implements ShouldQueue
 
     public function __construct(string $jobId, $offset = 0, $pingForCompletion = true)
     {
-        $this->jobId             = $jobId;
-        $this->offset            = $offset;
+        $this->jobId = $jobId;
+        $this->offset = $offset;
         $this->pingForCompletion = $pingForCompletion;
     }
 
@@ -61,8 +61,8 @@ class ProcessDownloadsQuery implements ShouldQueue
         ]);
 
         $packagesToInsert = [];
-        $statsToInsert    = [];
-        $projectKeys      = [];
+        $statsToInsert = [];
+        $projectKeys = [];
 
         foreach ($queryResults->rows() as $row) {
             // Collect all the packages

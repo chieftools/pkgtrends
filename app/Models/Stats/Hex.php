@@ -13,7 +13,7 @@ class Hex extends Model
 {
     public $timestamps = false;
 
-    protected $table    = 'stats_hex';
+    protected $table = 'stats_hex';
     protected $fillable = [
         'date',
         'package',

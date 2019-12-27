@@ -13,6 +13,6 @@ class Packages extends Command
 
     public function handle(): void
     {
-        dispatch(new ProcessPackageUpdates);
+        dispatch(new ProcessPackageUpdates());
     }
 }

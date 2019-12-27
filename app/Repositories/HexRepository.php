@@ -3,8 +3,8 @@
 namespace IronGate\Pkgtrends\Repositories;
 
 use Carbon\Carbon;
-use IronGate\Pkgtrends\Models\Stats;
 use IronGate\Pkgtrends\Models\Packages;
+use IronGate\Pkgtrends\Models\Stats;
 
 class HexRepository extends PackageRepository
 {
@@ -100,7 +100,7 @@ class HexRepository extends PackageRepository
     private function formatHexPackage(Packages\Hex $package): array
     {
         return [
-            'id'               => self::getKey() . ":{$package->name}",
+            'id'               => self::getKey().":{$package->name}",
             'name'             => $package->name,
             'vendor'           => self::getKey(),
             'description'      => $package->description,

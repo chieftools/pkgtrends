@@ -116,7 +116,7 @@ class NpmRepository extends PackageRepository
     public function getPackageStats(string $name, Carbon $start, Carbon $end): ?array
     {
         return rescue(function () use ($name, $start, $end) {
-            $response = $this->http->get('downloads/range/' . $start->format('Y-m-d') . ':' . $end->format('Y-m-d') . '/' . $name);
+            $response = $this->http->get('downloads/range/'.$start->format('Y-m-d').':'.$end->format('Y-m-d').'/'.$name);
 
             $downloads = collect(json_decode($response->getBody()->getContents(), true)['downloads'] ?? []);
 
@@ -136,7 +136,7 @@ class NpmRepository extends PackageRepository
     private function formatNpmPackage(array $package): array
     {
         return [
-            'id'               => self::getKey() . ":{$package['name']}",
+            'id'               => self::getKey().":{$package['name']}",
             'name'             => $package['name'],
             'vendor'           => self::getKey(),
             'description'      => $package['description'] ?? 'No description provided',

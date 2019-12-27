@@ -3,12 +3,12 @@
 namespace IronGate\Pkgtrends\Jobs\PyPI;
 
 use GuzzleHttp\Client;
-use Illuminate\Bus\Queueable;
 use function GuzzleHttp\Promise\settle;
-use Illuminate\Queue\InteractsWithQueue;
+use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
-use IronGate\Pkgtrends\Models\Packages\PyPI;
+use Illuminate\Queue\InteractsWithQueue;
 use IronGate\Pkgtrends\Jobs\Concerns\LogsMessages;
+use IronGate\Pkgtrends\Models\Packages\PyPI;
 
 class ProcessPackageUpdates implements ShouldQueue
 {

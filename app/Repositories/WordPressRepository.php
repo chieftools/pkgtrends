@@ -112,7 +112,7 @@ class WordPressRepository extends PackageRepository
     private function formatWordPressPackage(array $package): array
     {
         return [
-            'id'               => self::getKey() . ":{$package['slug']}",
+            'id'               => self::getKey().":{$package['slug']}",
             'name'             => $package['name'],
             'vendor'           => self::getKey(),
             'description'      => $package['short_description'] ?? null,

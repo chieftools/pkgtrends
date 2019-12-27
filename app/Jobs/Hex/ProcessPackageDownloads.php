@@ -4,12 +4,12 @@ namespace IronGate\Pkgtrends\Jobs\Hex;
 
 use GuzzleHttp\Client;
 use Illuminate\Bus\Queueable;
+use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Database\QueryException;
 use Illuminate\Queue\InteractsWithQueue;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use IronGate\Pkgtrends\Jobs\Concerns\LogsMessages;
-use IronGate\Pkgtrends\Models\Stats\Hex as HexStats;
 use IronGate\Pkgtrends\Models\Packages\Hex as HexPackage;
+use IronGate\Pkgtrends\Models\Stats\Hex as HexStats;
 
 class ProcessPackageDownloads implements ShouldQueue
 {

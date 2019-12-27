@@ -47,7 +47,7 @@ class TrendsController extends Controller
         }
 
         return TrendsProvider::getRepositories()->flatMap(function (Repositories\PackageRepository $repository) use ($query) {
-            return cache()->remember("{$repository::getKey()}:query:" . str_slug($query), now()->addHour(), function () use ($repository, $query) {
+            return cache()->remember("{$repository::getKey()}:query:".str_slug($query), now()->addHour(), function () use ($repository, $query) {
                 return $repository->searchPackage($query);
             });
         })->values()->all();
