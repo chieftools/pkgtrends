@@ -14,7 +14,7 @@ return [
 
     'name'        => env('APP_NAME', 'Package Trends'),
     'title'       => 'Package Trends: Compare Packagist, PyPI, Hex, npm, NuGet & WordPress package downloads',
-    'version'     => '0.3.7',
+    'version'     => '0.3.11',
     'description' => 'A quick way to compare package downloads across languages. Compare Packagist, PyPI, Hex, npm, NuGet & WordPress package download statistics.',
 
     /*
