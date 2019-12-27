@@ -1,0 +1,98 @@
+name: CI/CD
+
+on:
+  push:
+    branches:
+      - '*'
+    tags-ignore:
+      - '*'
+  pull_request:
+
+jobs:
+  dependencies:
+    name: Install dependencies
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout sources
+        uses: actions/checkout@v2
+      - name: Cache vendor folder
+        uses: actions/cache@v1
+        id: composer-cache
+        with:
+          path: vendor
+          key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-composer-
+      - name: Setup PHP
+        if: steps.composer-cache.outputs.cache-hit != 'true'
+        uses: shivammathur/setup-php@v1
+        with:
+          php-version: '7.4'
+          extensions: mysql, intl, mbstring, zip
+      - name: Install Composer dependencies
+        if: steps.composer-cache.outputs.cache-hit != 'true'
+        run: composer install --prefer-dist --no-progress --no-scripts --ignore-platform-reqs
+
+  cs:
+    name: Validate code style
+    needs: dependencies
+    runs-on: ubuntu-latest
+    steps:
+      - name: Skip style checks on master
+        if: github.ref == 'refs/heads/master'
+        run: echo Continue with the next step.
+      - name: Checkout sources
+        uses: actions/checkout@v2
+        if: github.ref != 'refs/heads/master'
+      - name: Cache vendor folder
+        if: github.ref != 'refs/heads/master'
+        uses: actions/cache@v1
+        id: composer-cache
+        with:
+          path: vendor
+          key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-composer-
+      - name: Setup PHP
+        if: github.ref != 'refs/heads/master'
+        uses: shivammathur/setup-php@v1
+        with:
+          php-version: '7.4'
+          extensions: mysql, intl, mbstring, zip
+      - name: Check cs
+        if: github.ref != 'refs/heads/master'
+        run: composer phpcs-ci
+
+  release:
+    name: Run deployment
+    if: github.ref == 'refs/heads/master'
+    needs: cs
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout sources
+        uses: actions/checkout@v2
+      - name: Cache vendor folder
+        uses: actions/cache@v1
+        id: composer-cache
+        with:
+          path: vendor
+          key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-composer-
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v1
+        with:
+          php-version: '7.4'
+          extensions: mysql, intl, mbstring, zip
+      - name: Deploy to production
+        run: vendor/bin/vapor deploy production
+        env:
+          VAPOR_API_TOKEN: ${{ secrets.VAPOR_API_TOKEN }}
+      - name: Notify Sentry
+        uses: docker://stayallive/sentry:release
+        env:
+          PLUGIN_DEPLOY: 'production'
+          PLUGIN_SENTRY_URL: 'https://observ.app/'
+          PLUGIN_SENTRY_ORG: 'irongate'
+          PLUGIN_SENTRY_PROJECT: 'pkgtrends'
+          PLUGIN_SENTRY_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}

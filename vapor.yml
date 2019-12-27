@@ -1,15 +1,15 @@
 id: 2993
 name: pkgtrends
-#separate-vendor: true
 environments:
   production:
     domain: pkgtrends.app
-    balancer: ingress
     memory: 1024
-    cli-memory: 512
-    database: db-micro
-    database-user: pkgtrnds-prod
+    runtime: php-7.4
     timeout: 30
+    balancer: ingress
+    database: db-micro
+    cli-memory: 512
+    database-user: pkgtrnds-prod
     queue-timeout: 600
     build:
       - 'composer install --no-dev --classmap-authoritative'
