@@ -3,16 +3,22 @@ name: pkgtrends
 environments:
   production:
     domain: pkgtrends.app
-    memory: 1024
     runtime: php-7.4
-    timeout: 30
+
     balancer: ingress
     database: db-micro
-    cli-memory: 512
-    concurrency: 25
     database-user: pkgtrnds-prod
+
+    memory: 1024
+    timeout: 15
+    concurrency: 25
+
+    cli-memory: 512
+
+    queue-memory: 512
     queue-timeout: 600
     queue-concurrency: 25
+
     build:
       - 'composer install --no-dev --classmap-authoritative'
       - 'php artisan event:cache'
