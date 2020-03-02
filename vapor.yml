@@ -9,8 +9,10 @@ environments:
     balancer: ingress
     database: db-micro
     cli-memory: 512
+    concurrency: 25
     database-user: pkgtrnds-prod
     queue-timeout: 600
+    queue-concurrency: 25
     build:
       - 'composer install --no-dev --classmap-authoritative'
       - 'php artisan event:cache'

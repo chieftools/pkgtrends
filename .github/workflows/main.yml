@@ -28,7 +28,7 @@ jobs:
         uses: shivammathur/setup-php@v1
         with:
           php-version: '7.4'
-          extensions: mysql, intl, mbstring, zip
+          extensions: intl, mbstring, zip
       - name: Install Composer dependencies
         if: steps.composer-cache.outputs.cache-hit != 'true'
         run: composer install --prefer-dist --no-progress --no-scripts --ignore-platform-reqs
@@ -58,7 +58,7 @@ jobs:
         uses: shivammathur/setup-php@v1
         with:
           php-version: '7.4'
-          extensions: mysql, intl, mbstring, zip
+          extensions: intl, mbstring, zip
       - name: Check cs
         if: github.ref != 'refs/heads/master'
         run: composer phpcs-ci
@@ -83,7 +83,7 @@ jobs:
         uses: shivammathur/setup-php@v1
         with:
           php-version: '7.4'
-          extensions: mysql, intl, mbstring, zip
+          extensions: intl, mbstring, zip
       - name: Deploy to production
         run: vendor/bin/vapor deploy production
         env:
