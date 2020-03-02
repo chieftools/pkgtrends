@@ -10,14 +10,23 @@
         @yield('content')
 
         <footer class="my-5 pt-5 text-muted text-center text-small">
-            <p class="mb-2">Made with ❤ by <a href="https://github.com/irongate/pkgtrends/graphs/contributors" target="_blank" rel="noopener">all contributors</a>.</p>
-            Data sourced from
-            <p class="mb-1">
-                @foreach(config('app.sources') as $source)
-                    <i class="{{ $source::getIcon() }}" style="color: #2c3e50;"></i> {!! collect($source::getSources())->map(function ($url, $name) {
-                        return '<a href="' . e($url) . '" target="_blank" rel="noopener">' . e($name) . '</a>';
-                    })->implode(' & ') !!}{!! $loop->last ? '' : '&nbsp;&nbsp;&middot;&nbsp;&nbsp;' !!}
-                @endforeach
+            <p class="mb-3">
+                Data sourced from
+                <br>
+                <small>
+                    @foreach(config('app.sources') as $source)
+                        <i class="{{ $source::getIcon() }}" style="color: #2c3e50;"></i> {!! collect($source::getSources())->map(function ($url, $name) {
+                            return '<a href="' . e($url) . '" target="_blank" rel="noopener">' . e($name) . '</a>';
+                        })->implode(' & ') !!}{!! $loop->last ? '' : '&nbsp;&nbsp;&middot;&nbsp;&nbsp;' !!}
+                    @endforeach
+                </small>
+            </p>
+            <p class="mb-3">
+                Made with ❤ by <a href="https://github.com/irongate/pkgtrends/graphs/contributors" target="_blank" rel="noopener">all contributors</a>.
+                <br>
+                <small>
+                    Seeing something broken or have suggestions? <a href="https://github.com/irongate/pkgtrends/issues/new">Let us know!</a>
+                </small>
             </p>
             <small class="text-muted">
                 @if(config('app.analytics.fathom.public'))
