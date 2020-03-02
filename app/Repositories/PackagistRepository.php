@@ -99,7 +99,7 @@ class PackagistRepository extends PackageRepository
 
             $stats = collect(json_decode($response->getBody()->getContents(), true) ?? []);
 
-            return $stats->isEmpty() ? null : array_combine($stats->get('labels'), $stats->get('values'));
+            return $stats->isEmpty() ? null : array_combine($stats->get('labels'), $stats->get('values')[$name]);
         });
     }
 
