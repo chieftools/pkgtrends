@@ -19,7 +19,12 @@
                     })->implode(' & ') !!}{!! $loop->last ? '' : '&nbsp;&nbsp;&middot;&nbsp;&nbsp;' !!}
                 @endforeach
             </p>
-            <small class="text-muted">v{{ config('app.version') }}</small>
+            <small class="text-muted">
+                @if(config('app.analytics.fathom.public'))
+                    <a href="{{ config('app.analytics.fathom.public') }}" rel="noopener" target="_blank" class="text-muted">Analytics</a> &middot;
+                @endif
+                v{{ config('app.version') }}
+            </small>
         </footer>
     </div>
 @endsection

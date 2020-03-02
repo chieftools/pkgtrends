@@ -72,10 +72,10 @@ return [
 
     'analytics' => [
 
-        'piwik' => [
+        'fathom' => [
 
-            'id'  => env('PIWIK_ID'),
-            'url' => env('PIWIK_URL'),
+            'siteId' => env('ANALYTICS_FATHOM_ID'),
+            'public' => env('ANALYTICS_FATHOM_PUBLIC_URL'),
 
         ],
 
