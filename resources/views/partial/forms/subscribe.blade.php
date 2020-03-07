@@ -24,9 +24,9 @@
             </div>
         </div>
         <small class="pt-3 d-block text-muted">
-            This site is protected by reCAPTCHA and the Google
-            <a href="https://policies.google.com/privacy" target="_blank" rel="nofollow noopener">Privacy Policy</a> and
-            <a href="https://policies.google.com/terms" target="_blank" rel="nofollow noopener">Terms of Service</a> apply.
+            This form is protected by <a href="https://www.google.com/recaptcha" target="_blank" rel="noopener">reCAPTCHA</a> and the Google
+            <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Privacy Policy</a> and
+            <a href="https://policies.google.com/terms" target="_blank" rel="noopener">Terms of Service</a> apply.
         </small>
     </form>
 </div>

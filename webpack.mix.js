@@ -11,6 +11,12 @@ let mix = require('laravel-mix');
  |
  */
 
+mix.options({
+    terser: {
+        extractComments: false,
+    },
+});
+
 mix.js('resources/assets/js/app.js', 'public/build')
     .sass('resources/assets/sass/app.scss', 'public/build')
     .version();

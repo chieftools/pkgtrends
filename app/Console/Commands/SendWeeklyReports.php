@@ -17,7 +17,7 @@ class SendWeeklyReports extends Command
      *
      * @var string
      */
-    protected $signature = 'pkgtrends:weekly';
+    protected $signature = 'pkgtrends:weekly {--force}';
 
     /**
      * The console command description.
@@ -34,7 +34,11 @@ class SendWeeklyReports extends Command
     public function handle()
     {
         Report::query()->whereHas('subscriptions', function (Builder $query) {
-            $query->confirmed()->notNotifiedInLastDays();
+            $query->confirmed();
+
+            if (!$this->option('force')) {
+                $query->notNotifiedInLastDays();
+            }
         })->chunk(50, function (Collection $reports) {
             $reports->each(function (Report $report) {
                 $trends = $report->getTrends();
@@ -44,7 +48,12 @@ class SendWeeklyReports extends Command
                         $this->info("Sending weekly report:{$report->id} to subscription:{$subscription->id}");
 
                         Mail::to($subscription)->send(
-                            new WeeklyReport($trends->getFormattedTitle(), $trends->getData(), $subscription)
+                            new WeeklyReport(
+                                $trends->getFormattedTitle(),
+                                $report->permalink,
+                                $trends->getData(),
+                                $subscription
+                            )
                         );
 
                         $subscription->markNotified();

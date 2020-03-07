@@ -7,6 +7,8 @@
             <p class="lead">{!! nl2br(trim(str_replace('.', ".\n", config('app.description')))) !!}</p>
         </div>
 
+        @include('partial.alert')
+
         @yield('content')
 
         <footer class="my-5 pt-5 text-muted text-center text-small">
@@ -25,12 +27,12 @@
                 Made with ❤ by <a href="https://github.com/irongate/pkgtrends/graphs/contributors" target="_blank" rel="noopener">all contributors</a>.
                 <br>
                 <small>
-                    Seeing something broken or have suggestions? <a href="https://github.com/irongate/pkgtrends/issues/new">Let us know!</a>
+                    Seeing something broken or have suggestions? <a href="https://github.com/irongate/pkgtrends/issues/new" target="_blank" rel="noopener">Let us know!</a>
                 </small>
             </p>
             <small class="text-muted">
                 @if(config('app.analytics.fathom.public'))
-                    <a href="{{ config('app.analytics.fathom.public') }}" rel="noopener" target="_blank" class="text-muted">Analytics</a> &middot;
+                    <a href="{{ config('app.analytics.fathom.public') }}" target="_blank" rel="noopener" class="text-muted">Analytics</a> &middot;
                 @endif
                 v{{ config('app.version') }}
             </small>
