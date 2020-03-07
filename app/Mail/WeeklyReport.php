@@ -13,15 +13,18 @@ class WeeklyReport extends Mailable implements ShouldQueue
 {
     use Queueable, SerializesModels;
 
-    public $title;
+    public string $title;
 
-    public $dependencies;
+    public string $permalink;
 
-    public $subscription;
+    public Collection $dependencies;
 
-    public function __construct(string $title, Collection $dependencies, Subscription $subscription)
+    public Subscription $subscription;
+
+    public function __construct(string $title, string $permalink, Collection $dependencies, Subscription $subscription)
     {
         $this->title        = $title;
+        $this->permalink    = $permalink;
         $this->dependencies = $dependencies;
         $this->subscription = $subscription;
     }
@@ -30,6 +33,7 @@ class WeeklyReport extends Mailable implements ShouldQueue
     {
         return $this->markdown('emails.weekly', [
             'title'        => $this->title,
+            'permalink'    => $this->permalink,
             'deps'         => $this->dependencies,
             'subscription' => $this->subscription,
         ])->subject("Weekly trends update: {$this->title}");

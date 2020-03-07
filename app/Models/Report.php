@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property string                                   $id
  * @property string                                   $packages
  * @property string                                   $hash
+ * @property string                                   $permalink
  * @property \Carbon\Carbon                           $created_at
  * @property \Carbon\Carbon                           $updated_at
  * @property \Illuminate\Database\Eloquent\Collection $subscriptions
@@ -32,6 +33,11 @@ class Report extends Model
     public function subscriptions(): HasMany
     {
         return $this->hasMany(Subscription::class);
+    }
+
+    public function getPermalinkAttribute(): string
+    {
+        return route('home', [$this->packages]);
     }
 
     public static function findOrCreate(string $hash, string $packages): self

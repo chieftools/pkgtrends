@@ -12,5 +12,5 @@ You will be subscribed to a weekly report for: {{ $packages }}.
 If you did not request this, you can ignore this e-mail safely.
 
 Greetings,<br>
-{{ config('app.name') }}
+<a href="{{ route('home') }}">{{ config('app.name') }}</a>
 @endcomponent

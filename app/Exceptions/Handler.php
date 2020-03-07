@@ -2,7 +2,7 @@
 
 namespace IronGate\Pkgtrends\Exceptions;
 
-use Exception;
+use Throwable;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 
 class Handler extends ExceptionHandler
@@ -10,7 +10,7 @@ class Handler extends ExceptionHandler
     /**
      * {@inheritdoc}
      */
-    public function report(Exception $exception)
+    public function report(Throwable $exception)
     {
         if ($this->shouldReport($exception) && app()->bound('sentry')) {
             app('sentry')->captureException($exception);
