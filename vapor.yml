@@ -4,13 +4,14 @@ environments:
   production:
     domain: pkgtrends.app
     runtime: php-7.4
-
     balancer: ingress
+    gateway-version: 2
+
     database: db-micro
     database-user: pkgtrnds-prod
 
     memory: 1024
-    timeout: 15
+    timeout: 30
     concurrency: 25
 
     cli-memory: 512
