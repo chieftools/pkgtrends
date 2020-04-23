@@ -1,8 +1,6 @@
 @extends('layout.default')
 
 @section('content')
-    @include('partial.alert')
-
     <div class="my-5 pb-3 text-center text-small">
         <h3>
             <i class="fa fa-fw fa-heart-broken text-black-50"></i>&nbsp;Just one more thing...

@@ -18,4 +18,4 @@ Route::group([
 });
 
 Route::get('search', [TrendsController::class, 'searchPackages']);
-Route::get('{query?}', [TrendsController::class, 'showTrends'])->where('query', '.*');
+Route::get('{query?}', [TrendsController::class, 'showTrends'])->where('query', '.*')->name('home');

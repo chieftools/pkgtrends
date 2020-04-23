@@ -47,7 +47,7 @@ class TrendsProvider
     {
         $this->query = $query;
 
-        // TODO: This should probably be user configurable at some time
+        // TODO: This should probably be user configurable at some point
         $this->start = Carbon::now()->subDays(27 * 7);
         $this->end   = Carbon::now()->subDays(1);
     }

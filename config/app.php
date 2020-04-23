@@ -14,7 +14,7 @@ return [
 
     'name'        => env('APP_NAME', 'Package Trends'),
     'title'       => 'Package Trends: Compare Packagist, PyPI, Hex, npm, NuGet & WordPress package downloads',
-    'version'     => '0.3.11',
+    'version'     => '0.3.17',
     'description' => 'A quick way to compare package downloads across languages. Compare Packagist, PyPI, Hex, npm, NuGet & WordPress package download statistics.',
 
     /*
@@ -73,10 +73,10 @@ return [
 
     'analytics' => [
 
-        'piwik' => [
+        'fathom' => [
 
-            'id'  => env('PIWIK_ID'),
-            'url' => env('PIWIK_URL'),
+            'siteId' => env('ANALYTICS_FATHOM_ID'),
+            'public' => env('ANALYTICS_FATHOM_PUBLIC_URL'),
 
         ],
 

@@ -1,14 +1,15 @@
-@unless(config('app.debug'))
-    <script type="text/javascript">
-        var _paq = _paq || [];
-        _paq.push(['trackPageView']);
-        _paq.push(['enableLinkTracking']);
-        (function() {
-            var u="{{ config('app.analytics.piwik.url') }}";
-            _paq.push(['setTrackerUrl', u+'piwik.php']);
-            _paq.push(['setSiteId', '{{ config('app.analytics.piwik.id') }}']);
-            var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
-            g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
-        })();
+@if(!config('app.debug') && config('app.analytics.fathom.siteId') !== null)
+    <script>
+        (function(f, a, t, h, o, m){
+            a[h]=a[h]||function(){
+                (a[h].q=a[h].q||[]).push(arguments)
+            };
+            o=f.createElement('script'),
+                m=f.getElementsByTagName('script')[0];
+            o.async=1; o.src=t; o.id='fathom-script';
+            m.parentNode.insertBefore(o,m)
+        })(document, window, 'https://cdn.usefathom.com/tracker.js', 'fathom');
+        fathom('set', 'siteId', '{{ config('app.analytics.fathom.siteId') }}');
+        fathom('trackPageview');
     </script>
-@endunless
+@endif

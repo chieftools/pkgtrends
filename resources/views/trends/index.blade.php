@@ -1,8 +1,6 @@
 @extends('layout.default', ['title' => isset($query) ? $query->getFormattedTitle() : null])
 
 @section('content')
-    @include('partial.alert')
-
     <div class="row {{ isset($query) ? 'pb-4' : 'pb-2 pt-5' }}">
         <div class="col-12">
             <input type="text" class="form-control" id="packages" placeholder="Search for packages" value="">
@@ -54,12 +52,17 @@
                         @php($stats = $dependency['stats']->reverse()->values())
                         <tr>
                             <td>
-                                <i class="{{ $vendors[$dependency['info']['vendor']] }} fa-fw"></i> <a href="{{ $dependency['info']['permalink'] }}" target="_blank" rel="noopener">{{ $dependency['info']['name'] }}</a><br>
+                                <i class="{{ $vendors[$dependency['info']['vendor']] }} fa-fw"></i>
+                                <a href="{{ $dependency['info']['permalink'] }}" target="_blank" rel="noopener">{{ $dependency['info']['name'] }}</a><br>
                                 <small class="text-muted">{{ $dependency['info']['source_formatted'] }}</small>
                             </td>
                             <td>
                                 {{ number_format($stats[0]) }}<br>
-                                <small><span class="{{ $stats[0] > $stats[4] ? 'text-success' : 'text-warning' }}" data-title="Compared to 4 weeks ago" data-toggle="tooltip">{{ $stats[0] > $stats[4] ? '+' : '-' }}{{ abs(100 - (int)(100 * ($stats[0] ?: 1) / ($stats[4] ?: 1))) }}%</span></small>
+                                <small>
+                                    <span class="{{ $stats[0] > $stats[4] ? 'text-success' : 'text-warning' }}" data-title="Compared to 4 weeks ago" data-toggle="tooltip">
+                                        {{ $stats[0] > $stats[4] ? '+' : '-' }}{{ abs(100 - (int)(100 * ($stats[0] ?: 1) / ($stats[4] ?: 1))) }}%
+                                    </span>
+                                </small>
                             </td>
                             <td>
                                 {{ number_format($stats[1]) }}
