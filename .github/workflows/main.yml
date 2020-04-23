@@ -85,7 +85,9 @@ jobs:
           php-version: '7.4'
           extensions: intl, mbstring, zip
       - name: Deploy to production
-        run: vendor/bin/vapor deploy production
+        run: |
+          echo ${GITHUB_SHA:0:8} > .version
+          vendor/bin/vapor deploy production
         env:
           VAPOR_API_TOKEN: ${{ secrets.VAPOR_API_TOKEN }}
       - name: Notify Sentry
