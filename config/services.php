@@ -34,9 +34,9 @@ return [
         'credentials' => env('GOOGLE_CREDENTIALS'),
     ],
 
-    'recaptcha' => [
-        'key'    => env('RECAPTCHA_KEY'),
-        'secret' => env('RECAPTCHA_SECRET'),
+    'hcaptcha' => [
+        'key'    => env('HCAPTCHA_KEY'),
+        'secret' => env('HCAPTCHA_SECRET'),
     ],
 
 ];

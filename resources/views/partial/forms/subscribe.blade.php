@@ -10,31 +10,31 @@
         <div class="form-row justify-content-center">
             <div class="col-lg-3 col-md-5 col-sm-7 my-1">
                 <input type="email" class="form-control {{ $errors->has('email') ? 'is-invalid' : '' }}" placeholder="Your e-mail" name="email" value="{{ old('email') }}"/>
-                @if($error = ($errors->has('email') || $errors->has('g-recaptcha-response')))
+                @if($error = ($errors->has('email') || $errors->has('h-captcha-response')))
                     <div class="invalid-feedback">
-                        {{ $errors->first('email') ?? $errors->first('g-recaptcha-response') }}
+                        {{ $errors->first('email') ?? $errors->first('h-captcha-response') }}
                     </div>
                 @endif
             </div>
             <div class="col-auto my-1">
-                <button type="submit" class="btn btn-primary form-control g-recaptcha" data-sitekey="{{ config('services.recaptcha.key') }}" data-callback="recaptchaCallback" data-badge="inline">Subscribe</button>
+                <button type="submit" class="btn btn-primary form-control h-captcha" data-sitekey="{{ config('services.hcaptcha.key') }}" data-callback="hCaptchaCallback" data-badge="inline">Subscribe</button>
                 @if($error)
                     <div>&nbsp;</div>
                 @endif
             </div>
         </div>
         <small class="pt-3 d-block text-muted">
-            This form is protected by <a href="https://www.google.com/recaptcha" target="_blank" rel="noopener">reCAPTCHA</a> and the Google
-            <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Privacy Policy</a> and
-            <a href="https://policies.google.com/terms" target="_blank" rel="noopener">Terms of Service</a> apply.
+            This form is protected by <a href="https://www.hcaptcha.com" target="_blank" rel="noopener">hCaptcha</a> and their
+            <a href="https://www.hcaptcha.com/privacy" target="_blank" rel="noopener">Privacy Policy</a> and
+            <a href="https://www.hcaptcha.com/terms" target="_blank" rel="noopener">Terms of Service</a> apply.
         </small>
     </form>
 </div>
 
 @push('body.script')
-    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+    <script src="https://hcaptcha.com/1/api.js" async defer></script>
     <script>
-        function recaptchaCallback(token) {
+        function hCaptchaCallback(token) {
             document.getElementById('subscriptionForm').submit();
         }
     </script>

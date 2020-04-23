@@ -5,16 +5,16 @@ namespace IronGate\Pkgtrends\Rules;
 use GuzzleHttp\Client;
 use Illuminate\Contracts\Validation\Rule;
 
-class Recaptcha implements Rule
+class Captcha implements Rule
 {
     public function passes($attribute, $value)
     {
         return rescue(function () use ($value) {
-            $http = new Client(['base_uri' => 'https://www.google.com/recaptcha/api/']);
+            $http = new Client(['base_uri' => 'https://hcaptcha.com/']);
 
             $response = $http->post('siteverify', [
                 'query' => [
-                    'secret'   => config('services.recaptcha.secret'),
+                    'secret'   => config('services.hcaptcha.secret'),
                     'response' => $value,
                 ],
             ]);
@@ -25,6 +25,6 @@ class Recaptcha implements Rule
 
     public function message()
     {
-        return "We think you're a bot, or Google is broken. Please try again.";
+        return 'You kinda look like a bot, or hCaptcha is broken. Please try again.';
     }
 }
