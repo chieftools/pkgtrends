@@ -87,9 +87,8 @@ jobs:
       - name: Deploy to production
         run: |
           echo ${GITHUB_SHA:0:8} > .version
-          vendor/bin/vapor deploy production --commit="$COMMIT_SHA" --message="$COMMIT_MSG"
+          vendor/bin/vapor deploy production --commit="$COMMIT_SHA"
         env:
-          COMMIT_MSG: ${{ github.event.commits[0].message }}
           COMMIT_SHA: ${{ github.sha }}
           VAPOR_API_TOKEN: ${{ secrets.VAPOR_API_TOKEN }}
       - name: Notify Sentry
