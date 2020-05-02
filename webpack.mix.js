@@ -12,8 +12,13 @@ let mix = require('laravel-mix');
  */
 
 mix.options({
-    terser: {
+    terser:  {
         extractComments: false,
+    },
+    cssNano: {
+        discardComments: {
+            removeAll: true,
+        },
     },
 });
 
