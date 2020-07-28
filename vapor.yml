@@ -4,13 +4,14 @@ environments:
   production:
     domain: pkgtrends.app
     runtime: php-7.4
+    network: irongate
+    gateway-version: 1
 
-    balancer: ingress
-    database: db-micro
-    database-user: pkgtrnds-prod
+    database: irongate
+    database-user: pkgtrends
 
     memory: 1024
-    timeout: 15
+    timeout: 30
     concurrency: 25
 
     cli-memory: 512
@@ -20,6 +21,7 @@ environments:
     queue-concurrency: 25
 
     build:
+      - 'rm -f .env'
       - 'composer install --no-dev --classmap-authoritative'
       - 'php artisan event:cache'
       - 'php artisan route:cache'

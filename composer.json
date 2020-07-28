@@ -14,21 +14,21 @@
     "type": "project",
     "require": {
         "php": "^7.4",
-        "fideloper/proxy": "4.3.*",
+        "fideloper/proxy": "4.4.*",
         "google/cloud-bigquery": "1.16.*",
         "guzzlehttp/guzzle": "6.5.*",
-        "laravel/framework": "7.7.*",
+        "laravel/framework": "7.22.*",
         "laravel/helpers": "1.2.*",
         "laravel/tinker": "2.4.*",
-        "laravel/vapor-core": "2.5.*",
-        "ramsey/uuid": "4.0.*",
-        "sentry/sentry-laravel": "1.7.*"
+        "laravel/vapor-core": "2.8.*",
+        "ramsey/uuid": "4.1.*",
+        "sentry/sentry-laravel": "1.8.*"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "3.3.*",
-        "facade/ignition": "2.0.*",
+        "facade/ignition": "2.3.*",
         "friendsofphp/php-cs-fixer": "2.16.*",
-        "laravel/vapor-cli": "1.6.*",
+        "laravel/vapor-cli": "1.7.*",
         "sensiolabs/security-checker": "6.0.*"
     },
     "autoload": {
