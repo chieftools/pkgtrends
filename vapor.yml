@@ -3,7 +3,7 @@ name: pkgtrends
 environments:
   production:
     domain: pkgtrends.app
-    runtime: php-7.4
+    runtime: php-8.0:al2
     network: irongate
     gateway-version: 1
 

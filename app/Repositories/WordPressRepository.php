@@ -91,7 +91,7 @@ class WordPressRepository extends PackageRepository
      */
     public function getPackageStats(string $name, Carbon $start, Carbon $end): ?array
     {
-        return rescue(function () use ($name, $start, $end) {
+        return rescue(function () use ($name, $start) {
             $days = now()->diffInDays($start);
 
             $response = $this->http->get("stats/plugin/1.0/downloads.php?slug={$name}&limit={$days}");
