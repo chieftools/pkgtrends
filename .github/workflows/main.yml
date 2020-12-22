@@ -20,14 +20,14 @@ jobs:
         id: composer-cache
         with:
           path: vendor
-          key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
+          key: ${{ runner.os }}-php80-composer-${{ hashFiles('**/composer.lock') }}
           restore-keys: |
-            ${{ runner.os }}-composer-
+            ${{ runner.os }}-php80-composer-
       - name: Setup PHP
         if: steps.composer-cache.outputs.cache-hit != 'true'
         uses: shivammathur/setup-php@v2
         with:
-          php-version: '7.4'
+          php-version: '8.0'
           extensions: intl, mbstring, zip
       - name: Install Composer dependencies
         if: steps.composer-cache.outputs.cache-hit != 'true'
@@ -50,18 +50,20 @@ jobs:
         id: composer-cache
         with:
           path: vendor
-          key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
+          key: ${{ runner.os }}-php80-composer-${{ hashFiles('**/composer.lock') }}
           restore-keys: |
-            ${{ runner.os }}-composer-
+            ${{ runner.os }}-php80-composer-
       - name: Setup PHP
         if: github.ref != 'refs/heads/master'
         uses: shivammathur/setup-php@v2
         with:
-          php-version: '7.4'
+          php-version: '8.0'
           extensions: intl, mbstring, zip
       - name: Check cs
         if: github.ref != 'refs/heads/master'
         run: composer phpcs-ci
+        env:
+          PHP_CS_FIXER_IGNORE_ENV: 1
 
   release:
     name: Run deployment
@@ -76,13 +78,13 @@ jobs:
         id: composer-cache
         with:
           path: vendor
-          key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
+          key: ${{ runner.os }}-php80-composer-${{ hashFiles('**/composer.lock') }}
           restore-keys: |
-            ${{ runner.os }}-composer-
+            ${{ runner.os }}-php80-composer-
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: '7.4'
+          php-version: '8.0'
           extensions: intl, mbstring, zip
       - name: Deploy to production
         run: |
