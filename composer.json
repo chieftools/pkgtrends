@@ -17,7 +17,7 @@
         "fideloper/proxy": "4.4.*",
         "google/cloud-bigquery": "1.20.*",
         "guzzlehttp/guzzle": "7.2.*",
-        "laravel/framework": "8.20.*",
+        "laravel/framework": "8.40.*",
         "laravel/helpers": "1.4.*",
         "laravel/tinker": "2.5.*",
         "laravel/vapor-core": "2.10.*",
