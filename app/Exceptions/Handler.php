@@ -7,15 +7,12 @@ use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 
 class Handler extends ExceptionHandler
 {
-    /**
-     * {@inheritdoc}
-     */
-    public function report(Throwable $exception)
+    public function register(): void
     {
-        if ($this->shouldReport($exception) && app()->bound('sentry')) {
-            app('sentry')->captureException($exception);
-        }
-
-        parent::report($exception);
+        $this->reportable(function (Throwable $e) {
+            if ($this->shouldReport($e) && app()->bound('sentry')) {
+                app('sentry')->captureException($e);
+            }
+        });
     }
 }
