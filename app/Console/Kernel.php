@@ -7,20 +7,12 @@ use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
 class Kernel extends ConsoleKernel
 {
-    protected $commands = [
-        Commands\PurgeReports::class,
-        Commands\SendWeeklyReports::class,
-        Commands\PurgeSubscriptions::class,
+    protected function commands(): void
+    {
+        $this->load(__DIR__ . '/Commands');
+    }
 
-        Commands\Import\Hex\Cleanup::class,
-        Commands\Import\Hex\Downloads::class,
-
-        Commands\Import\PyPI\Cleanup::class,
-        Commands\Import\PyPI\Packages::class,
-        Commands\Import\PyPI\Downloads::class,
-    ];
-
-    protected function schedule(Schedule $schedule)
+    protected function schedule(Schedule $schedule): void
     {
         if (!config('app.cron')) {
             return;

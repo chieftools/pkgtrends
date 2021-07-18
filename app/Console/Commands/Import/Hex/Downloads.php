@@ -7,8 +7,7 @@ use IronGate\Pkgtrends\Jobs\Hex\ProcessPackageDownloads;
 
 class Downloads extends Command
 {
-    protected $signature = 'import:hex:downloads';
-
+    protected $signature   = 'import:hex:downloads';
     protected $description = 'Import data from the Hex API.';
 
     public function handle(): void

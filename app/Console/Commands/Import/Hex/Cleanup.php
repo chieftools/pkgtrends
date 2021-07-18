@@ -8,8 +8,7 @@ use IronGate\Pkgtrends\Models\Packages\Hex as HexPackages;
 
 class Cleanup extends Command
 {
-    protected $signature = 'import:hex:cleanup';
-
+    protected $signature   = 'import:hex:cleanup';
     protected $description = 'Cleanup old Hex data we don\'t have a need for anymore.';
 
     public function handle(): void

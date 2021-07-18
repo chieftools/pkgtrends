@@ -2,33 +2,42 @@
 
 namespace IronGate\Pkgtrends\Http\Controllers;
 
+use Illuminate\View\View;
 use Illuminate\Http\Request;
 use IronGate\Pkgtrends\Repositories;
+use Illuminate\Http\RedirectResponse;
 use IronGate\Pkgtrends\TrendsProvider;
 
 class TrendsController extends Controller
 {
-    public function showTrends($packages = null)
+    /**
+     * Show the homepage with the package query data if there was a packages query string given.
+     *
+     * @param string|null $packagesQuery
+     *
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\View\View
+     */
+    public function showTrends(?string $packagesQuery = null): RedirectResponse|View
     {
         // Build a list of all vendors and their icons
-        $vendors = collect(config('app.sources'))->mapWithKeys(function ($source) {
-            return [$source::getKey() => $source::getIcon()];
-        });
+        $vendors = collect(config('app.sources'))->mapWithKeys(
+            fn ($source) => [$source::getKey() => $source::getIcon()]
+        );
 
-        // If there is no query for packages show an empty view
-        if (empty($packages)) {
+        // If there is no query for packages show an empty index
+        if (empty($packagesQuery)) {
             return view('trends.index', compact('vendors'));
         }
 
-        // Build the trends query
-        $query = new TrendsProvider($packages);
+        // Create the trends provider that can query the package repositories
+        $query = new TrendsProvider($packagesQuery);
 
         // If we could not find data for any of the dependencies (could be bogus data for example) return to the homepage
         if (!$query->hasData()) {
             return redirect()->action('TrendsController@showTrends');
         }
 
-        return view('trends.index', compact('query', 'vendors', 'packages'));
+        return view('trends.index', compact('vendors', 'query'));
     }
 
     /**
@@ -46,10 +55,14 @@ class TrendsController extends Controller
             return [];
         }
 
-        return TrendsProvider::getRepositories()->flatMap(function (Repositories\PackageRepository $repository) use ($query) {
-            return cache()->remember("{$repository::getKey()}:query:" . str_slug($query), now()->addHour(), function () use ($repository, $query) {
-                return $repository->searchPackage($query);
-            });
-        })->values()->all();
+        $querySlug = str_slug($query);
+
+        return TrendsProvider::getRepositories()->flatMap(
+            fn (Repositories\PackageRepository $repository) => cache()->remember(
+                "{$repository::getKey()}:query:{$querySlug}",
+                now()->addHour(),
+                fn () => $repository->searchPackage($query)
+            )
+        )->values()->all();
     }
 }

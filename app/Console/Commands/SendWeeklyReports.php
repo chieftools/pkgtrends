@@ -12,26 +12,10 @@ use Illuminate\Database\Eloquent\Collection;
 
 class SendWeeklyReports extends Command
 {
-    /**
-     * The name and signature of the console command.
-     *
-     * @var string
-     */
-    protected $signature = 'pkgtrends:weekly {--force}';
-
-    /**
-     * The console command description.
-     *
-     * @var string
-     */
+    protected $signature   = 'pkgtrends:weekly {--force}';
     protected $description = 'Send weekly trend reports to subscriptions.';
 
-    /**
-     * Execute the console command.
-     *
-     * @return mixed
-     */
-    public function handle()
+    public function handle(): void
     {
         Report::query()->whereHas('subscriptions', function (Builder $query) {
             $query->confirmed();
@@ -62,7 +46,6 @@ class SendWeeklyReports extends Command
             });
         });
 
-        // If the range has been changed presume we are not running in the cron and therefore should not ping the healthcheck url
         if (!empty(config('app.ping.weekly'))) {
             retry(3, function () {
                 file_get_contents(config('app.ping.weekly'));
