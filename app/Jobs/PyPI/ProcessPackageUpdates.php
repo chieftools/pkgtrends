@@ -3,8 +3,8 @@
 namespace IronGate\Pkgtrends\Jobs\PyPI;
 
 use GuzzleHttp\Client;
+use GuzzleHttp\Promise\Utils;
 use Illuminate\Bus\Queueable;
-use function GuzzleHttp\Promise\settle;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use IronGate\Pkgtrends\Models\Packages\PyPI;
@@ -14,19 +14,11 @@ class ProcessPackageUpdates implements ShouldQueue
 {
     use InteractsWithQueue, Queueable, LogsMessages;
 
-    /**
-     * @var int
-     */
-    protected $page;
+    protected static int $perPage = 50;
 
-    /**
-     * @var int
-     */
-    protected static $perPage = 50;
-
-    public function __construct($page = 1)
-    {
-        $this->page = $page;
+    public function __construct(
+        private int $page = 1
+    ) {
     }
 
     public function handle(): void
@@ -41,7 +33,7 @@ class ProcessPackageUpdates implements ShouldQueue
             return;
         }
 
-        $this->logMessage("Processing page:{$this->page}...");
+        $this->logMessage("Processing PyPI packages page:{$this->page}...");
 
         // The HTTP client we are going to use to retrieve package information
         $client = new Client(['base_uri' => 'https://pypi.org/pypi/']);
@@ -54,7 +46,7 @@ class ProcessPackageUpdates implements ShouldQueue
         });
 
         // Wait for all requests to finish
-        $results = settle($promises)->wait();
+        $results = Utils::settle($promises)->wait();
 
         // Loop over the results
         foreach ($results as $package => $result) {
@@ -64,9 +56,7 @@ class ProcessPackageUpdates implements ShouldQueue
             // Make sure the response was fullfilled and the response code is good
             if ($result['state'] === 'fulfilled' && ($response = $result['value'] ?? null) !== null && $response->getStatusCode() === 200) {
                 // Retrieve and decode the package info
-                $info = rescue(function () use ($response) {
-                    return json_decode($response->getBody()->getContents(), true) ?? [];
-                }, []);
+                $info = rescue(fn () => json_decode($response->getBody()->getContents(), true) ?? [], []);
 
                 // Get the description from the response or use the old summary
                 $description = array_get($info, 'info.summary', $localPackage->description);
@@ -79,7 +69,7 @@ class ProcessPackageUpdates implements ShouldQueue
             }
         }
 
-        $this->logMessage("Processed page:{$this->page}!");
+        $this->logMessage("Processed PyPI packages page:{$this->page}!");
 
         dispatch(new self($this->page + 1));
     }
