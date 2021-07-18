@@ -9,8 +9,7 @@ use IronGate\Pkgtrends\Jobs\PyPI\ProcessDownloadsQuery;
 
 class Downloads extends Command
 {
-    protected $signature = 'import:pypi:downloads { --from=1 : how many days back } { --to=1 : to how many days back }';
-
+    protected $signature   = 'import:pypi:downloads { --from=1 : how many days back } { --to=1 : to how many days back }';
     protected $description = 'Import data from PyPI BigQuery datasets.';
 
     public function handle(BigQueryClient $bigQuery): void

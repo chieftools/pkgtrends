@@ -7,8 +7,7 @@ use IronGate\Pkgtrends\Jobs\PyPI\ProcessPackageUpdates;
 
 class Packages extends Command
 {
-    protected $signature = 'import:pypi:packages';
-
+    protected $signature   = 'import:pypi:packages';
     protected $description = 'Import package summaries from the PyPI API.';
 
     public function handle(): void

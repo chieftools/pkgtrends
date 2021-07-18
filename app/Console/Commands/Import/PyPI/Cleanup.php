@@ -8,8 +8,7 @@ use IronGate\Pkgtrends\Models\Packages\PyPI as PyPIPackages;
 
 class Cleanup extends Command
 {
-    protected $signature = 'import:pypi:cleanup';
-
+    protected $signature   = 'import:pypi:cleanup';
     protected $description = 'Cleanup old PyPI data we don\'t have a need for anymore.';
 
     public function handle(): void
