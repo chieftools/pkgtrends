@@ -25,17 +25,22 @@ class Downloads extends Command
         }
 
         // Construct the query to find all PyPI projects and group them by project and date
-        $query = $bigQuery->query('
+        $query = $bigQuery->query(
+            <<<QUERY
             SELECT
-              STRFTIME_UTC_USEC(timestamp, "%Y-%m-%d") AS yyyymmdd,
+              FORMAT_TIMESTAMP("%Y-%m-%d", timestamp) AS yyyymmdd,
               COUNT(*) AS downloads,
-              file.project as project
+              file.project AS project
             FROM
-              TABLE_DATE_RANGE( [the-psf:pypi.downloads], DATE_ADD(CURRENT_TIMESTAMP(), -' . $fromDays . ', "day"), DATE_ADD(CURRENT_TIMESTAMP(), -' . $toDays . ', "day") )
+              `bigquery-public-data.pypi.file_downloads`
+            WHERE
+              DATE(timestamp) BETWEEN EXTRACT(DATE FROM DATE_SUB(CURRENT_TIMESTAMP(), INTERVAL {$fromDays} DAY)) AND EXTRACT(DATE FROM DATE_SUB(CURRENT_TIMESTAMP(), INTERVAL {$toDays} DAY))
+              AND details.installer.name NOT IN ('bandersnatch', 'z3c.pypimirror', 'Artifactory', 'devpi')
             GROUP BY
               yyyymmdd,
-              project;
-        ')->useLegacySql(true);
+              project
+            QUERY
+        );
 
         $this->info('Executing the BigQuery query...');
 

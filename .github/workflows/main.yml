@@ -3,96 +3,125 @@ name: CI/CD
 on:
   push:
     branches:
-      - '*'
+      - '**'
     tags-ignore:
-      - '*'
-  pull_request:
+      - '**'
 
 jobs:
-  dependencies:
-    name: Install dependencies
+  composer:
+    name: composer install
     runs-on: ubuntu-latest
     steps:
       - name: Checkout sources
         uses: actions/checkout@v2
-      - name: Cache vendor folder
-        uses: actions/cache@v1
+
+      - name: Cache Composer dependencies
+        uses: actions/cache@v2
         id: composer-cache
         with:
           path: vendor
-          key: ${{ runner.os }}-php80-composer-${{ hashFiles('**/composer.lock') }}
+          key: ${{ runner.os }}-composer-v6-${{ hashFiles('**/composer.lock') }}
           restore-keys: |
-            ${{ runner.os }}-php80-composer-
+            ${{ runner.os }}-composer-v6-
       - name: Setup PHP
-        if: steps.composer-cache.outputs.cache-hit != 'true'
         uses: shivammathur/setup-php@v2
         with:
-          php-version: '8.0'
+          php-version: 8.0
           extensions: intl, mbstring, zip
+
       - name: Install Composer dependencies
         if: steps.composer-cache.outputs.cache-hit != 'true'
-        run: composer install --prefer-dist --no-progress --no-scripts --ignore-platform-reqs
+        run: composer install --prefer-dist --no-progress --no-scripts --no-autoloader
 
-  cs:
-    name: Validate code style
-    needs: dependencies
+      - name: Generate Composer autoloader
+        run: composer dump-autoload
+
+  phpcs:
+    name: phpcs
+    needs: composer
     runs-on: ubuntu-latest
     steps:
-      - name: Skip style checks on master
-        if: github.ref == 'refs/heads/master'
-        run: echo Continue with the next step.
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: 8.0
+          extensions: intl, mbstring, zip
+
       - name: Checkout sources
         uses: actions/checkout@v2
-        if: github.ref != 'refs/heads/master'
-      - name: Cache vendor folder
-        if: github.ref != 'refs/heads/master'
-        uses: actions/cache@v1
+
+      - name: Cache Composer dependencies
+        uses: actions/cache@v2
         id: composer-cache
         with:
           path: vendor
-          key: ${{ runner.os }}-php80-composer-${{ hashFiles('**/composer.lock') }}
+          key: ${{ runner.os }}-composer-v6-${{ hashFiles('**/composer.lock') }}
           restore-keys: |
-            ${{ runner.os }}-php80-composer-
-      - name: Setup PHP
-        if: github.ref != 'refs/heads/master'
-        uses: shivammathur/setup-php@v2
-        with:
-          php-version: '8.0'
-          extensions: intl, mbstring, zip
-      - name: Check cs
-        if: github.ref != 'refs/heads/master'
+            ${{ runner.os }}-composer-v6-
+      - name: Validate code style
         run: composer phpcs-ci
-        env:
-          PHP_CS_FIXER_IGNORE_ENV: 1
 
-  release:
-    name: Run deployment
-    if: github.ref == 'refs/heads/master'
-    needs: cs
+  security:
+    name: security
+    needs: composer
     runs-on: ubuntu-latest
     steps:
       - name: Checkout sources
         uses: actions/checkout@v2
-      - name: Cache vendor folder
-        uses: actions/cache@v1
-        id: composer-cache
-        with:
-          path: vendor
-          key: ${{ runner.os }}-php80-composer-${{ hashFiles('**/composer.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-php80-composer-
+      - name: Check for security issues in dependencies
+        uses: symfonycorp/security-checker-action@v2
+
+  deploy:
+    if: github.ref == 'refs/heads/master'
+    name: deploy
+    needs: [ phpcs, security ]
+    runs-on: ubuntu-latest
+    steps:
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: '8.0'
+          php-version: 8.0
           extensions: intl, mbstring, zip
+
+      - name: Checkout sources
+        uses: actions/checkout@v2
+
+      - name: Cache Composer dependencies
+        uses: actions/cache@v2
+        id: composer-cache
+        with:
+          path: vendor
+          key: ${{ runner.os }}-composer-v6-${{ hashFiles('**/composer.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-composer-v6-
+
+      - name: Cache Yarn dependencies
+        uses: actions/cache@v2
+        id: yarn-cache
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn-
+      - name: Install Yarn dependencies
+        if: steps.yarn-cache.outputs.cache-hit != 'true'
+        run: yarn install --frozen-lockfile
+
       - name: Deploy to production
         run: |
           echo ${GITHUB_SHA:0:8} > .version
-          vendor/bin/vapor deploy production --commit="$COMMIT_SHA"
+          vendor/bin/vapor deploy production --commit="$GITHUB_SHA"
         env:
-          COMMIT_SHA: ${{ github.sha }}
           VAPOR_API_TOKEN: ${{ secrets.VAPOR_API_TOKEN }}
+
+  sentry:
+    if: github.ref == 'refs/heads/master'
+    name: sentry release
+    needs: [ phpcs, security ]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout sources
+        uses: actions/checkout@v2
       - name: Notify Sentry
         uses: docker://stayallive/sentry:release
         env:
