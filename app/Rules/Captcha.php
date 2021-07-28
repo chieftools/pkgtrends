@@ -2,7 +2,6 @@
 
 namespace IronGate\Pkgtrends\Rules;
 
-use GuzzleHttp\Client;
 use Illuminate\Contracts\Validation\Rule;
 
 class Captcha implements Rule
@@ -10,9 +9,7 @@ class Captcha implements Rule
     public function passes($attribute, $value)
     {
         return rescue(function () use ($value) {
-            $http = new Client(['base_uri' => 'https://hcaptcha.com/']);
-
-            $response = $http->post('siteverify', [
+            $response = http('https://hcaptcha.com/')->post('siteverify', [
                 'query' => [
                     'secret'   => config('services.hcaptcha.secret'),
                     'response' => $value,
@@ -23,7 +20,7 @@ class Captcha implements Rule
         }, false);
     }
 
-    public function message()
+    public function message(): string
     {
         return 'You kinda look like a bot, or hCaptcha is broken. Please try again.';
     }

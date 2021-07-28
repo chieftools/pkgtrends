@@ -2,7 +2,6 @@
 
 namespace IronGate\Pkgtrends\Jobs\Hex;
 
-use GuzzleHttp\Client;
 use Illuminate\Bus\Queueable;
 use Illuminate\Database\QueryException;
 use Illuminate\Queue\InteractsWithQueue;
@@ -35,7 +34,7 @@ class ProcessPackageDownloads implements ShouldQueue
     {
         $this->logMessage("Processing page:{$this->page} for date:{$this->date}...");
 
-        $client = new Client(['base_uri' => 'https://hex.pm/api/']);
+        $client = http('https://hex.pm/api/');
 
         $response = retry(3, function () use ($client) {
             $response = $client->get('packages', [
