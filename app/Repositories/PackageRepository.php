@@ -3,7 +3,6 @@
 namespace IronGate\Pkgtrends\Repositories;
 
 use Carbon\Carbon;
-use GuzzleHttp\Client;
 
 abstract class PackageRepository
 {
@@ -47,7 +46,7 @@ abstract class PackageRepository
      */
     public function __construct()
     {
-        $this->http = new Client(['base_uri' => $this->baseUri]);
+        $this->http = http($this->baseUri);
     }
 
     /**

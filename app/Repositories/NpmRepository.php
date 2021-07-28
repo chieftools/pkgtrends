@@ -3,7 +3,6 @@
 namespace IronGate\Pkgtrends\Repositories;
 
 use Carbon\Carbon;
-use GuzzleHttp\Client;
 
 class NpmRepository extends PackageRepository
 {
@@ -58,7 +57,7 @@ class NpmRepository extends PackageRepository
     {
         parent::__construct();
 
-        $this->searchHttp = new Client(['base_uri' => $this->searchBaseUri]);
+        $this->searchHttp = http($this->searchBaseUri);
     }
 
     /**

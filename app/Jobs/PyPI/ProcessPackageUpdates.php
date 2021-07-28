@@ -2,7 +2,6 @@
 
 namespace IronGate\Pkgtrends\Jobs\PyPI;
 
-use GuzzleHttp\Client;
 use GuzzleHttp\Promise\Utils;
 use Illuminate\Bus\Queueable;
 use Illuminate\Queue\InteractsWithQueue;
@@ -36,7 +35,7 @@ class ProcessPackageUpdates implements ShouldQueue
         $this->logMessage("Processing PyPI packages page:{$this->page}...");
 
         // The HTTP client we are going to use to retrieve package information
-        $client = new Client(['base_uri' => 'https://pypi.org/pypi/']);
+        $client = http('https://pypi.org/pypi/');
 
         $promises = [];
 
