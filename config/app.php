@@ -123,7 +123,7 @@ return [
 
     'url' => env('APP_URL', 'https://pkgtrends.app'),
 
-    'asset_url' => env('ASSET_URL', null),
+    'asset_url' => env('ASSET_URL'),
 
     /*
     |--------------------------------------------------------------------------
