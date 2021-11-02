@@ -40,7 +40,6 @@
     <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('img/favicon/favicon-16x16.png') }}">
 
     <link media="all" type="text/css" rel="stylesheet" href="{{ mix('build/app.css') }}">
-    <script src="https://kit.fontawesome.com/c8291c8701.js" crossorigin="anonymous"></script>
     @stack('head.style')
 </head>
 <body class="{{ $bodyClass or '' }}">
