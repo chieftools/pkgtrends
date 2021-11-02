@@ -23,8 +23,9 @@ environments:
     build:
       - 'rm -f .env'
       - 'composer install --no-dev --classmap-authoritative'
+      - 'php artisan view:cache'
       - 'php artisan event:cache'
       - 'php artisan route:cache'
-      - 'yarn install && yarn run prod && rm -rf node_modules'
+      - 'yarn install --frozen-lockfile && yarn run prod && rm -rf node_modules'
     deploy:
       - 'php artisan migrate --force'
