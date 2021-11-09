@@ -1,5 +1,3 @@
-@if(!config('app.debug') && config('app.analytics.fathom.siteId') !== null)
-    <!-- Fathom - beautiful, simple website analytics -->
-    <script src="https://piranha.pkgtrends.app/script.js" site="{{ config('app.analytics.fathom.siteId') }}" defer></script>
-    <!-- / Fathom -->
+@if(!config('app.debug') && config('app.analytics.fathom.site') !== null)
+    <script src="https://{{ config('app.analytics.fathom.domain') }}/script.js" data-site="{{ config('app.analytics.fathom.site') }}" defer></script>
 @endif

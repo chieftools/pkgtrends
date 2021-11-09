@@ -18,7 +18,7 @@ return [
 
     'version' => file_exists($versionPath = base_path('.version'))
         ? trim(file_get_contents($versionPath))
-        : env('APP_VERSION', '0.3.35'),
+        : env('APP_VERSION', '0.3.36'),
 
     /*
     |--------------------------------------------------------------------------
@@ -77,7 +77,10 @@ return [
 
         'fathom' => [
 
-            'siteId' => env('ANALYTICS_FATHOM_ID'),
+            'site' => env('ANALYTICS_FATHOM_SITE'),
+
+            'domain' => env('ANALYTICS_FATHOM_DOMAIN', 'piranha.assets.pkgtrends.app'),
+
             'public' => env('ANALYTICS_FATHOM_PUBLIC_URL'),
 
         ],
