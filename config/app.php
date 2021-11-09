@@ -77,7 +77,10 @@ return [
 
         'fathom' => [
 
-            'siteId' => env('ANALYTICS_FATHOM_ID'),
+            'site' => env('ANALYTICS_FATHOM_SITE'),
+
+            'domain' => env('ANALYTICS_FATHOM_DOMAIN', 'piranha.assets.pkgtrends.app'),
+
             'public' => env('ANALYTICS_FATHOM_PUBLIC_URL'),
 
         ],
