@@ -5,8 +5,8 @@
 @import "fonts/all";
 
 // Bootstrap
-@import '~bootstrap/scss/bootstrap';
-@import 'selectize/selectize.bootstrap4';
+@import "~bootstrap/scss/bootstrap";
+@import "selectize/selectize.bootstrap4";
 
 .navbar-laravel {
     background-color: #ffffff;
@@ -18,7 +18,7 @@
         -moz-transition: opacity 0.2s;
         -webkit-transition: opacity 0.2s;
         transition: opacity 0.2s;
-        content: ' ';
+        content: " ";
         z-index: 2;
         position: absolute;
         display: block;
@@ -37,7 +37,8 @@
     }
 
     .selectize-input {
-        i, .svg-inline--fa {
+        i,
+        .svg-inline--fa {
             width: 16px;
             height: 16px;
             display: inline-block;
@@ -66,7 +67,8 @@
             overflow: hidden;
         }
 
-        i, .svg-inline--fa {
+        i,
+        .svg-inline--fa {
             width: 16px;
             height: 16px;
             display: inline-block;

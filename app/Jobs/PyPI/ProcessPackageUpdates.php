@@ -76,9 +76,7 @@ class ProcessPackageUpdates implements ShouldQueue
     private function pingForCompletion(): void
     {
         if (!empty(config('app.ping.import.pypi.packages'))) {
-            retry(3, function () {
-                file_get_contents(config('app.ping.import.pypi.packages'));
-            }, 15);
+            retry(3, static fn () => file_get_contents(config('app.ping.import.pypi.packages')), 15);
         }
     }
 }

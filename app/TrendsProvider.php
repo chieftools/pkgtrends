@@ -129,7 +129,6 @@ class TrendsProvider
 
             [$provider, $name] = explode(':', trim($dependency));
 
-            /** @var \IronGate\Pkgtrends\Repositories\PackageRepository $repository */
             $repository = self::getRepository($provider);
 
             if ($repository === null) {

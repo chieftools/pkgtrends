@@ -18,7 +18,9 @@ return [
 
     'version' => file_exists($versionPath = base_path('.version'))
         ? trim(file_get_contents($versionPath))
-        : env('APP_VERSION', '0.3.36'),
+        : env('APP_VERSION', '@dev'),
+
+    'versionString' => env('APP_VERSION_STRING', '2022.1.0'),
 
     /*
     |--------------------------------------------------------------------------

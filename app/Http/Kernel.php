@@ -18,7 +18,7 @@ class Kernel extends HttpKernel
         \Illuminate\Foundation\Http\Middleware\ValidatePostSize::class,
         \IronGate\Pkgtrends\Http\Middleware\TrimStrings::class,
         \Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull::class,
-        \IronGate\Pkgtrends\Http\Middleware\TrustProxies::class,
+        \IronGate\Pkgtrends\Http\Middleware\TrustProxiesOnVapor::class,
     ];
 
     /**

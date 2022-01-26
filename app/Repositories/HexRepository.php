@@ -48,7 +48,7 @@ class HexRepository extends PackageRepository
     public function searchPackage(string $query): array
     {
         return rescue(function () use ($query) {
-            return Packages\Hex::query()->selectRaw("*, MATCH(`name`) AGAINST ('{$query}' IN NATURAL LANGUAGE MODE) as `score`")->orderByDesc('score')->take(100)->get()->take(10)->map(function (Packages\Hex $package) {
+            return Packages\Hex::query()->selectRaw("*, MATCH(`name`) AGAINST ('{$query}' IN NATURAL LANGUAGE MODE) as `score`")->orderByDesc('score')->take(10)->get()->map(function (Packages\Hex $package) {
                 return $this->formatHexPackage($package);
             })->all();
         }, []);
@@ -93,7 +93,7 @@ class HexRepository extends PackageRepository
     /**
      * Format the Packagist response to something we can use internally.
      *
-     * @param array $package
+     * @param \IronGate\Pkgtrends\Models\Packages\Hex $package
      *
      * @return array
      */

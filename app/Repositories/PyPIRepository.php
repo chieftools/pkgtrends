@@ -48,7 +48,7 @@ class PyPIRepository extends PackageRepository
     public function searchPackage(string $query): array
     {
         return rescue(function () use ($query) {
-            return Packages\PyPI::query()->selectRaw("*, MATCH(`project`) AGAINST ('{$query}' IN NATURAL LANGUAGE MODE) as `score`")->orderByDesc('score')->take(100)->get()->take(10)->map(function (Packages\PyPI $package) {
+            return Packages\PyPI::query()->selectRaw("*, MATCH(`project`) AGAINST ('{$query}' IN NATURAL LANGUAGE MODE) as `score`")->orderByDesc('score')->take(10)->get()->map(function (Packages\PyPI $package) {
                 return $this->formatPyPIPackage($package);
             })->all();
         }, []);

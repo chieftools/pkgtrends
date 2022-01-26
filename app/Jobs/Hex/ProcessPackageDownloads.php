@@ -96,9 +96,7 @@ class ProcessPackageDownloads implements ShouldQueue
     private function pingForCompletion(): void
     {
         if (!empty(config('app.ping.import.hex.downloads'))) {
-            retry(3, function () {
-                file_get_contents(config('app.ping.import.hex.downloads'));
-            }, 15);
+            retry(3, static fn () => file_get_contents(config('app.ping.import.hex.downloads')), 15);
         }
     }
 }

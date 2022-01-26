@@ -5,7 +5,6 @@ namespace IronGate\Pkgtrends\Console\Commands;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Mail;
 use IronGate\Pkgtrends\Models\Report;
-use Illuminate\Database\Eloquent\Builder;
 use IronGate\Pkgtrends\Mail\WeeklyReport;
 use IronGate\Pkgtrends\Models\Subscription;
 use Illuminate\Database\Eloquent\Collection;
@@ -17,7 +16,7 @@ class SendWeeklyReports extends Command
 
     public function handle(): void
     {
-        Report::query()->whereHas('subscriptions', function (Builder $query) {
+        Report::query()->whereHas('subscriptions', function ($query) {
             $query->confirmed();
 
             if (!$this->option('force')) {
@@ -47,9 +46,7 @@ class SendWeeklyReports extends Command
         });
 
         if (!empty(config('app.ping.weekly'))) {
-            retry(3, function () {
-                file_get_contents(config('app.ping.weekly'));
-            }, 15);
+            retry(3, static fn () => file_get_contents(config('app.ping.weekly')), 15);
         }
     }
 }

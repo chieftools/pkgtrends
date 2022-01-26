@@ -13,22 +13,25 @@
     "license": "proprietary",
     "type": "project",
     "require": {
-        "php": "^8.0",
+        "php": "^8.1",
         "fideloper/proxy": "4.4.*",
         "google/cloud-bigquery": "1.23.*",
         "guzzlehttp/guzzle": "7.4.*",
-        "laravel/framework": "8.69.*",
-        "laravel/helpers": "1.4.*",
-        "laravel/tinker": "2.6.*",
-        "laravel/vapor-core": "2.15.*",
+        "laravel/framework": "8.81.*",
+        "laravel/helpers": "1.5.*",
+        "laravel/tinker": "2.7.*",
+        "laravel/vapor-core": "2.19.*",
         "ramsey/uuid": "4.2.*",
-        "sentry/sentry-laravel": "2.9.*"
+        "sentry/sentry-laravel": "2.11.*"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "3.6.*",
-        "facade/ignition": "2.16.*",
-        "friendsofphp/php-cs-fixer": "3.2.*",
-        "laravel/vapor-cli": "1.29.*"
+        "barryvdh/laravel-ide-helper": "2.12.*",
+        "facade/ignition": "2.17.*",
+        "friendsofphp/php-cs-fixer": "3.4.*",
+        "laravel/vapor-cli": "1.36.*",
+        "nunomaduro/larastan": "1.0.*",
+        "wnx/laravel-stats": "2.8.*"
     },
     "autoload": {
         "psr-4": {
@@ -40,19 +43,37 @@
     },
     "scripts": {
         "post-update-cmd": [
-            "Illuminate\\Foundation\\ComposerScripts::postUpdate"
+            "Illuminate\\Foundation\\ComposerScripts::postUpdate",
+            "@generate:ide"
         ],
         "post-autoload-dump": [
             "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
             "@php artisan package:discover"
         ],
+        "cs": [
+            "@phpcs",
+            "yarn prettier"
+        ],
+        "ide": "@generate:ide",
+        "stan": "@phpstan",
+        "check": [
+            "@phpcs",
+            "@phpstan"
+        ],
         "phpcs": "vendor/bin/php-cs-fixer fix",
-        "phpcs-ci": "vendor/bin/php-cs-fixer fix --dry-run --diff",
-        "security-ci": "vendor/bin/security-checker security:check"
+        "phpcs:ci": "vendor/bin/php-cs-fixer fix --dry-run --diff",
+        "phpstan": "vendor/bin/phpstan analyse --memory-limit=2G",
+        "phpstan:ci": "vendor/bin/phpstan analyse --memory-limit=2G --error-format github",
+        "generate:ide": [
+            "@php artisan ide-helper:meta"
+        ]
     },
     "config": {
         "platform": {
-            "php": "8.0"
+            "php": "8.1.1"
+        },
+        "allow-plugins": {
+            "composer/package-versions-deprecated": true
         },
         "sort-packages": true,
         "preferred-install": "dist",

@@ -17,9 +17,7 @@ class PurgeReports extends Command
         $this->info("Purged {$count} reports!");
 
         if (!empty(config('app.ping.purge_reports'))) {
-            retry(3, function () {
-                file_get_contents(config('app.ping.purge_reports'));
-            }, 15);
+            retry(3, static fn () => file_get_contents(config('app.ping.purge_reports')), 15);
         }
     }
 }
