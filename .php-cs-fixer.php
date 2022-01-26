@@ -52,17 +52,6 @@ $config
         ],
         'phpdoc_align'            => [
             'align' => 'vertical',
-            'tags'  => [
-                'param',
-                'property',
-                'property-read',
-                'property-write',
-                'return',
-                'throws',
-                'type',
-                'var',
-                'method',
-            ],
         ],
         'increment_style'         => [
             'style' => 'post',

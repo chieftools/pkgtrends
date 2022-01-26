@@ -1,4 +1,41 @@
 * text=auto
-public/js/*.js -diff
-public/css/*.css -diff
-CHANGELOG.md export-ignore
+
+# git files
+.gitattributes export-ignore
+.gitignore export-ignore
+
+# IDE files
+.idea export-ignore
+
+# Disable diffs on minified / system generated files
+*.min.js      -diff
+*.min.js.map  -diff
+*.min.css     -diff
+*.min.css.map -diff
+*.lock        -diff
+*.dat         -diff
+
+# Exclude vendor libraries and/or files we don't directly write/control this prevents
+# GitHub from "counting" these files to detect the languages used in the project we
+# also prevent showing diffs for these files because they are generaly very large
+.env* linguist-vendored
+stubs/** linguist-vendored -diff
+storage/** linguist-vendored -diff
+public/js/** linguist-vendored -diff
+public/css/** linguist-vendored -diff
+tests/stubs/** linguist-vendored -diff
+public/fonts/** linguist-vendored -diff
+public/locale/** linguist-vendored -diff
+public/vendor/** linguist-vendored -diff
+resources/svg/** linguist-vendored -diff
+public/_static/** linguist-vendored -diff
+resources/lang/** linguist-vendored
+resources/files/** linguist-vendored -diff
+resources/stubs/** linguist-vendored -diff
+resources/mail/css/** linguist-vendored -diff
+database/migration-files/** linguist-vendored -diff
+resources/assets/js/vendor/** linguist-vendored -diff
+resources/assets/css/vendor/** linguist-vendored -diff
+resources/assets/sass/vendor/** linguist-vendored -diff
+resources/assets/sass/custom/** linguist-vendored -diff
+resources/assets/legacy-js/vendor/** linguist-vendored -diff

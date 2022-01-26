@@ -17,9 +17,7 @@ class PurgeSubscriptions extends Command
         $this->info("Purged {$count} subscriptions!");
 
         if (!empty(config('app.ping.purge_subscriptions'))) {
-            retry(3, function () {
-                file_get_contents(config('app.ping.purge_subscriptions'));
-            }, 15);
+            retry(3, static fn () => file_get_contents(config('app.ping.purge_subscriptions')), 15);
         }
     }
 }

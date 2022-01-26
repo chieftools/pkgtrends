@@ -1,16 +1,44 @@
+# Node.js
 /node_modules
-/public/hot
-/public/storage
-/storage/*.key
-/vendor
+/yarn-error.log
+/webpack.stats.json
+/webpack.stats.json.tmp
+
+# IDE
 /.idea
-/.vapor
-/.vscode
-/.vagrant
-Homestead.json
-Homestead.yaml
-npm-debug.log
-yarn-error.log
+/.php_cs.cache
+/_ide_helper.php
+/.phpstorm.meta.php
+/.php-cs-fixer.cache
+/programmatic-types.graphql
+
+# GraphQL
+/hive.json
+/schema.json
+/schema.graphql
+/schema-directives.graphql
+/_lighthouse_ide_helper.php
+
+# OSX Crap
+.DS_Store
+
+# PHP Composer
+/vendor
+/composer.phar
+
+# Environment config
 .env
-public/mix-manifest.json
-.php-cs-fixer.cache
+.env.gen
+/storage/*.key
+
+# CI
+.phpunit.result.cache
+
+# Asset compilation
+/public/hot
+/public/mix.js.map
+/public/sitemap.xml
+/public/mix-manifest.json
+
+# Vapor
+.vapor/

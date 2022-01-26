@@ -34,11 +34,7 @@
                 @if(config('app.analytics.fathom.public'))
                     <a href="{{ config('app.analytics.fathom.public') }}" target="_blank" rel="noopener" class="text-muted">Analytics</a> &middot;
                 @endif
-                @if(str_contains(config('app.version'), '.'))
-                    v{{ config('app.version') }}
-                @else
-                    <a href="https://github.com/irongate/pkgtrends/tree/{{ config('app.version') }}" class="text-muted">{{ config('app.version') }}</a>
-                @endif
+                {{ config('app.versionString') }} (<a href="https://github.com/irongate/pkgtrends/tree/{{ config('app.version') }}" class="text-muted">{{ config('app.version') }}</a>)
             </small>
         </footer>
     </div>

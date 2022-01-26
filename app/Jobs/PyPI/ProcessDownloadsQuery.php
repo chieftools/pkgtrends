@@ -96,9 +96,7 @@ class ProcessDownloadsQuery implements ShouldQueue
     private function pingForCompletion(): void
     {
         if ($this->pingForCompletion && !empty(config('app.ping.import.pypi.downloads'))) {
-            retry(3, function () {
-                file_get_contents(config('app.ping.import.pypi.downloads'));
-            }, 15);
+            retry(3, static fn () => file_get_contents(config('app.ping.import.pypi.downloads')), 15);
         }
     }
 }
