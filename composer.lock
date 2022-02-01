@@ -817,16 +817,16 @@
         },
         {
             "name": "google/cloud-bigquery",
-            "version": "v1.23.1",
+            "version": "v1.23.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/googleapis/google-cloud-php-bigquery.git",
-                "reference": "52c1531c8501c3707685b706455bf1552db07505"
+                "reference": "4975565816c42b7080cabd602e847dcf41a840da"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/googleapis/google-cloud-php-bigquery/zipball/52c1531c8501c3707685b706455bf1552db07505",
-                "reference": "52c1531c8501c3707685b706455bf1552db07505",
+                "url": "https://api.github.com/repos/googleapis/google-cloud-php-bigquery/zipball/4975565816c42b7080cabd602e847dcf41a840da",
+                "reference": "4975565816c42b7080cabd602e847dcf41a840da",
                 "shasum": ""
             },
             "require": {
@@ -864,22 +864,22 @@
             ],
             "description": "BigQuery Client for PHP",
             "support": {
-                "source": "https://github.com/googleapis/google-cloud-php-bigquery/tree/v1.23.1"
+                "source": "https://github.com/googleapis/google-cloud-php-bigquery/tree/v1.23.2"
             },
-            "time": "2021-10-20T17:52:15+00:00"
+            "time": "2022-01-31T21:39:13+00:00"
         },
         {
             "name": "google/cloud-core",
-            "version": "v1.43.2",
+            "version": "v1.44.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/googleapis/google-cloud-php-core.git",
-                "reference": "93fc44af3ebf60a35fbc70e13e6113b1122ba495"
+                "reference": "72706f7d1824777f42294a3c9ccdaddaad670017"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/googleapis/google-cloud-php-core/zipball/93fc44af3ebf60a35fbc70e13e6113b1122ba495",
-                "reference": "93fc44af3ebf60a35fbc70e13e6113b1122ba495",
+                "url": "https://api.github.com/repos/googleapis/google-cloud-php-core/zipball/72706f7d1824777f42294a3c9ccdaddaad670017",
+                "reference": "72706f7d1824777f42294a3c9ccdaddaad670017",
                 "shasum": ""
             },
             "require": {
@@ -894,7 +894,7 @@
             },
             "require-dev": {
                 "erusev/parsedown": "^1.6",
-                "google/common-protos": "^1.0",
+                "google/common-protos": "^1.0||^2.0",
                 "google/gax": "^1.9",
                 "opis/closure": "^3",
                 "phpdocumentor/reflection": "^3.0",
@@ -928,9 +928,9 @@
             ],
             "description": "Google Cloud PHP shared dependency, providing functionality useful to all components.",
             "support": {
-                "source": "https://github.com/googleapis/google-cloud-php-core/tree/v1.43.2"
+                "source": "https://github.com/googleapis/google-cloud-php-core/tree/v1.44.0"
             },
-            "time": "2022-01-12T16:19:20+00:00"
+            "time": "2022-01-31T21:39:13+00:00"
         },
         {
             "name": "graham-campbell/result-type",
