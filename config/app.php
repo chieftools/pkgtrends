@@ -20,7 +20,7 @@ return [
         ? trim(file_get_contents($versionPath))
         : env('APP_VERSION', '@dev'),
 
-    'versionString' => env('APP_VERSION_STRING', '2022.1.1'),
+    'versionString' => env('APP_VERSION_STRING', '2022.1.2'),
 
     /*
     |--------------------------------------------------------------------------
@@ -244,7 +244,6 @@ return [
          * Application Service Providers...
          */
         IronGate\Pkgtrends\Providers\AppServiceProvider::class,
-        IronGate\Pkgtrends\Providers\EventServiceProvider::class,
         IronGate\Pkgtrends\Providers\RouteServiceProvider::class,
 
     ],

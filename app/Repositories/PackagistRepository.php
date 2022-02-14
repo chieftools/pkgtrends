@@ -4,45 +4,16 @@ namespace IronGate\Pkgtrends\Repositories;
 
 use Carbon\Carbon;
 
-class PackagistRepository extends PackageRepository
+class PackagistRepository extends ExternalPackageRepository
 {
-    /**
-     * The package repository key.
-     *
-     * @var string
-     */
-    protected static $key = 'packagist';
-
-    /**
-     * The font awesome icon for this repository.
-     *
-     * @var string
-     */
-    protected static $icon = 'fab fa-php';
-
-    /**
-     * The source used for this repository.
-     *
-     * @var array
-     */
-    protected static $sources = [
+    protected static string $key     = 'packagist';
+    protected static string $icon    = 'fab fa-php';
+    protected static array  $sources = [
         'Packagist' => 'https://packagist.org/',
     ];
 
-    /**
-     * The base uri used for the HTTP client.
-     *
-     * @var string
-     */
-    protected $baseUri = 'https://packagist.org/';
+    protected string $baseUri = 'https://packagist.org/';
 
-    /**
-     * Search for a package using a query.
-     *
-     * @param string $query
-     *
-     * @return array
-     */
     public function searchPackage(string $query): array
     {
         return rescue(function () use ($query) {
@@ -59,13 +30,6 @@ class PackagistRepository extends PackageRepository
         }, []);
     }
 
-    /**
-     * Get the package info using an exact package name.
-     *
-     * @param string $name
-     *
-     * @return array|null
-     */
     public function getPackage(string $name): ?array
     {
         return rescue(function () use ($name) {
@@ -77,15 +41,6 @@ class PackagistRepository extends PackageRepository
         });
     }
 
-    /**
-     * Retrieve the package stats for a exact package name.
-     *
-     * @param string         $name
-     * @param \Carbon\Carbon $start
-     * @param \Carbon\Carbon $end
-     *
-     * @return array
-     */
     public function getPackageStats(string $name, Carbon $start, Carbon $end): ?array
     {
         return rescue(function () use ($name, $start, $end) {
@@ -103,13 +58,6 @@ class PackagistRepository extends PackageRepository
         });
     }
 
-    /**
-     * Format the Packagist response to something we can use internally.
-     *
-     * @param array $package
-     *
-     * @return array
-     */
     private function formatPackagistPackage(array $package): array
     {
         return [
