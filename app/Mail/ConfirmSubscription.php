@@ -12,7 +12,7 @@ class ConfirmSubscription extends Mailable implements ShouldQueue
 {
     use Queueable, SerializesModels;
 
-    public $subscription;
+    public Subscription $subscription;
 
     public function __construct(Subscription $subscription)
     {

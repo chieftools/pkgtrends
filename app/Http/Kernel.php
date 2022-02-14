@@ -2,7 +2,14 @@
 
 namespace IronGate\Pkgtrends\Http;
 
+use Illuminate\Auth\Middleware as AuthMiddleware;
+use Illuminate\Http\Middleware as HttpMiddleware;
+use Illuminate\View\Middleware as ViewMiddleware;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
+use Illuminate\Cookie\Middleware as CookieMiddleware;
+use Illuminate\Routing\Middleware as RoutingMiddleware;
+use Illuminate\Session\Middleware as SessionMiddleware;
+use Illuminate\Foundation\Http\Middleware as LaravelMiddleware;
 
 class Kernel extends HttpKernel
 {
@@ -14,11 +21,10 @@ class Kernel extends HttpKernel
      * @var array
      */
     protected $middleware = [
-        \Illuminate\Foundation\Http\Middleware\CheckForMaintenanceMode::class,
-        \Illuminate\Foundation\Http\Middleware\ValidatePostSize::class,
-        \IronGate\Pkgtrends\Http\Middleware\TrimStrings::class,
-        \Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull::class,
-        \IronGate\Pkgtrends\Http\Middleware\TrustProxiesOnVapor::class,
+        LaravelMiddleware\CheckForMaintenanceMode::class,
+        LaravelMiddleware\ValidatePostSize::class,
+        Middleware\TrimStrings::class,
+        LaravelMiddleware\ConvertEmptyStringsToNull::class,
     ];
 
     /**
@@ -28,13 +34,13 @@ class Kernel extends HttpKernel
      */
     protected $middlewareGroups = [
         'web' => [
-            \IronGate\Pkgtrends\Http\Middleware\EncryptCookies::class,
-            \Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse::class,
-            \Illuminate\Session\Middleware\StartSession::class,
-            \Illuminate\Session\Middleware\AuthenticateSession::class,
-            \Illuminate\View\Middleware\ShareErrorsFromSession::class,
-            \IronGate\Pkgtrends\Http\Middleware\VerifyCsrfToken::class,
-            \Illuminate\Routing\Middleware\SubstituteBindings::class,
+            Middleware\EncryptCookies::class,
+            CookieMiddleware\AddQueuedCookiesToResponse::class,
+            SessionMiddleware\StartSession::class,
+            SessionMiddleware\AuthenticateSession::class,
+            ViewMiddleware\ShareErrorsFromSession::class,
+            Middleware\VerifyCsrfToken::class,
+            RoutingMiddleware\SubstituteBindings::class,
         ],
 
         'api' => [
@@ -51,11 +57,11 @@ class Kernel extends HttpKernel
      * @var array
      */
     protected $routeMiddleware = [
-        'auth'          => \Illuminate\Auth\Middleware\Authenticate::class,
-        'auth.basic'    => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
-        'bindings'      => \Illuminate\Routing\Middleware\SubstituteBindings::class,
-        'cache.headers' => \Illuminate\Http\Middleware\SetCacheHeaders::class,
-        'can'           => \Illuminate\Auth\Middleware\Authorize::class,
-        'throttle'      => \Illuminate\Routing\Middleware\ThrottleRequests::class,
+        'auth'          => AuthMiddleware\Authenticate::class,
+        'auth.basic'    => AuthMiddleware\AuthenticateWithBasicAuth::class,
+        'bindings'      => RoutingMiddleware\SubstituteBindings::class,
+        'cache.headers' => HttpMiddleware\SetCacheHeaders::class,
+        'can'           => AuthMiddleware\Authorize::class,
+        'throttle'      => RoutingMiddleware\ThrottleRequests::class,
     ];
 }

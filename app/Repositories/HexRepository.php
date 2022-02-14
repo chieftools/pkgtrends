@@ -8,43 +8,12 @@ use IronGate\Pkgtrends\Models\Packages;
 
 class HexRepository extends PackageRepository
 {
-    /**
-     * The package repository key.
-     *
-     * @var string
-     */
-    protected static $key = 'hex';
-
-    /**
-     * The font awesome icon for this repository.
-     *
-     * @var string
-     */
-    protected static $icon = 'fab fa-erlang';
-
-    /**
-     * The source used for this repository.
-     *
-     * @var array
-     */
-    protected static $sources = [
+    protected static string $key     = 'hex';
+    protected static string $icon    = 'fab fa-erlang';
+    protected static array  $sources = [
         'Hex' => 'https://hex.pm/',
     ];
 
-    /**
-     * The base uri used for the HTTP client.
-     *
-     * @var string
-     */
-    protected $baseUri = 'https://hex.pm/api/';
-
-    /**
-     * Search for a package using a query.
-     *
-     * @param string $query
-     *
-     * @return array
-     */
     public function searchPackage(string $query): array
     {
         return rescue(function () use ($query) {
@@ -54,13 +23,6 @@ class HexRepository extends PackageRepository
         }, []);
     }
 
-    /**
-     * Get the package info using an exact package name.
-     *
-     * @param string $name
-     *
-     * @return array|null
-     */
     public function getPackage(string $name): ?array
     {
         return rescue(function () use ($name) {
@@ -70,15 +32,6 @@ class HexRepository extends PackageRepository
         });
     }
 
-    /**
-     * Retrieve the package stats for a exact package name.
-     *
-     * @param string         $name
-     * @param \Carbon\Carbon $start
-     * @param \Carbon\Carbon $end
-     *
-     * @return array
-     */
     public function getPackageStats(string $name, Carbon $start, Carbon $end): ?array
     {
         return rescue(function () use ($name, $start, $end) {
@@ -90,13 +43,6 @@ class HexRepository extends PackageRepository
         });
     }
 
-    /**
-     * Format the Packagist response to something we can use internally.
-     *
-     * @param \IronGate\Pkgtrends\Models\Packages\Hex $package
-     *
-     * @return array
-     */
     private function formatHexPackage(Packages\Hex $package): array
     {
         return [

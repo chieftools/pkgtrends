@@ -17,12 +17,12 @@ class ProcessPackageDownloads implements ShouldQueue
     /**
      * @var string
      */
-    protected $date;
+    protected string $date;
 
     /**
      * @var int
      */
-    protected $page;
+    protected int $page;
 
     public function __construct($date, $page = 1)
     {
@@ -67,12 +67,12 @@ class ProcessPackageDownloads implements ShouldQueue
                 }
 
                 try {
-                    (new HexStats([
+                    (new HexStats)->fill([
                         'date'      => $this->date,
                         'package'   => $name,
                         'downloads' => array_get($package, 'downloads.day', 0),
-                    ]))->save();
-                } catch (QueryException $e) {
+                    ])->save();
+                } catch (QueryException) {
                     // Ignore possible duplicates
                 }
             }

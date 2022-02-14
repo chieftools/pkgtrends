@@ -3,51 +3,24 @@
 namespace IronGate\Pkgtrends\Repositories;
 
 use Carbon\Carbon;
+use RuntimeException;
 
 abstract class PackageRepository
 {
     /**
      * The package repository key.
-     *
-     * @var string
      */
-    protected static $key;
+    protected static string $key;
 
     /**
      * The font awesome icon for this repository.
-     *
-     * @var string
      */
-    protected static $icon;
+    protected static string $icon;
 
     /**
      * The source used for this repository.
-     *
-     * @var array
      */
-    protected static $sources;
-
-    /**
-     * The base uri used for the HTTP client.
-     *
-     * @var string
-     */
-    protected $baseUri;
-
-    /**
-     * A Guzzle HTTP client instance.
-     *
-     * @var \GuzzleHttp\Client
-     */
-    protected $http;
-
-    /**
-     * PackageRepository constructor.
-     */
-    public function __construct()
-    {
-        $this->http = http($this->baseUri);
-    }
+    protected static array $sources;
 
     /**
      * Get the package repository key.
@@ -57,7 +30,7 @@ abstract class PackageRepository
     public static function getKey(): string
     {
         if (empty(static::$key)) {
-            throw new \RuntimeException('Package repository key was not set.');
+            throw new RuntimeException('Package repository key was not set.');
         }
 
         return static::$key;
@@ -71,7 +44,7 @@ abstract class PackageRepository
     public static function getIcon(): string
     {
         if (empty(static::$icon)) {
-            throw new \RuntimeException('Package repository icon was not set.');
+            throw new RuntimeException('Package repository icon was not set.');
         }
 
         return static::$icon;
@@ -85,7 +58,7 @@ abstract class PackageRepository
     public static function getSources(): array
     {
         if (empty(static::$sources)) {
-            throw new \RuntimeException('Package repository sources was not set.');
+            throw new RuntimeException('Package repository sources was not set.');
         }
 
         return static::$sources;

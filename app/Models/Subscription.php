@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use IronGate\Pkgtrends\Mail\ConfirmSubscription;
 use IronGate\Pkgtrends\Models\Concerns\UsesUUID;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
@@ -16,6 +17,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property string                            $report_id
  * @property \Carbon\Carbon|null               $confirmed_at
  * @property \Carbon\Carbon|null               $last_notified_at
+ * @property bool                              $is_confirmed
  * @property \Carbon\Carbon                    $created_at
  * @property \Carbon\Carbon                    $updated_at
  * @property \IronGate\Pkgtrends\Models\Report $report
@@ -28,7 +30,7 @@ class Subscription extends Model
         'email',
     ];
 
-    public static function boot()
+    public static function boot(): void
     {
         parent::boot();
 
@@ -77,9 +79,11 @@ class Subscription extends Model
         $this->save();
     }
 
-    public function getIsConfirmedAttribute(): bool
+    public function isConfirmed(): Attribute
     {
-        return $this->confirmed_at !== null;
+        return new Attribute(
+            get: fn () => $this->confirmed_at !== null,
+        );
     }
 
     public static function findByEmail(string $email): Collection
