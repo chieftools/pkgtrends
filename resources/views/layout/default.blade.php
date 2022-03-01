@@ -24,7 +24,7 @@
                 </small>
             </p>
             <p class="mb-3">
-                Made with ❤ by <a href="https://github.com/irongate/pkgtrends/graphs/contributors" target="_blank" rel="noopener">all contributors</a>.
+                Made with ❤ by <a href="https://github.com/irongate/pkgtrends/graphs/contributors" target="_blank" rel="noopener">all contributors</a> & <i class="fa fa-toolbox"></i> <a href="https://chief.app?ref=pkgtrends" target="_blank" rel="noopener">Chief Tools</a>.
                 <br>
                 <small>
                     Seeing something broken or have suggestions? <a href="https://github.com/irongate/pkgtrends/issues/new" target="_blank" rel="noopener">Let us know!</a>
