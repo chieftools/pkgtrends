@@ -1,6 +1,13 @@
 import Chart from "chart.js";
+import { Tooltip } from "bootstrap";
 
-require("./bootstrap");
+require("jquery-ui/ui/core");
+require("jquery-ui/ui/widgets/sortable");
+import "@selectize/selectize";
+
+window.$ = window.jQuery = require("jquery");
+
+document.querySelectorAll('[data-toggle*="tooltip"]').forEach((el) => new Tooltip(el));
 
 (function () {
     window.chart_init = function chart_init(ctx, chart) {

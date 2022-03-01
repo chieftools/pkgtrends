@@ -6,50 +6,53 @@
 
 // Bootstrap
 @import "~bootstrap/scss/bootstrap";
-@import "selectize/selectize.bootstrap4";
 
-.navbar-laravel {
-    background-color: #ffffff;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
-}
+// Selectize
+@import "vendor/selectize/selectize.bootstrap5";
 
 .selectize-control {
     &::before {
-        -moz-transition: opacity 0.2s;
-        -webkit-transition: opacity 0.2s;
-        transition: opacity 0.2s;
-        content: " ";
         z-index: 2;
+        content: "\f1ce";
+        font-family: "Font Awesome 6 Free";
+        font-weight: 900;
         position: absolute;
         display: block;
         top: 50%;
         right: 16px;
-        width: 16px;
-        height: 16px;
-        margin: -10px 0 0 0;
-        background: url(/img/spinner.gif);
-        background-size: 16px 16px;
+        margin: -13px -5px 0 0;
         opacity: 0;
+        animation: fa-spin 2s infinite linear;
+        transition: opacity 0.2s;
     }
 
     &.loading::before {
-        opacity: 0.4;
+        opacity: 0.6;
     }
 
     .selectize-input {
-        i,
-        .svg-inline--fa {
-            width: 16px;
-            height: 16px;
-            display: inline-block;
-            vertical-align: middle;
-            background-size: 16px 16px;
+        background-color: white;
+
+        i {
             margin: 0 6px 0 3px;
+        }
+
+        .selected-item {
+            .remove {
+                color: $text-color;
+                margin: 0 3px 0 6px;
+                text-decoration: none;
+            }
+
+            &.active .remove {
+                color: white;
+            }
         }
     }
 
     .selectize-dropdown {
         .item {
+            display: block;
             padding: 5px 10px;
         }
 
@@ -67,13 +70,7 @@
             overflow: hidden;
         }
 
-        i,
-        .svg-inline--fa {
-            width: 16px;
-            height: 16px;
-            display: inline-block;
-            vertical-align: middle;
-            background-size: 16px 16px;
+        i {
             margin: 0 6px 0 3px;
         }
     }

@@ -60,3 +60,21 @@ function http(?string $baseUri = null, array $headers = [], int $timeout = 10, a
         ]),
     ]));
 }
+
+/**
+ * Return the URL to a static asset hosted on a global CDN.
+ *
+ * @param string|null $path
+ *
+ * @return string
+ */
+function static_asset(?string $path = null): string
+{
+    $url = 'https://static.assets.chief.app';
+
+    if (!empty($path)) {
+        $url .= '/' . ltrim($path, '/');
+    }
+
+    return $url;
+}
