@@ -17,7 +17,7 @@
         "aws/aws-sdk-php": "^3.209",
         "google/cloud-bigquery": "1.23.*",
         "guzzlehttp/guzzle": "7.4.*",
-        "laravel/framework": "9.1.*",
+        "laravel/framework": "9.2.*",
         "laravel/helpers": "1.5.*",
         "laravel/tinker": "2.7.*",
         "ramsey/uuid": "4.2.*",
