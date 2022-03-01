@@ -11,17 +11,36 @@ let mix = require('laravel-mix');
  |
  */
 
-mix.options({
-    terser:  {
-        extractComments: false,
-    },
-    cssNano: {
-        discardComments: {
-            removeAll: true,
+mix
+    .options({
+        terser:   {
+            terserOptions:   {
+                mangle:   false,
+                output:   {
+                    comments: false,
+                },
+                compress: {
+                    drop_console: false,
+                },
+            },
+            extractComments: false,
         },
-    },
-});
+        cssNano:  {
+            discardComments: {
+                removeAll: true,
+            },
+        },
+        cleanCss: {
+            level: {
+                1: {
+                    specialComments: 'none',
+                },
+            },
+        },
+    })
+    .version()
 
-mix.js('resources/assets/js/app.js', 'public/build')
+    .js('resources/assets/js/app.js', 'public/build')
     .sass('resources/assets/sass/app.scss', 'public/build')
-    .version();
+
+;

@@ -5,10 +5,10 @@
     <p>
         Get a weekly e-mail from us with the latest trends for this report.
     </p>
-    <form id="subscriptionForm" class="form" method="POST" action="{{ request()->fullUrl() }}/subscribe">
+    <form id="subscriptionForm" class="form" method="POST" action="{{ route('subscription.create', [request('query')]) }}">
         @csrf
-        <div class="form-row justify-content-center">
-            <div class="col-lg-3 col-md-5 col-sm-7 my-1">
+        <div class="row justify-content-center">
+            <div class="col-lg-3 col-md-5 col-sm-7 px-0 me-3">
                 <input type="email" class="form-control {{ $errors->has('email') ? 'is-invalid' : '' }}" placeholder="Your e-mail" name="email" value="{{ old('email') }}"/>
                 @if($error = ($errors->has('email') || $errors->has('h-captcha-response')))
                     <div class="invalid-feedback">
@@ -16,7 +16,7 @@
                     </div>
                 @endif
             </div>
-            <div class="col-auto my-1">
+            <div class="col-auto px-0">
                 <button type="submit" class="btn btn-primary form-control h-captcha" data-sitekey="{{ config('services.hcaptcha.key') }}" data-callback="hCaptchaCallback" data-badge="inline">Subscribe</button>
                 @if($error)
                     <div>&nbsp;</div>
