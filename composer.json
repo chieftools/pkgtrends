@@ -19,6 +19,7 @@
         "guzzlehttp/guzzle": "7.4.*",
         "laravel/framework": "9.2.*",
         "laravel/helpers": "1.5.*",
+        "laravel/horizon": "^5.9",
         "laravel/tinker": "2.7.*",
         "sentry/sentry-laravel": "2.11.*",
         "stayallive/laravel-eloquent-uuid": "1.0.*"
@@ -32,6 +33,15 @@
         "spatie/laravel-ignition": "1.0.*",
         "wnx/laravel-stats": "2.8.*"
     },
+    "replace": {
+        "symfony/polyfill-php70": "*",
+        "symfony/polyfill-php71": "*",
+        "symfony/polyfill-php72": "*",
+        "symfony/polyfill-php73": "*",
+        "symfony/polyfill-php74": "*",
+        "symfony/polyfill-php80": "*",
+        "symfony/polyfill-php81": "*"
+    },
     "autoload": {
         "psr-4": {
             "IronGate\\Pkgtrends\\": "app/"
@@ -43,6 +53,7 @@
     "scripts": {
         "post-update-cmd": [
             "Illuminate\\Foundation\\ComposerScripts::postUpdate",
+            "@php artisan horizon:publish",
             "@generate:ide"
         ],
         "post-autoload-dump": [
