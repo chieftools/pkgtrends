@@ -21,6 +21,12 @@ class Kernel extends ConsoleKernel
         $this->scheduleHex($schedule);
         $this->schedulePyPI($schedule);
         $this->scheduleSubscriptions($schedule);
+
+        // See: https://laravel.com/docs/9.x/horizon#metrics
+        $schedule->command('horizon:snapshot')
+                 ->withoutOverlapping()
+                 ->runInBackground()
+                 ->everyFiveMinutes();
     }
 
     private function scheduleHex(Schedule $schedule): void
