@@ -20,7 +20,7 @@ return [
         ? trim(file_get_contents($versionPath))
         : env('APP_VERSION', '@dev'),
 
-    'versionString' => env('APP_VERSION_STRING', '2022.1.6'),
+    'versionString' => env('APP_VERSION_STRING', '2022.1.7'),
 
     /*
     |--------------------------------------------------------------------------
@@ -46,6 +46,7 @@ return [
 
     'ping' => [
 
+        'queue'               => env('PING_QUEUE'),
         'weekly'              => env('PING_WEEKLY'),
         'purge_reports'       => env('PING_PURGE_REPORTS'),
         'purge_subscriptions' => env('PING_PURGE_SUBSCRIPTIONS'),

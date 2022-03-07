@@ -3,6 +3,7 @@
 namespace IronGate\Pkgtrends\Console;
 
 use Illuminate\Console\Scheduling\Schedule;
+use Laravel\Horizon\Console\SnapshotCommand;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
 class Kernel extends ConsoleKernel
@@ -20,13 +21,8 @@ class Kernel extends ConsoleKernel
 
         $this->scheduleHex($schedule);
         $this->schedulePyPI($schedule);
+        $this->scheduleQueue($schedule);
         $this->scheduleSubscriptions($schedule);
-
-        // See: https://laravel.com/docs/9.x/horizon#metrics
-        $schedule->command('horizon:snapshot')
-                 ->withoutOverlapping()
-                 ->runInBackground()
-                 ->everyFiveMinutes();
     }
 
     private function scheduleHex(Schedule $schedule): void
@@ -35,12 +31,14 @@ class Kernel extends ConsoleKernel
         $schedule->command(Commands\Import\Hex\Downloads::class)
                  ->withoutOverlapping()
                  ->runInBackground()
+                 ->onOneServer()
                  ->dailyAt('04:00');
 
         // Every sunday we cleanup our internal package index / stats that are old or no longer in use
         $schedule->command(Commands\Import\Hex\Cleanup::class)
                  ->withoutOverlapping()
                  ->runInBackground()
+                 ->onOneServer()
                  ->at('03:00')
                  ->sundays();
     }
@@ -51,12 +49,14 @@ class Kernel extends ConsoleKernel
         $schedule->command(Commands\Import\PyPI\Downloads::class)
                  ->withoutOverlapping()
                  ->runInBackground()
+                 ->onOneServer()
                  ->dailyAt('04:15');
 
         // Every sunday we cleanup our internal package index / stats that are old or no longer in use
         $schedule->command(Commands\Import\PyPI\Cleanup::class)
                  ->withoutOverlapping()
                  ->runInBackground()
+                 ->onOneServer()
                  ->at('03:15')
                  ->sundays();
 
@@ -68,12 +68,30 @@ class Kernel extends ConsoleKernel
                  ->saturdays();
     }
 
+    private function scheduleQueue(Schedule $schedule): void
+    {
+        // Dispatches a job calling a ping hook so we know the queue is active
+        $schedule->command(Commands\QueueHealthCheck::class)
+                 ->withoutOverlapping()
+                 ->runInBackground()
+                 ->onOneServer()
+                 ->everyMinute();
+
+        // See: https://laravel.com/docs/9.x/horizon#metrics
+        $schedule->command(SnapshotCommand::class)
+                 ->withoutOverlapping()
+                 ->runInBackground()
+                 ->onOneServer()
+                 ->everyFiveMinutes();
+    }
+
     private function scheduleSubscriptions(Schedule $schedule): void
     {
         // Every monday we send the weekly reports to our subscribers
         $schedule->command(Commands\SendWeeklyReports::class)
                  ->withoutOverlapping()
                  ->runInBackground()
+                 ->onOneServer()
                  ->at('08:00')
                  ->mondays();
 
@@ -81,12 +99,14 @@ class Kernel extends ConsoleKernel
         $schedule->command(Commands\PurgeSubscriptions::class)
                  ->withoutOverlapping()
                  ->runInBackground()
+                 ->onOneServer()
                  ->dailyAt('01:00');
 
         // Every day purge the unsubscribed reports
         $schedule->command(Commands\PurgeReports::class)
                  ->withoutOverlapping()
                  ->runInBackground()
+                 ->onOneServer()
                  ->dailyAt('01:15');
     }
 }
