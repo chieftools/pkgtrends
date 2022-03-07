@@ -17,6 +17,12 @@ class HorizonServiceProvider extends HorizonApplicationServiceProvider
 
     protected function gate(): void
     {
-        Gate::define('viewHorizon', static fn ($user = null): bool => false);
+        Gate::define('viewHorizon', static function ($user = null): bool {
+            if ($user === null) {
+                return request()->bearerToken() === config('services.horizon.secret');
+            }
+
+            return false;
+        });
     }
 }

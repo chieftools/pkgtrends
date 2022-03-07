@@ -39,4 +39,8 @@ return [
         'secret' => env('HCAPTCHA_SECRET'),
     ],
 
+    'horizon' => [
+        'secret' => env('HORIZON_SECRET'),
+    ],
+
 ];

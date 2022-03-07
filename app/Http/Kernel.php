@@ -2,7 +2,6 @@
 
 namespace IronGate\Pkgtrends\Http;
 
-use Illuminate\Auth\Middleware as AuthMiddleware;
 use Illuminate\Http\Middleware as HttpMiddleware;
 use Illuminate\View\Middleware as ViewMiddleware;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
@@ -21,8 +20,9 @@ class Kernel extends HttpKernel
      * @var array
      */
     protected $middleware = [
-        LaravelMiddleware\CheckForMaintenanceMode::class,
+        LaravelMiddleware\PreventRequestsDuringMaintenance::class,
         LaravelMiddleware\ValidatePostSize::class,
+        HttpMiddleware\HandleCors::class,
         Middleware\TrimStrings::class,
         LaravelMiddleware\ConvertEmptyStringsToNull::class,
     ];
@@ -37,7 +37,6 @@ class Kernel extends HttpKernel
             Middleware\EncryptCookies::class,
             CookieMiddleware\AddQueuedCookiesToResponse::class,
             SessionMiddleware\StartSession::class,
-            SessionMiddleware\AuthenticateSession::class,
             ViewMiddleware\ShareErrorsFromSession::class,
             Middleware\VerifyCsrfToken::class,
             RoutingMiddleware\SubstituteBindings::class,
@@ -45,7 +44,7 @@ class Kernel extends HttpKernel
 
         'api' => [
             'throttle:60,1',
-            'bindings',
+            RoutingMiddleware\SubstituteBindings::class,
         ],
     ];
 
@@ -57,11 +56,7 @@ class Kernel extends HttpKernel
      * @var array
      */
     protected $routeMiddleware = [
-        'auth'          => AuthMiddleware\Authenticate::class,
-        'auth.basic'    => AuthMiddleware\AuthenticateWithBasicAuth::class,
-        'bindings'      => RoutingMiddleware\SubstituteBindings::class,
-        'cache.headers' => HttpMiddleware\SetCacheHeaders::class,
-        'can'           => AuthMiddleware\Authorize::class,
-        'throttle'      => RoutingMiddleware\ThrottleRequests::class,
+        'signed'   => RoutingMiddleware\ValidateSignature::class,
+        'throttle' => RoutingMiddleware\ThrottleRequests::class,
     ];
 }
