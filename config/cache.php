@@ -58,6 +58,6 @@ return [
     |
     */
 
-    'prefix' => 'pkgtrends_cache:',
+    'prefix' => 'cache',
 
 ];
