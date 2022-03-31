@@ -1,7 +1,5 @@
 <?php
 
-use Illuminate\Support\Str;
-
 return [
 
     /*
@@ -15,7 +13,7 @@ return [
     |
     */
 
-    'domain' => env('HORIZON_DOMAIN', null),
+    'domain' => env('HORIZON_DOMAIN'),
 
     /*
     |--------------------------------------------------------------------------
@@ -54,10 +52,7 @@ return [
     |
     */
 
-    'prefix' => env(
-        'HORIZON_PREFIX',
-        Str::slug(env('APP_NAME', 'laravel'), '_') . '_horizon:'
-    ),
+    'prefix' => env('HORIZON_PREFIX', 'pkgtrends_horizon:'),
 
     /*
     |--------------------------------------------------------------------------
@@ -97,12 +92,12 @@ return [
     */
 
     'trim' => [
-        'recent'        => 60,
-        'pending'       => 60,
-        'completed'     => 60,
-        'recent_failed' => 10080,
-        'failed'        => 10080,
-        'monitored'     => 10080,
+        'recent'        => 10,
+        'pending'       => 10,
+        'completed'     => 10,
+        'recent_failed' => 1440,
+        'failed'        => 1440,
+        'monitored'     => 1440,
     ],
 
     /*
