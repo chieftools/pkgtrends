@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout sources
-        uses: actions/checkout@v2.4.0
+        uses: actions/checkout@v3
 
       - name: Setup PHP cache
         uses: shivammathur/cache-extensions@1.7.1
@@ -23,18 +23,18 @@ jobs:
           extensions: zip
           key: php81-cache
       - name: Cache PHP extensions
-        uses: actions/cache@v2.1.7
+        uses: actions/cache@v3.0.1
         with:
           path: ${{ steps.php-ext-cache.outputs.dir }}
           key: ${{ steps.php-ext-cache.outputs.key }}
           restore-keys: ${{ steps.php-ext-cache.outputs.key }}
       - name: Setup PHP
-        uses: shivammathur/setup-php@2.17.0
+        uses: shivammathur/setup-php@2.18.0
         with:
           php-version: '8.1'
           extensions: zip
       - name: Cache Composer dependencies
-        uses: actions/cache@v2.1.7
+        uses: actions/cache@v3.0.1
         id: composer-cache
         with:
           path: vendor
@@ -54,7 +54,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout sources
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Setup PHP cache
         uses: shivammathur/cache-extensions@1.7.1
@@ -64,18 +64,18 @@ jobs:
           extensions: zip
           key: php81-cache
       - name: Cache PHP extensions
-        uses: actions/cache@v2.1.7
+        uses: actions/cache@v3.0.1
         with:
           path: ${{ steps.php-ext-cache.outputs.dir }}
           key: ${{ steps.php-ext-cache.outputs.key }}
           restore-keys: ${{ steps.php-ext-cache.outputs.key }}
       - name: Setup PHP
-        uses: shivammathur/setup-php@2.17.0
+        uses: shivammathur/setup-php@2.18.0
         with:
           php-version: '8.1'
           extensions: zip
       - name: Cache Composer dependencies
-        uses: actions/cache@v2.1.7
+        uses: actions/cache@v3.0.1
         id: composer-cache
         with:
           path: vendor
@@ -91,7 +91,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout sources
-        uses: actions/checkout@v2.4.0
+        uses: actions/checkout@v3
 
       - name: Setup PHP cache
         uses: shivammathur/cache-extensions@1.7.1
@@ -101,18 +101,18 @@ jobs:
           extensions: zip
           key: php81-cache
       - name: Cache PHP extensions
-        uses: actions/cache@v2.1.7
+        uses: actions/cache@v3.0.1
         with:
           path: ${{ steps.php-ext-cache.outputs.dir }}
           key: ${{ steps.php-ext-cache.outputs.key }}
           restore-keys: ${{ steps.php-ext-cache.outputs.key }}
       - name: Setup PHP
-        uses: shivammathur/setup-php@2.17.0
+        uses: shivammathur/setup-php@2.18.0
         with:
           php-version: '8.1'
           extensions: zip
       - name: Cache Composer dependencies
-        uses: actions/cache@v2.1.7
+        uses: actions/cache@v3.0.1
         id: composer-cache
         with:
           path: vendor
@@ -132,7 +132,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout sources
-        uses: actions/checkout@v2.4.0
+        uses: actions/checkout@v3
 
       - name: Check for security issues in dependencies
         uses: symfonycorp/security-checker-action@v2
@@ -142,10 +142,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout sources
-        uses: actions/checkout@v2.4.0
+        uses: actions/checkout@v3
 
       - name: Cache Yarn dependencies
-        uses: actions/cache@v2.1.7
+        uses: actions/cache@v3.0.1
         id: yarn-cache
         with:
           path: node_modules
@@ -162,10 +162,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout sources
-        uses: actions/checkout@v2.4.0
+        uses: actions/checkout@v3
 
       - name: Cache Yarn dependencies
-        uses: actions/cache@v2.1.7
+        uses: actions/cache@v3.0.1
         id: yarn-cache
         with:
           path: node_modules
@@ -193,7 +193,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout sources
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Notify Sentry
         uses: docker://stayallive/sentry:release
