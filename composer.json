@@ -28,7 +28,7 @@
         "barryvdh/laravel-debugbar": "3.6.*",
         "barryvdh/laravel-ide-helper": "2.12.*",
         "friendsofphp/php-cs-fixer": "3.8.*",
-        "nunomaduro/collision": "6.1.*",
+        "nunomaduro/collision": "6.2.*",
         "nunomaduro/larastan": "2.1.*",
         "spatie/laravel-ignition": "1.2.*",
         "wnx/laravel-stats": "2.9.*"
