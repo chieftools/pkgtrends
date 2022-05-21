@@ -24,6 +24,7 @@
         "prettier": "^2.5.1",
         "resolve-url-loader": "^5.0.0",
         "sass": "^1.49.9",
-        "sass-loader": "^12.1.0"
+        "sass-loader": "^12.1.0",
+        "sifter": "^0.5.4"
     }
 }
