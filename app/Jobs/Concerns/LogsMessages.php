@@ -6,6 +6,6 @@ trait LogsMessages
 {
     protected function logMessage(string $message): void
     {
-        logger()?->info('[' . static::class . '] ' . $message);
+        logger()->info('[' . static::class . '] ' . $message);
     }
 }
