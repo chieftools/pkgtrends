@@ -647,16 +647,16 @@
         },
         {
             "name": "firebase/php-jwt",
-            "version": "v6.2.0",
+            "version": "v6.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/firebase/php-jwt.git",
-                "reference": "d28e6df83830252650da4623c78aaaf98fb385f3"
+                "reference": "018dfc4e1da92ad8a1b90adc4893f476a3b41cb8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/firebase/php-jwt/zipball/d28e6df83830252650da4623c78aaaf98fb385f3",
-                "reference": "d28e6df83830252650da4623c78aaaf98fb385f3",
+                "url": "https://api.github.com/repos/firebase/php-jwt/zipball/018dfc4e1da92ad8a1b90adc4893f476a3b41cb8",
+                "reference": "018dfc4e1da92ad8a1b90adc4893f476a3b41cb8",
                 "shasum": ""
             },
             "require": {
@@ -703,9 +703,9 @@
             ],
             "support": {
                 "issues": "https://github.com/firebase/php-jwt/issues",
-                "source": "https://github.com/firebase/php-jwt/tree/v6.2.0"
+                "source": "https://github.com/firebase/php-jwt/tree/v6.3.0"
             },
-            "time": "2022-05-13T20:54:50+00:00"
+            "time": "2022-07-15T16:48:45+00:00"
         },
         {
             "name": "fruitcake/php-cors",
@@ -838,16 +838,16 @@
         },
         {
             "name": "google/cloud-bigquery",
-            "version": "v1.23.7",
+            "version": "v1.23.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/googleapis/google-cloud-php-bigquery.git",
-                "reference": "a5be408820932903bdd6637ce95c5505c3dc827d"
+                "reference": "63091adde08cd05f9b3bd5323a05887d12859d4f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/googleapis/google-cloud-php-bigquery/zipball/a5be408820932903bdd6637ce95c5505c3dc827d",
-                "reference": "a5be408820932903bdd6637ce95c5505c3dc827d",
+                "url": "https://api.github.com/repos/googleapis/google-cloud-php-bigquery/zipball/63091adde08cd05f9b3bd5323a05887d12859d4f",
+                "reference": "63091adde08cd05f9b3bd5323a05887d12859d4f",
                 "shasum": ""
             },
             "require": {
@@ -886,22 +886,22 @@
             ],
             "description": "BigQuery Client for PHP",
             "support": {
-                "source": "https://github.com/googleapis/google-cloud-php-bigquery/tree/v1.23.7"
+                "source": "https://github.com/googleapis/google-cloud-php-bigquery/tree/v1.23.8"
             },
-            "time": "2022-06-02T21:53:43+00:00"
+            "time": "2022-07-29T00:07:49+00:00"
         },
         {
             "name": "google/cloud-core",
-            "version": "v1.46.1",
+            "version": "v1.47.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/googleapis/google-cloud-php-core.git",
-                "reference": "ee8ad36aa59773669ca0cd5e1ffeccac7a78d083"
+                "reference": "a2ea4dc6fdfc990eeb2b197681661aca9ce212ad"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/googleapis/google-cloud-php-core/zipball/ee8ad36aa59773669ca0cd5e1ffeccac7a78d083",
-                "reference": "ee8ad36aa59773669ca0cd5e1ffeccac7a78d083",
+                "url": "https://api.github.com/repos/googleapis/google-cloud-php-core/zipball/a2ea4dc6fdfc990eeb2b197681661aca9ce212ad",
+                "reference": "a2ea4dc6fdfc990eeb2b197681661aca9ce212ad",
                 "shasum": ""
             },
             "require": {
@@ -910,7 +910,7 @@
                 "guzzlehttp/promises": "^1.3",
                 "guzzlehttp/psr7": "^1.7|^2.0",
                 "monolog/monolog": "^1.1|^2.0",
-                "php": ">=5.5",
+                "php": ">=5.6",
                 "psr/http-message": "1.0.*",
                 "rize/uri-template": "~0.3"
             },
@@ -951,9 +951,9 @@
             ],
             "description": "Google Cloud PHP shared dependency, providing functionality useful to all components.",
             "support": {
-                "source": "https://github.com/googleapis/google-cloud-php-core/tree/v1.46.1"
+                "source": "https://github.com/googleapis/google-cloud-php-core/tree/v1.47.0"
             },
-            "time": "2022-06-15T21:38:50+00:00"
+            "time": "2022-07-29T00:07:49+00:00"
         },
         {
             "name": "graham-campbell/result-type",
@@ -2232,16 +2232,16 @@
         },
         {
             "name": "monolog/monolog",
-            "version": "2.7.0",
+            "version": "2.8.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Seldaek/monolog.git",
-                "reference": "5579edf28aee1190a798bfa5be8bc16c563bd524"
+                "reference": "720488632c590286b88b80e62aa3d3d551ad4a50"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Seldaek/monolog/zipball/5579edf28aee1190a798bfa5be8bc16c563bd524",
-                "reference": "5579edf28aee1190a798bfa5be8bc16c563bd524",
+                "url": "https://api.github.com/repos/Seldaek/monolog/zipball/720488632c590286b88b80e62aa3d3d551ad4a50",
+                "reference": "720488632c590286b88b80e62aa3d3d551ad4a50",
                 "shasum": ""
             },
             "require": {
@@ -2261,11 +2261,10 @@
                 "guzzlehttp/psr7": "^2.2",
                 "mongodb/mongodb": "^1.8",
                 "php-amqplib/php-amqplib": "~2.4 || ^3",
-                "php-console/php-console": "^3.1.3",
                 "phpspec/prophecy": "^1.15",
                 "phpstan/phpstan": "^0.12.91",
                 "phpunit/phpunit": "^8.5.14",
-                "predis/predis": "^1.1",
+                "predis/predis": "^1.1 || ^2.0",
                 "rollbar/rollbar": "^1.3 || ^2 || ^3",
                 "ruflin/elastica": "^7",
                 "swiftmailer/swiftmailer": "^5.3|^6.0",
@@ -2285,7 +2284,6 @@
                 "graylog2/gelf-php": "Allow sending log messages to a GrayLog2 server",
                 "mongodb/mongodb": "Allow sending log messages to a MongoDB server (via library)",
                 "php-amqplib/php-amqplib": "Allow sending log messages to an AMQP server using php-amqplib",
-                "php-console/php-console": "Allow sending log messages to Google Chrome",
                 "rollbar/rollbar": "Allow sending log messages to Rollbar",
                 "ruflin/elastica": "Allow sending log messages to an Elastic Search server"
             },
@@ -2320,7 +2318,7 @@
             ],
             "support": {
                 "issues": "https://github.com/Seldaek/monolog/issues",
-                "source": "https://github.com/Seldaek/monolog/tree/2.7.0"
+                "source": "https://github.com/Seldaek/monolog/tree/2.8.0"
             },
             "funding": [
                 {
@@ -2332,7 +2330,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2022-06-09T08:59:12+00:00"
+            "time": "2022-07-24T11:55:47+00:00"
         },
         {
             "name": "mtdowling/jmespath.php",
