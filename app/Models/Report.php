@@ -2,8 +2,8 @@
 
 namespace ChiefTools\Pkgtrends\Models;
 
-use ChiefTools\Pkgtrends\TrendsProvider;
 use Illuminate\Database\Eloquent\Model;
+use ChiefTools\Pkgtrends\TrendsProvider;
 use Stayallive\Laravel\Eloquent\UUID\UsesUUID;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 

@@ -37,7 +37,7 @@ class TrendsProvider
      * @param string $query
      */
     public function __construct(
-        private string $query
+        private string $query,
     ) {
         // TODO: This should probably be user configurable at some point
         $this->start = Carbon::now()->subDays(27 * 7);

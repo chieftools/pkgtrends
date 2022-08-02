@@ -7,8 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Stayallive\Laravel\Eloquent\UUID\UsesUUID;
-use ChiefTools\Pkgtrends\Mail\ConfirmSubscription;
 use Illuminate\Database\Eloquent\Casts\Attribute;
+use ChiefTools\Pkgtrends\Mail\ConfirmSubscription;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
