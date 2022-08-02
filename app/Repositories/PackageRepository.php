@@ -1,6 +1,6 @@
 <?php
 
-namespace IronGate\Pkgtrends\Repositories;
+namespace ChiefTools\Pkgtrends\Repositories;
 
 use Carbon\Carbon;
 use RuntimeException;

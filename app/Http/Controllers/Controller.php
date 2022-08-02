@@ -1,6 +1,6 @@
 <?php
 
-namespace IronGate\Pkgtrends\Http\Controllers;
+namespace ChiefTools\Pkgtrends\Http\Controllers;
 
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Routing\Controller as BaseController;

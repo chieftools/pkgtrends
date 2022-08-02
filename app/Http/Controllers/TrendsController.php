@@ -1,12 +1,12 @@
 <?php
 
-namespace IronGate\Pkgtrends\Http\Controllers;
+namespace ChiefTools\Pkgtrends\Http\Controllers;
 
 use Illuminate\View\View;
 use Illuminate\Http\Request;
-use IronGate\Pkgtrends\Repositories;
+use ChiefTools\Pkgtrends\Repositories;
 use Illuminate\Http\RedirectResponse;
-use IronGate\Pkgtrends\TrendsProvider;
+use ChiefTools\Pkgtrends\TrendsProvider;
 
 class TrendsController extends Controller
 {

@@ -1,9 +1,9 @@
 <?php
 
-namespace IronGate\Pkgtrends\Console\Commands\Import\Hex;
+namespace ChiefTools\Pkgtrends\Console\Commands\Import\Hex;
 
 use Illuminate\Console\Command;
-use IronGate\Pkgtrends\Jobs\Hex\ProcessPackageDownloads;
+use ChiefTools\Pkgtrends\Jobs\Hex\ProcessPackageDownloads;
 
 class Downloads extends Command
 {

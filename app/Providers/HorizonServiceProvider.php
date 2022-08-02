@@ -1,6 +1,6 @@
 <?php
 
-namespace IronGate\Pkgtrends\Providers;
+namespace ChiefTools\Pkgtrends\Providers;
 
 use Laravel\Horizon\Horizon;
 use Illuminate\Support\Facades\Gate;

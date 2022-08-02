@@ -1,12 +1,12 @@
 <?php
 
-namespace IronGate\Pkgtrends\Mail;
+namespace ChiefTools\Pkgtrends\Mail;
 
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldQueue;
-use IronGate\Pkgtrends\Models\Subscription;
+use ChiefTools\Pkgtrends\Models\Subscription;
 
 class ConfirmSubscription extends Mailable implements ShouldQueue
 {

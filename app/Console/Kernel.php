@@ -1,6 +1,6 @@
 <?php
 
-namespace IronGate\Pkgtrends\Console;
+namespace ChiefTools\Pkgtrends\Console;
 
 use Illuminate\Console\Scheduling\Schedule;
 use Laravel\Horizon\Console\SnapshotCommand;

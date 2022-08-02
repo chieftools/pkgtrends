@@ -1,14 +1,14 @@
 <?php
 
-namespace IronGate\Pkgtrends\Jobs\Hex;
+namespace ChiefTools\Pkgtrends\Jobs\Hex;
 
 use Illuminate\Bus\Queueable;
 use Illuminate\Database\QueryException;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
-use IronGate\Pkgtrends\Jobs\Concerns\LogsMessages;
-use IronGate\Pkgtrends\Models\Stats\Hex as HexStats;
-use IronGate\Pkgtrends\Models\Packages\Hex as HexPackage;
+use ChiefTools\Pkgtrends\Jobs\Concerns\LogsMessages;
+use ChiefTools\Pkgtrends\Models\Stats\Hex as HexStats;
+use ChiefTools\Pkgtrends\Models\Packages\Hex as HexPackage;
 
 class ProcessPackageDownloads implements ShouldQueue
 {
@@ -53,7 +53,7 @@ class ProcessPackageDownloads implements ShouldQueue
             if (!empty($name = array_get($package, 'name'))) {
                 $description = array_get($package, 'meta.description');
 
-                /** @var \IronGate\Pkgtrends\Models\Packages\Hex $localPackage */
+                /** @var \ChiefTools\Pkgtrends\Models\Packages\Hex $localPackage */
                 $localPackage = HexPackage::query()->firstOrCreate(compact('name'), compact('description'));
 
                 if (!$localPackage->wasRecentlyCreated) {

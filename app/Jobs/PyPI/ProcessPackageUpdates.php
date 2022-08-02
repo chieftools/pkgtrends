@@ -1,13 +1,13 @@
 <?php
 
-namespace IronGate\Pkgtrends\Jobs\PyPI;
+namespace ChiefTools\Pkgtrends\Jobs\PyPI;
 
 use GuzzleHttp\Promise\Utils;
 use Illuminate\Bus\Queueable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
-use IronGate\Pkgtrends\Models\Packages\PyPI;
-use IronGate\Pkgtrends\Jobs\Concerns\LogsMessages;
+use ChiefTools\Pkgtrends\Models\Packages\PyPI;
+use ChiefTools\Pkgtrends\Jobs\Concerns\LogsMessages;
 
 class ProcessPackageUpdates implements ShouldQueue
 {
@@ -49,7 +49,7 @@ class ProcessPackageUpdates implements ShouldQueue
 
         // Loop over the results
         foreach ($results as $package => $result) {
-            /** @var \IronGate\Pkgtrends\Models\Packages\PyPI $localPackage */
+            /** @var \ChiefTools\Pkgtrends\Models\Packages\PyPI $localPackage */
             $localPackage = $packages->find($package);
 
             // Make sure the response was fullfilled and the response code is good

@@ -1,6 +1,6 @@
 <?php
 
-namespace IronGate\Pkgtrends\Providers;
+namespace ChiefTools\Pkgtrends\Providers;
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
@@ -14,7 +14,7 @@ class RouteServiceProvider extends ServiceProvider
      *
      * @var string
      */
-    protected $namespace = 'IronGate\Pkgtrends\Http\Controllers';
+    protected $namespace = 'ChiefTools\Pkgtrends\Http\Controllers';
 
     /**
      * Define the routes for the application.

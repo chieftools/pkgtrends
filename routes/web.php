@@ -1,8 +1,8 @@
 <?php
 
 use Illuminate\Routing\Middleware\ValidateSignature;
-use IronGate\Pkgtrends\Http\Controllers\TrendsController;
-use IronGate\Pkgtrends\Http\Controllers\SubscriptionController;
+use ChiefTools\Pkgtrends\Http\Controllers\TrendsController;
+use ChiefTools\Pkgtrends\Http\Controllers\SubscriptionController;
 
 Route::post('{query}/subscribe', [SubscriptionController::class, 'postSubscribe'])->where('query', '.*')->name('subscription.create');
 

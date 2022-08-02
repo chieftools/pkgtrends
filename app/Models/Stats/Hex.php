@@ -1,6 +1,6 @@
 <?php
 
-namespace IronGate\Pkgtrends\Models\Stats;
+namespace ChiefTools\Pkgtrends\Models\Stats;
 
 use Illuminate\Database\Eloquent\Model;
 

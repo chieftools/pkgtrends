@@ -1,10 +1,10 @@
 <?php
 
-namespace IronGate\Pkgtrends\Console\Commands\Import\Hex;
+namespace ChiefTools\Pkgtrends\Console\Commands\Import\Hex;
 
 use Illuminate\Console\Command;
-use IronGate\Pkgtrends\Models\Stats\Hex as HexStats;
-use IronGate\Pkgtrends\Models\Packages\Hex as HexPackages;
+use ChiefTools\Pkgtrends\Models\Stats\Hex as HexStats;
+use ChiefTools\Pkgtrends\Models\Packages\Hex as HexPackages;
 
 class Cleanup extends Command
 {

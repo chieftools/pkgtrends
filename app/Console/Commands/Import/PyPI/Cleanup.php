@@ -1,10 +1,10 @@
 <?php
 
-namespace IronGate\Pkgtrends\Console\Commands\Import\PyPI;
+namespace ChiefTools\Pkgtrends\Console\Commands\Import\PyPI;
 
 use Illuminate\Console\Command;
-use IronGate\Pkgtrends\Models\Stats\PyPI as PyPIStats;
-use IronGate\Pkgtrends\Models\Packages\PyPI as PyPIPackages;
+use ChiefTools\Pkgtrends\Models\Stats\PyPI as PyPIStats;
+use ChiefTools\Pkgtrends\Models\Packages\PyPI as PyPIPackages;
 
 class Cleanup extends Command
 {

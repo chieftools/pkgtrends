@@ -1,10 +1,10 @@
 <?php
 
-namespace IronGate\Pkgtrends\Repositories;
+namespace ChiefTools\Pkgtrends\Repositories;
 
 use Carbon\Carbon;
-use IronGate\Pkgtrends\Models\Stats;
-use IronGate\Pkgtrends\Models\Packages;
+use ChiefTools\Pkgtrends\Models\Stats;
+use ChiefTools\Pkgtrends\Models\Packages;
 
 class PyPIRepository extends PackageRepository
 {

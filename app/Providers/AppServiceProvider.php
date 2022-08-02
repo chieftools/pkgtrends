@@ -1,6 +1,6 @@
 <?php
 
-namespace IronGate\Pkgtrends\Providers;
+namespace ChiefTools\Pkgtrends\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Google\Cloud\BigQuery\BigQueryClient;

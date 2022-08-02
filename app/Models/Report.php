@@ -1,8 +1,8 @@
 <?php
 
-namespace IronGate\Pkgtrends\Models;
+namespace ChiefTools\Pkgtrends\Models;
 
-use IronGate\Pkgtrends\TrendsProvider;
+use ChiefTools\Pkgtrends\TrendsProvider;
 use Illuminate\Database\Eloquent\Model;
 use Stayallive\Laravel\Eloquent\UUID\UsesUUID;
 use Illuminate\Database\Eloquent\Relations\HasMany;

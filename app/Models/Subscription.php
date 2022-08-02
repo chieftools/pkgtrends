@@ -1,26 +1,26 @@
 <?php
 
-namespace IronGate\Pkgtrends\Models;
+namespace ChiefTools\Pkgtrends\Models;
 
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Stayallive\Laravel\Eloquent\UUID\UsesUUID;
-use IronGate\Pkgtrends\Mail\ConfirmSubscription;
+use ChiefTools\Pkgtrends\Mail\ConfirmSubscription;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
- * @property string                            $id
- * @property string                            $email
- * @property string                            $report_id
- * @property \Carbon\Carbon|null               $confirmed_at
- * @property \Carbon\Carbon|null               $last_notified_at
- * @property bool                              $is_confirmed
- * @property \Carbon\Carbon                    $created_at
- * @property \Carbon\Carbon                    $updated_at
- * @property \IronGate\Pkgtrends\Models\Report $report
+ * @property string                              $id
+ * @property string                              $email
+ * @property string                              $report_id
+ * @property \Carbon\Carbon|null                 $confirmed_at
+ * @property \Carbon\Carbon|null                 $last_notified_at
+ * @property bool                                $is_confirmed
+ * @property \Carbon\Carbon                      $created_at
+ * @property \Carbon\Carbon                      $updated_at
+ * @property \ChiefTools\Pkgtrends\Models\Report $report
  */
 class Subscription extends Model
 {

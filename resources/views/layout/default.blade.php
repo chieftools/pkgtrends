@@ -24,17 +24,17 @@
                 </small>
             </p>
             <p class="mb-3">
-                Made with ❤ by <a href="https://github.com/irongate/pkgtrends/graphs/contributors" target="_blank" rel="noopener">all contributors</a> & <i class="fa fa-toolbox"></i> <a href="https://chief.app?ref=pkgtrends" target="_blank" rel="noopener">Chief Tools</a>.
+                Made with ❤ by <a href="https://github.com/chieftools/pkgtrends/graphs/contributors" target="_blank" rel="noopener">all contributors</a> & <i class="fa fa-toolbox"></i> <a href="https://chief.app?ref=pkgtrends" target="_blank" rel="noopener">Chief Tools</a>.
                 <br>
                 <small>
-                    Seeing something broken or have suggestions? <a href="https://github.com/irongate/pkgtrends/issues/new" target="_blank" rel="noopener">Let us know!</a>
+                    Seeing something broken or have suggestions? <a href="https://github.com/chieftools/pkgtrends/issues/new" target="_blank" rel="noopener">Let us know!</a>
                 </small>
             </p>
             <small class="text-muted">
                 @if(config('app.analytics.fathom.public'))
                     <a href="{{ config('app.analytics.fathom.public') }}" target="_blank" rel="noopener" class="text-muted">Analytics</a> &middot;
                 @endif
-                {{ config('app.versionString') }} (<a href="https://github.com/irongate/pkgtrends/tree/{{ config('app.version') }}" class="text-muted">{{ config('app.version') }}</a>)
+                {{ config('app.versionString') }} (<a href="https://github.com/chieftools/pkgtrends/tree/{{ config('app.version') }}" class="text-muted">{{ config('app.version') }}</a>)
             </small>
         </footer>
     </div>

@@ -1,6 +1,6 @@
 <?php
 
-namespace IronGate\Pkgtrends\Jobs\Queue;
+namespace ChiefTools\Pkgtrends\Jobs\Queue;
 
 use Exception;
 use Illuminate\Bus\Queueable;

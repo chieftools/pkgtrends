@@ -1,6 +1,6 @@
 <?php
 
-namespace IronGate\Pkgtrends\Jobs\Concerns;
+namespace ChiefTools\Pkgtrends\Jobs\Concerns;
 
 trait LogsMessages
 {
