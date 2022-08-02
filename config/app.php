@@ -29,11 +29,11 @@ return [
     */
 
     'sources' => [
-        IronGate\Pkgtrends\Repositories\PackagistRepository::class,
-        IronGate\Pkgtrends\Repositories\PyPIRepository::class,
-        IronGate\Pkgtrends\Repositories\NpmRepository::class,
-        IronGate\Pkgtrends\Repositories\HexRepository::class,
-        IronGate\Pkgtrends\Repositories\WordPressRepository::class,
+        ChiefTools\Pkgtrends\Repositories\PackagistRepository::class,
+        ChiefTools\Pkgtrends\Repositories\PyPIRepository::class,
+        ChiefTools\Pkgtrends\Repositories\NpmRepository::class,
+        ChiefTools\Pkgtrends\Repositories\HexRepository::class,
+        ChiefTools\Pkgtrends\Repositories\WordPressRepository::class,
     ],
 
     /*
@@ -244,9 +244,9 @@ return [
         /*
          * Application Service Providers...
          */
-        IronGate\Pkgtrends\Providers\AppServiceProvider::class,
-        IronGate\Pkgtrends\Providers\HorizonServiceProvider::class,
-        IronGate\Pkgtrends\Providers\RouteServiceProvider::class,
+        ChiefTools\Pkgtrends\Providers\AppServiceProvider::class,
+        ChiefTools\Pkgtrends\Providers\HorizonServiceProvider::class,
+        ChiefTools\Pkgtrends\Providers\RouteServiceProvider::class,
 
     ],
 

@@ -68,7 +68,7 @@ return [
     'providers' => [
         'users' => [
             'driver' => 'eloquent',
-            'model'  => IronGate\Pkgtrends\User::class,
+            'model'  => ChiefTools\Pkgtrends\User::class,
         ],
 
         // 'users' => [

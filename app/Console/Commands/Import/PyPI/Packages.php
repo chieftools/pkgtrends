@@ -1,9 +1,9 @@
 <?php
 
-namespace IronGate\Pkgtrends\Console\Commands\Import\PyPI;
+namespace ChiefTools\Pkgtrends\Console\Commands\Import\PyPI;
 
 use Illuminate\Console\Command;
-use IronGate\Pkgtrends\Jobs\PyPI\ProcessPackageUpdates;
+use ChiefTools\Pkgtrends\Jobs\PyPI\ProcessPackageUpdates;
 
 class Packages extends Command
 {

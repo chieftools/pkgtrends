@@ -1,6 +1,6 @@
 <?php
 
-namespace IronGate\Pkgtrends\Exceptions;
+namespace ChiefTools\Pkgtrends\Exceptions;
 
 use Throwable;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;

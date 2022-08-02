@@ -1,6 +1,6 @@
 <?php
 
-namespace IronGate\Pkgtrends;
+namespace ChiefTools\Pkgtrends;
 
 use DatePeriod;
 use DateInterval;
@@ -174,7 +174,7 @@ class TrendsProvider
      *
      * @param string $key
      *
-     * @return \IronGate\Pkgtrends\Repositories\PackageRepository|null
+     * @return \ChiefTools\Pkgtrends\Repositories\PackageRepository|null
      */
     public static function getRepository(string $key): ?Repositories\PackageRepository
     {

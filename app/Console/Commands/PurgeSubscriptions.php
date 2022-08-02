@@ -1,9 +1,9 @@
 <?php
 
-namespace IronGate\Pkgtrends\Console\Commands;
+namespace ChiefTools\Pkgtrends\Console\Commands;
 
 use Illuminate\Console\Command;
-use IronGate\Pkgtrends\Models\Subscription;
+use ChiefTools\Pkgtrends\Models\Subscription;
 
 class PurgeSubscriptions extends Command
 {

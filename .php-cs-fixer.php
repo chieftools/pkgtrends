@@ -2,6 +2,7 @@
 
 $finder = PhpCsFixer\Finder::create()
                            ->in(__DIR__ . '/app')
+                           ->in(__DIR__ . '/routes')
                            ->in(__DIR__ . '/config')
                            ->in(__DIR__ . '/database')
                            ->name('*.php')
@@ -28,42 +29,46 @@ $config
         'single_trait_insert_per_statement'                => false,
         'nullable_type_declaration_for_default_null_value' => true,
 
-        'concat_space'            => [
+        'concat_space'                => [
             'spacing' => 'one',
         ],
-        'binary_operator_spaces'  => [
+        'binary_operator_spaces'      => [
             'operators' => [
                 '|'  => null,
                 '='  => 'align_single_space',
                 '=>' => 'align_single_space',
             ],
         ],
-        'array_syntax'            => [
+        'array_syntax'                => [
             'syntax' => 'short',
         ],
-        'ordered_imports'         => [
+        'ordered_imports'             => [
             'sort_algorithm' => 'length',
         ],
-        'cast_spaces'             => [
+        'cast_spaces'                 => [
             'space' => 'none',
         ],
-        'align_multiline_comment' => [
+        'align_multiline_comment'     => [
             'comment_type' => 'phpdocs_like',
         ],
-        'phpdoc_align'            => [
+        'phpdoc_align'                => [
+            'tags'  => ['param', 'property', 'property-read', 'property-write', 'return', 'throws', 'type', 'var', 'method'],
             'align' => 'vertical',
         ],
-        'increment_style'         => [
+        'increment_style'             => [
             'style' => 'post',
         ],
-        'phpdoc_no_alias_tag'     => [
+        'phpdoc_no_alias_tag'         => [
             'replacements' => [
                 'type' => 'var',
                 'link' => 'see',
             ],
         ],
-        'no_extra_blank_lines'    => [
+        'no_extra_blank_lines'        => [
             'tokens' => [],
+        ],
+        'trailing_comma_in_multiline' => [
+            'elements' => ['arrays', 'arguments', 'parameters'],
         ],
     ])
     ->setFinder($finder);

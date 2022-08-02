@@ -1,12 +1,12 @@
 <?php
 
-namespace IronGate\Pkgtrends\Console\Commands;
+namespace ChiefTools\Pkgtrends\Console\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Mail;
-use IronGate\Pkgtrends\Models\Report;
-use IronGate\Pkgtrends\Mail\WeeklyReport;
-use IronGate\Pkgtrends\Models\Subscription;
+use ChiefTools\Pkgtrends\Models\Report;
+use ChiefTools\Pkgtrends\Mail\WeeklyReport;
+use ChiefTools\Pkgtrends\Models\Subscription;
 use Illuminate\Database\Eloquent\Collection;
 
 class SendWeeklyReports extends Command

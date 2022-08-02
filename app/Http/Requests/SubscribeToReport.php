@@ -1,8 +1,8 @@
 <?php
 
-namespace IronGate\Pkgtrends\Http\Requests;
+namespace ChiefTools\Pkgtrends\Http\Requests;
 
-use IronGate\Pkgtrends\Rules\Captcha;
+use ChiefTools\Pkgtrends\Rules\Captcha;
 use Illuminate\Foundation\Http\FormRequest;
 
 class SubscribeToReport extends FormRequest

@@ -1,6 +1,6 @@
 <?php
 
-namespace IronGate\Pkgtrends\Http;
+namespace ChiefTools\Pkgtrends\Http;
 
 use Illuminate\Http\Middleware as HttpMiddleware;
 use Illuminate\View\Middleware as ViewMiddleware;

@@ -1,6 +1,6 @@
 <?php
 
-namespace IronGate\Pkgtrends\Http\Middleware;
+namespace ChiefTools\Pkgtrends\Http\Middleware;
 
 use Illuminate\Cookie\Middleware\EncryptCookies as Middleware;
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace IronGate\Pkgtrends\Rules;
+namespace ChiefTools\Pkgtrends\Rules;
 
 use Illuminate\Contracts\Validation\Rule;
 

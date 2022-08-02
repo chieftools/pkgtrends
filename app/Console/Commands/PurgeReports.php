@@ -1,9 +1,9 @@
 <?php
 
-namespace IronGate\Pkgtrends\Console\Commands;
+namespace ChiefTools\Pkgtrends\Console\Commands;
 
 use Illuminate\Console\Command;
-use IronGate\Pkgtrends\Models\Report;
+use ChiefTools\Pkgtrends\Models\Report;
 
 class PurgeReports extends Command
 {

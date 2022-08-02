@@ -1,9 +1,9 @@
 <?php
 
-namespace IronGate\Pkgtrends\Console\Commands;
+namespace ChiefTools\Pkgtrends\Console\Commands;
 
 use Illuminate\Console\Command;
-use IronGate\Pkgtrends\Jobs\Queue\HealthCheck;
+use ChiefTools\Pkgtrends\Jobs\Queue\HealthCheck;
 
 class QueueHealthCheck extends Command
 {

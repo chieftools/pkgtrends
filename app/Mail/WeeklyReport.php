@@ -1,13 +1,13 @@
 <?php
 
-namespace IronGate\Pkgtrends\Mail;
+namespace ChiefTools\Pkgtrends\Mail;
 
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Support\Collection;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldQueue;
-use IronGate\Pkgtrends\Models\Subscription;
+use ChiefTools\Pkgtrends\Models\Subscription;
 
 class WeeklyReport extends Mailable implements ShouldQueue
 {

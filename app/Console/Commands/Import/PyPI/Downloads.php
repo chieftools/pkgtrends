@@ -1,11 +1,11 @@
 <?php
 
-namespace IronGate\Pkgtrends\Console\Commands\Import\PyPI;
+namespace ChiefTools\Pkgtrends\Console\Commands\Import\PyPI;
 
 use RuntimeException;
 use Illuminate\Console\Command;
 use Google\Cloud\BigQuery\BigQueryClient;
-use IronGate\Pkgtrends\Jobs\PyPI\ProcessDownloadsQuery;
+use ChiefTools\Pkgtrends\Jobs\PyPI\ProcessDownloadsQuery;
 
 class Downloads extends Command
 {

@@ -1,15 +1,15 @@
 <?php
 
-namespace IronGate\Pkgtrends\Jobs\PyPI;
+namespace ChiefTools\Pkgtrends\Jobs\PyPI;
 
 use RuntimeException;
 use Illuminate\Bus\Queueable;
 use Illuminate\Queue\InteractsWithQueue;
 use Google\Cloud\BigQuery\BigQueryClient;
 use Illuminate\Contracts\Queue\ShouldQueue;
-use IronGate\Pkgtrends\Jobs\Concerns\LogsMessages;
-use IronGate\Pkgtrends\Models\Stats\PyPI as PyPIStat;
-use IronGate\Pkgtrends\Models\Packages\PyPI as PyPIPackage;
+use ChiefTools\Pkgtrends\Jobs\Concerns\LogsMessages;
+use ChiefTools\Pkgtrends\Models\Stats\PyPI as PyPIStat;
+use ChiefTools\Pkgtrends\Models\Packages\PyPI as PyPIPackage;
 
 class ProcessDownloadsQuery implements ShouldQueue
 {

@@ -28,17 +28,17 @@ $app = new Illuminate\Foundation\Application(
 
 $app->singleton(
     Illuminate\Contracts\Http\Kernel::class,
-    IronGate\Pkgtrends\Http\Kernel::class
+    ChiefTools\Pkgtrends\Http\Kernel::class
 );
 
 $app->singleton(
     Illuminate\Contracts\Console\Kernel::class,
-    IronGate\Pkgtrends\Console\Kernel::class
+    ChiefTools\Pkgtrends\Console\Kernel::class
 );
 
 $app->singleton(
     Illuminate\Contracts\Debug\ExceptionHandler::class,
-    IronGate\Pkgtrends\Exceptions\Handler::class
+    ChiefTools\Pkgtrends\Exceptions\Handler::class
 );
 
 /*

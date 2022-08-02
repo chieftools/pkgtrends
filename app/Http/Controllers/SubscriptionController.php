@@ -1,12 +1,12 @@
 <?php
 
-namespace IronGate\Pkgtrends\Http\Controllers;
+namespace ChiefTools\Pkgtrends\Http\Controllers;
 
 use Illuminate\Http\RedirectResponse;
-use IronGate\Pkgtrends\Models\Report;
-use IronGate\Pkgtrends\TrendsProvider;
-use IronGate\Pkgtrends\Models\Subscription;
-use IronGate\Pkgtrends\Http\Requests\SubscribeToReport;
+use ChiefTools\Pkgtrends\Models\Report;
+use ChiefTools\Pkgtrends\TrendsProvider;
+use ChiefTools\Pkgtrends\Models\Subscription;
+use ChiefTools\Pkgtrends\Http\Requests\SubscribeToReport;
 
 class SubscriptionController extends Controller
 {
