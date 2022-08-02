@@ -20,7 +20,7 @@ class ProcessDownloadsQuery implements ShouldQueue
     public function __construct(
         private string $jobId,
         private int $offset = 0,
-        private bool $pingForCompletion = true
+        private bool $pingForCompletion = true,
     ) {
     }
 

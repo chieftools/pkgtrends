@@ -16,7 +16,7 @@ class ProcessPackageUpdates implements ShouldQueue
     protected static int $perPage = 50;
 
     public function __construct(
-        private int $page = 1
+        private int $page = 1,
     ) {
     }
 

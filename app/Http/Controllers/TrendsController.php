@@ -4,8 +4,8 @@ namespace ChiefTools\Pkgtrends\Http\Controllers;
 
 use Illuminate\View\View;
 use Illuminate\Http\Request;
-use ChiefTools\Pkgtrends\Repositories;
 use Illuminate\Http\RedirectResponse;
+use ChiefTools\Pkgtrends\Repositories;
 use ChiefTools\Pkgtrends\TrendsProvider;
 
 class TrendsController extends Controller
@@ -21,7 +21,7 @@ class TrendsController extends Controller
     {
         // Build a list of all vendors and their icons
         $vendors = collect(config('app.sources'))->mapWithKeys(
-            fn ($source) => [$source::getKey() => $source::getIcon()]
+            fn ($source) => [$source::getKey() => $source::getIcon()],
         );
 
         // If there is no query for packages show an empty index
@@ -61,8 +61,8 @@ class TrendsController extends Controller
             fn (Repositories\PackageRepository $repository) => cache()->remember(
                 "{$repository::getKey()}:query:{$querySlug}",
                 now()->addHour(),
-                fn () => $repository->searchPackage($query)
-            )
+                fn () => $repository->searchPackage($query),
+            ),
         )->values()->all();
     }
 }
