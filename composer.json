@@ -29,7 +29,7 @@
         "barryvdh/laravel-ide-helper": "2.12.*",
         "friendsofphp/php-cs-fixer": "3.8.*",
         "nunomaduro/collision": "6.2.*",
-        "nunomaduro/larastan": "2.1.*",
+        "nunomaduro/larastan": "2.2.*",
         "spatie/laravel-ignition": "1.3.*",
         "wnx/laravel-stats": "2.9.*"
     },
