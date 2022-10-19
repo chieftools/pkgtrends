@@ -20,7 +20,7 @@ return [
         ? trim(file_get_contents($versionPath))
         : env('APP_VERSION', '@dev'),
 
-    'versionString' => env('APP_VERSION_STRING', '2022.3.3'),
+    'versionString' => env('APP_VERSION_STRING', '2022.4.0'),
 
     /*
     |--------------------------------------------------------------------------
