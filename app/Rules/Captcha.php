@@ -9,9 +9,9 @@ class Captcha implements Rule
     public function passes($attribute, $value)
     {
         return rescue(function () use ($value) {
-            $response = http('https://hcaptcha.com/')->post('siteverify', [
-                'query' => [
-                    'secret'   => config('services.hcaptcha.secret'),
+            $response = http('https://challenges.cloudflare.com/')->post('turnstile/v0/siteverify', [
+                'form_params' => [
+                    'secret'   => config('services.turnstile.secret'),
                     'response' => $value,
                 ],
             ]);
@@ -22,6 +22,6 @@ class Captcha implements Rule
 
     public function message(): string
     {
-        return 'You kinda look like a bot, or hCaptcha is broken. Please try again.';
+        return 'You kinda look like a bot, or Cloudflare Turnstile is broken. Please try again.';
     }
 }

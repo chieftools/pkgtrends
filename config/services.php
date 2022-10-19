@@ -34,9 +34,9 @@ return [
         'credentials' => env('GOOGLE_CREDENTIALS'),
     ],
 
-    'hcaptcha' => [
-        'key'    => env('HCAPTCHA_KEY'),
-        'secret' => env('HCAPTCHA_SECRET'),
+    'turnstile' => [
+        'key'    => env('TURNSTILE_KEY'),
+        'secret' => env('TURNSTILE_SECRET'),
     ],
 
     'horizon' => [

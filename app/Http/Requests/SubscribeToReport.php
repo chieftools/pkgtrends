@@ -10,8 +10,13 @@ class SubscribeToReport extends FormRequest
     public function rules(): array
     {
         return [
-            'email'              => 'required|max:255|email',
-            'h-captcha-response' => ['required', new Captcha],
+            'email'                 => 'required|max:255|email',
+            'cf-turnstile-response' => ['required', new Captcha],
         ];
+    }
+
+    protected function getRedirectUrl(): string
+    {
+        return parent::getRedirectUrl() . '#subscriptionForm';
     }
 }
