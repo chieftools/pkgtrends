@@ -3,6 +3,7 @@
 namespace ChiefTools\Pkgtrends\Repositories;
 
 use Carbon\Carbon;
+use GuzzleHttp\Exception\ClientException;
 
 class PackagistRepository extends ExternalPackageRepository
 {
@@ -33,11 +34,19 @@ class PackagistRepository extends ExternalPackageRepository
     public function getPackage(string $name): ?array
     {
         return rescue(function () use ($name) {
-            $response = $this->http->get("packages/{$name}.json");
+            try {
+                $response = $this->http->get("packages/{$name}.json");
 
-            $package = json_decode($response->getBody()->getContents(), true);
+                $package = json_decode($response->getBody()->getContents(), true);
 
-            return empty($package['package']) ? null : $this->formatPackagistPackage($package['package']);
+                return empty($package['package']) ? null : $this->formatPackagistPackage($package['package']);
+            } catch (ClientException $e) {
+                if ($e->getResponse()?->getStatusCode() === 404) {
+                    return null;
+                }
+
+                throw $e;
+            }
         });
     }
 
