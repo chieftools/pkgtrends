@@ -137,9 +137,13 @@ class TrendsProvider
 
             $package = cache()->remember("{$provider}:{$name}.info", now()->addHours(6), fn () => $repository->getPackage($name));
 
+            if (empty($package)) {
+                return [$dependency => null];
+            }
+
             $statistics = cache()->remember("{$provider}:{$name}.stats", now()->addHours(4), fn () => $repository->getPackageStats($name, $this->start, $this->end));
 
-            if (empty($package) || empty($statistics)) {
+            if (empty($statistics)) {
                 return [$dependency => null];
             }
 
