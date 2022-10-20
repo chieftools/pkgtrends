@@ -41,7 +41,7 @@ class PackagistRepository extends ExternalPackageRepository
 
                 return empty($package['package']) ? null : $this->formatPackagistPackage($package['package']);
             } catch (ClientException $e) {
-                if ($e->getResponse()?->getStatusCode() === 404) {
+                if ($e->getResponse()->getStatusCode() === 404) {
                     return null;
                 }
 
