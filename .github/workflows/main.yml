@@ -16,7 +16,7 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Setup PHP cache
-        uses: shivammathur/cache-extensions@1.8.0
+        uses: shivammathur/cache-extensions@1.9.0
         id: php-ext-cache
         with:
           php-version: '8.1'
@@ -57,7 +57,7 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Setup PHP cache
-        uses: shivammathur/cache-extensions@1.8.0
+        uses: shivammathur/cache-extensions@1.9.0
         id: php-ext-cache
         with:
           php-version: '8.1'
@@ -94,7 +94,7 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Setup PHP cache
-        uses: shivammathur/cache-extensions@1.8.0
+        uses: shivammathur/cache-extensions@1.9.0
         id: php-ext-cache
         with:
           php-version: '8.1'
