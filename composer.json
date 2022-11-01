@@ -31,7 +31,7 @@
         "nunomaduro/collision": "6.3.*",
         "nunomaduro/larastan": "2.2.*",
         "spatie/laravel-ignition": "1.5.*",
-        "wnx/laravel-stats": "2.9.*"
+        "wnx/laravel-stats": "2.10.*"
     },
     "replace": {
         "symfony/polyfill-php70": "*",
