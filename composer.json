@@ -21,7 +21,7 @@
         "laravel/helpers": "1.5.*",
         "laravel/horizon": "^5.9",
         "laravel/tinker": "2.7.*",
-        "sentry/sentry-laravel": "3.0.*",
+        "sentry/sentry-laravel": "3.1.*",
         "stayallive/laravel-eloquent-uuid": "1.0.*"
     },
     "require-dev": {
