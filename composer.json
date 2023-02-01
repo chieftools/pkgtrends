@@ -30,7 +30,7 @@
         "friendsofphp/php-cs-fixer": "3.12.*",
         "nunomaduro/collision": "6.3.*",
         "nunomaduro/larastan": "2.2.*",
-        "spatie/laravel-ignition": "1.5.*",
+        "spatie/laravel-ignition": "1.6.*",
         "wnx/laravel-stats": "2.9.*"
     },
     "replace": {
