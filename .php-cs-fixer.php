@@ -2,6 +2,7 @@
 
 $finder = PhpCsFixer\Finder::create()
                            ->in(__DIR__ . '/app')
+                           ->in(__DIR__ . '/config')
                            ->in(__DIR__ . '/routes')
                            ->in(__DIR__ . '/config')
                            ->in(__DIR__ . '/database')
@@ -21,6 +22,7 @@ $config
         'short_scalar_cast'                                => true,
         'phpdoc_to_comment'                                => false,
         'single_line_throw'                                => false,
+        'single_line_empty_body'                           => true,
         'single_blank_line_at_eof'                         => true,
         'no_superfluous_phpdoc_tags'                       => false,
         'linebreak_after_opening_tag'                      => true,
@@ -36,6 +38,10 @@ $config
         'array_syntax'                => [
             'syntax' => 'short',
         ],
+        'ordered_types'               => [
+            'sort_algorithm'  => 'none',
+            'null_adjustment' => 'always_last',
+        ],
         'ordered_imports'             => [
             'imports_order'  => ['class', 'const', 'function'],
             'sort_algorithm' => 'length',
@@ -48,6 +54,17 @@ $config
         ],
         'align_multiline_comment'     => [
             'comment_type' => 'phpdocs_like',
+        ],
+        'global_namespace_import'     => [
+            'import_classes'   => null,
+            'import_constants' => null,
+            'import_functions' => true,
+        ],
+        'type_declaration_spaces'     => [
+            'elements' => [],
+        ],
+        'nullable_type_declaration'   => [
+            'syntax' => 'question_mark',
         ],
         'trailing_comma_in_multiline' => [
             'elements' => ['arrays', 'arguments', 'parameters', 'match'],
