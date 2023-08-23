@@ -23,6 +23,8 @@ class Kernel extends ConsoleKernel
         $this->schedulePyPI($schedule);
         $this->scheduleQueue($schedule);
         $this->scheduleSubscriptions($schedule);
+
+        $schedule->command('cache:prune-stale-tags')->hourly();
     }
 
     private function scheduleHex(Schedule $schedule): void

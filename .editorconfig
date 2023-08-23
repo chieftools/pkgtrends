@@ -407,6 +407,7 @@ ij_javascript_method_parameters_new_line_after_left_paren = false
 ij_javascript_method_parameters_right_paren_on_new_line = false
 ij_javascript_method_parameters_wrap = off
 ij_javascript_object_literal_wrap = on_every_item
+ij_javascript_object_types_wrap = on_every_item
 ij_javascript_parentheses_expression_new_line_after_left_paren = false
 ij_javascript_parentheses_expression_right_paren_on_new_line = false
 ij_javascript_place_assignment_sign_on_next_line = false
@@ -504,6 +505,7 @@ ij_continuation_indent_size = 4
 ij_smart_tabs = true
 ij_php_align_assignments = true
 ij_php_align_class_constants = true
+ij_php_align_enum_cases = true
 ij_php_align_group_field_declarations = true
 ij_php_align_inline_comments = true
 ij_php_align_key_value_pairs = true
@@ -536,6 +538,7 @@ ij_php_blank_lines_after_opening_tag = 0
 ij_php_blank_lines_after_package = 1
 ij_php_blank_lines_around_class = 1
 ij_php_blank_lines_around_constants = 0
+ij_php_blank_lines_around_enum_cases = 0
 ij_php_blank_lines_around_field = 0
 ij_php_blank_lines_around_method = 0
 ij_php_blank_lines_before_class_end = 0
@@ -554,6 +557,7 @@ ij_php_class_brace_style = next_line
 ij_php_comma_after_last_argument = true
 ij_php_comma_after_last_array_element = true
 ij_php_comma_after_last_closure_use_var = true
+ij_php_comma_after_last_match_arm = true
 ij_php_comma_after_last_parameter = true
 ij_php_concat_spaces = true
 ij_php_copyright_weight = 28
@@ -571,7 +575,7 @@ ij_php_for_brace_force = always
 ij_php_for_statement_new_line_after_left_paren = true
 ij_php_for_statement_right_paren_on_new_line = true
 ij_php_for_statement_wrap = off
-ij_php_force_empty_methods_in_one_line = false
+ij_php_force_empty_methods_in_one_line = true
 ij_php_force_short_declaration_array_style = true
 ij_php_getters_setters_naming_style = camel_case
 ij_php_getters_setters_order_style = getters_first
@@ -581,7 +585,7 @@ ij_php_if_brace_force = always
 ij_php_if_lparen_on_next_line = false
 ij_php_if_rparen_on_next_line = false
 ij_php_ignore_weight = 28
-ij_php_import_sorting = alphabetic
+ij_php_import_sorting = by_length
 ij_php_indent_break_from_case = true
 ij_php_indent_case_from_switch = true
 ij_php_indent_code_in_php_tags = false
@@ -724,7 +728,7 @@ ij_php_version_weight = 28
 ij_php_while_brace_force = always
 ij_php_while_on_new_line = false
 
-[{*.har,*.jsb2,*.jsb3,*.json,.babelrc,.eslintrc,.stylelintrc,bowerrc,composer.lock,jest.config}]
+[{*.graphqlconfig,*.graphqlrc,*.har,*.jsb2,*.jsb3,*.json,.babelrc,.eslintrc,.stylelintrc,bowerrc,composer.lock,jest.config}]
 ij_json_array_wrapping = split_into_lines
 ij_json_keep_blank_lines_in_code = 0
 ij_json_keep_indents_on_empty_lines = false
@@ -770,11 +774,17 @@ ij_html_space_around_equality_in_attribute = false
 ij_html_space_inside_empty_tag = true
 ij_html_text_wrap = normal
 
+[{*.http,*.rest}]
+indent_size = 0
+ij_continuation_indent_size = 4
+ij_http request_call_parameters_wrap = normal
+
 [{*.markdown,*.md}]
 ij_markdown_force_one_space_after_blockquote_symbol = true
 ij_markdown_force_one_space_after_header_symbol = true
 ij_markdown_force_one_space_after_list_bullet = true
 ij_markdown_force_one_space_between_words = true
+ij_markdown_format_tables = true
 ij_markdown_insert_quote_arrows_on_wrap = true
 ij_markdown_keep_indents_on_empty_lines = false
 ij_markdown_keep_line_breaks_inside_text_blocks = true

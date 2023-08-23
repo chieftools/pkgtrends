@@ -17,8 +17,7 @@ class ProcessPackageUpdates implements ShouldQueue
 
     public function __construct(
         private int $page = 1,
-    ) {
-    }
+    ) {}
 
     public function handle(): void
     {

@@ -21,8 +21,7 @@ class ProcessDownloadsQuery implements ShouldQueue
         private string $jobId,
         private int $offset = 0,
         private bool $pingForCompletion = true,
-    ) {
-    }
+    ) {}
 
     public function handle(BigQueryClient $bigQuery): void
     {
