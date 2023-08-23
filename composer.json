@@ -22,6 +22,7 @@
         "laravel/horizon": "5.19.*",
         "laravel/tinker": "2.8.*",
         "sentry/sentry-laravel": "3.7.*",
+        "statview/satellite": "1.2.*",
         "stayallive/laravel-eloquent-uuid": "1.0.*"
     },
     "require-dev": {
