@@ -4620,16 +4620,16 @@
         },
         {
             "name": "statview/satellite",
-            "version": "1.2.6",
+            "version": "1.2.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/statview-app/satellite.git",
-                "reference": "c3d4f70a3d0771d3cb2bb964cdde589773e4a724"
+                "reference": "17cd3f4326a0ad4f25b00c843ba602012df78854"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/statview-app/satellite/zipball/c3d4f70a3d0771d3cb2bb964cdde589773e4a724",
-                "reference": "c3d4f70a3d0771d3cb2bb964cdde589773e4a724",
+                "url": "https://api.github.com/repos/statview-app/satellite/zipball/17cd3f4326a0ad4f25b00c843ba602012df78854",
+                "reference": "17cd3f4326a0ad4f25b00c843ba602012df78854",
                 "shasum": ""
             },
             "require": {
@@ -4664,9 +4664,9 @@
             "description": "Satellite package for Statview",
             "support": {
                 "issues": "https://github.com/statview-app/satellite/issues",
-                "source": "https://github.com/statview-app/satellite/tree/1.2.6"
+                "source": "https://github.com/statview-app/satellite/tree/1.2.7"
             },
-            "time": "2023-08-23T18:37:06+00:00"
+            "time": "2023-08-23T19:37:10+00:00"
         },
         {
             "name": "stayallive/laravel-eloquent-uuid",
