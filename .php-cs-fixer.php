@@ -49,6 +49,10 @@ $config
         'cast_spaces'                 => [
             'space' => 'none',
         ],
+        'new_with_parentheses'        => [
+            'named_class'     => false,
+            'anonymous_class' => false,
+        ],
         'curly_braces_position'       => [
             'anonymous_classes_opening_brace' => 'next_line_unless_newline_at_signature_end',
         ],
@@ -65,6 +69,9 @@ $config
         ],
         'nullable_type_declaration'   => [
             'syntax' => 'question_mark',
+        ],
+        'attribute_empty_parentheses' => [
+            'use_parentheses' => false,
         ],
         'trailing_comma_in_multiline' => [
             'elements' => ['arrays', 'arguments', 'parameters', 'match'],
