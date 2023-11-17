@@ -31,6 +31,8 @@
 
     <link media="all" type="text/css" rel="stylesheet" href="{{ mix('build/app.css') }}">
     @stack('head.style')
+
+    @include('layout.partial.jsvars')
 </head>
 <body class="{{ $bodyClass or '' }}">
     @yield('body')

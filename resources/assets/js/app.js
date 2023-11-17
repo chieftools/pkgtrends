@@ -1,109 +1,75 @@
-import Chart from "chart.js";
-import { Tooltip } from "bootstrap";
+import * as Sentry from "@sentry/browser";
+import { Feedback } from "@sentry-internal/feedback";
 
-require("jquery-ui/ui/core");
-require("jquery-ui/ui/widgets/sortable");
-import "@selectize/selectize";
+if (window.SENTRY !== undefined && window.SENTRY !== null && window.SENTRY.DSN) {
+    const isAuthenticated = window.USER !== undefined && window.USER !== null;
+    const enableSentryTracing = window.SENTRY.TRACES_SAMPLE_RATE && window.SENTRY.TRACES_SAMPLE_RATE > 0;
+    const firstPartyHostMatcher = new RegExp("https://(?:[\\w.]+\\.)?" + window.BASE.replaceAll(".", "\\."));
 
-window.$ = window.jQuery = require("jquery");
-
-document.querySelectorAll('[data-toggle*="tooltip"]').forEach((el) => new Tooltip(el));
-
-(function () {
-    window.chart_init = function chart_init(ctx, chart) {
-        return new Chart(ctx, chart);
-    };
-
-    function getIconForVendor(vendor) {
-        if (window.pkgtrends.vendors !== undefined) {
-            return window.pkgtrends.vendors[vendor];
-        }
-
-        return "";
-    }
-
-    var input = jQuery("#packages");
-
-    input.selectize({
-        plugins: ["remove_button", "drag_drop"],
-        create: false,
-        maxOptions: 16,
-        valueField: "id",
-        labelField: "name",
-        searchField: "name",
-
-        render: {
-            item: function (item, escape) {
-                var icon = getIconForVendor(item.vendor);
-
-                return '<div class="selected-item">' + '<i class="' + icon + '"></i><span class="name">' + escape(item.name) + "</span></div>";
-            },
-
-            option: function (item, escape) {
-                var icon = getIconForVendor(item.vendor);
-
-                return (
-                    '<div class="item">' +
-                    '<span class="title"><span class="name"><i class="' +
-                    icon +
-                    '"></i>' +
-                    escape(item.name) +
-                    "</span></span>" +
-                    (item.description !== undefined && item.description !== null ? '<span class="description">' + escape(item.description) + "</span>" : "") +
-                    "</div>"
-                );
-            },
+    const feedback = (window.SENTRY_FEEDBACK = new Feedback({
+        showName: !isAuthenticated,
+        showEmail: !isAuthenticated,
+        autoInject: true,
+        colorScheme: "light",
+        useSentryUser: {
+            name: "name",
+            email: "email",
         },
+    }));
 
-        load: function (query, callback) {
-            if (!query.length) return callback();
+    Sentry.init({
+        dsn: window.SENTRY.DSN,
+        tunnel: window.SENTRY.TUNNEL,
+        release: window.SENTRY.RELEASE,
+        beforeSend(event, hint) {
+            if (window.UNAUTHENTICATED_RELOAD_PENDING) {
+                return;
+            }
 
-            jQuery.ajax({
-                url: "/search/?query=" + encodeURIComponent(query),
-                type: "GET",
-                error: function () {
-                    callback();
-                },
-                success: function (res) {
-                    callback(res);
-                },
-            });
+            return event;
         },
-
-        onChange: function (value) {
-            history.replaceState({}, null, window.location.origin + "/" + value.split(",").join("-vs-"));
-
-            input[0].selectize.close();
-            input[0].selectize.disable();
-
-            window.location.reload();
-        },
+        environment: window.ENV,
+        integrations: [
+            feedback,
+            ...(enableSentryTracing
+                ? [
+                      new Sentry.BrowserTracing({
+                          tracingOrigins: [firstPartyHostMatcher],
+                          beforeNavigate: (context) => {
+                              return {
+                                  ...context,
+                                  name: location.pathname
+                                      .replaceAll(/(\/)(@[a-zA-Z0-9-_]+)(\/|$)/g, "$1<username>$3")
+                                      .replaceAll(/(\/)([a-f0-9-]{32,36})(\/|$)/g, "$1<uuid>$3")
+                                      .replaceAll(/(\/team\/)([a-z0-9]{8})(\/|$)/g, "$1<slug>$3")
+                                      .replaceAll(/(\/)(\d+)(\/|$)/g, "$1<id>$3"),
+                              };
+                          },
+                      }),
+                      new Sentry.Replay({
+                          networkDetailAllowUrls: [firstPartyHostMatcher],
+                      }),
+                  ]
+                : []),
+        ],
+        tracesSampleRate: enableSentryTracing ? window.SENTRY.TRACES_SAMPLE_RATE : 0.0,
+        tracePropagationTargets: [firstPartyHostMatcher],
+        replaysSessionSampleRate: enableSentryTracing ? window.SENTRY.REPLAYS_SAMPLE_RATE ?? 0.1 : 0.0,
+        replaysOnErrorSampleRate: enableSentryTracing ? window.SENTRY.REPLAYS_ERROR_SAMPLE_RATE ?? 1.0 : 0.0,
     });
 
-    var options = jQuery("#package-options"),
-        items = jQuery("#package-items");
-
-    if (options.length && items.length) {
-        jQuery(options.data("value")).each(function (_, option) {
-            input[0].selectize.addOption(option);
-        });
-
-        input[0].selectize.addItems(items.data("value"), true);
-    }
-
-    var labels = jQuery("#chart-labels"),
-        datasets = jQuery("#chart-datasets");
-
-    if (labels.length && items.length) {
-        chart_init(jQuery("#chart"), {
-            type: "line",
-            legend: {
-                position: "bottom",
-            },
-            data: {
-                labels: labels.data("value"),
-                datasets: datasets.data("value"),
-            },
+    if (isAuthenticated) {
+        Sentry.configureScope((scope) => {
+            scope.setUser({
+                id: window.USER.id,
+                name: window.USER.name,
+                email: window.USER.email,
+                chief_id: window.USER.chief_id,
+            });
         });
     }
-})();
+}
+
+window.Sentry = Sentry;
+
+require("./bootstrap");
