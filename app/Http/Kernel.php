@@ -28,6 +28,7 @@ class Kernel extends HttpKernel
             ViewMiddleware\ShareErrorsFromSession::class,
             Middleware\VerifyCsrfToken::class,
             RoutingMiddleware\SubstituteBindings::class,
+            Middleware\JavaScriptInjector::class,
         ],
 
         'api' => [

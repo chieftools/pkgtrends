@@ -88,6 +88,22 @@ return [
 
         ],
 
+        'sentry' => [
+
+            'public_dsn' => env('APP_DEBUG', false) ? null : env('SENTRY_PUBLIC_DSN', env('SENTRY_LARAVEL_DSN')),
+
+            'public_tunnel' => env('SENTRY_PUBLIC_TUNNEL'),
+
+            'replays' => [
+
+                'sample_rate' => env('SENTRY_REPLAYS_SAMPLE_RATE') === null ? null : (float)env('SENTRY_REPLAYS_SAMPLE_RATE'),
+
+                'error_sample_rate' => env('SENTRY_REPLAYS_ERROR_SAMPLE_RATE') === null ? null : (float)env('SENTRY_REPLAYS_ERROR_SAMPLE_RATE'),
+
+            ],
+
+        ],
+
     ],
 
     /*
@@ -127,7 +143,9 @@ return [
     |
     */
 
-    'url' => env('APP_URL', 'https://pkgtrends.app'),
+    'url' => env('APP_URL', 'https://' . env('APP_DOMAIN', 'pkgtrends.app')),
+
+    'domain' => env('APP_DOMAIN', 'pkgtrends.app'),
 
     'asset_url' => env('ASSET_URL'),
 
