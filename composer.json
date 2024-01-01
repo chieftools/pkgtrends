@@ -19,7 +19,7 @@
         "guzzlehttp/guzzle": "7.8.*",
         "laracasts/utilities": "3.2.*",
         "laravel/framework": "10.34.*",
-        "laravel/helpers": "1.6.*",
+        "laravel/helpers": "1.7.*",
         "laravel/horizon": "5.21.*",
         "laravel/tinker": "2.8.*",
         "sentry/sentry-laravel": "4.1.*",
