@@ -8,13 +8,13 @@ use Stayallive\Laravel\Eloquent\UUID\UsesUUID;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
- * @property string                                   $id
- * @property string                                   $packages
- * @property string                                   $hash
- * @property string                                   $permalink
- * @property \Carbon\Carbon                           $created_at
- * @property \Carbon\Carbon                           $updated_at
- * @property \Illuminate\Database\Eloquent\Collection $subscriptions
+ * @property string                                                                                   $id
+ * @property string                                                                                   $packages
+ * @property string                                                                                   $hash
+ * @property string                                                                                   $permalink
+ * @property \Carbon\Carbon                                                                           $created_at
+ * @property \Carbon\Carbon                                                                           $updated_at
+ * @property \Illuminate\Database\Eloquent\Collection<int, \ChiefTools\Pkgtrends\Models\Subscription> $subscriptions
  */
 class Report extends Model
 {

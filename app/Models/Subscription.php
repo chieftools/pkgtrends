@@ -86,6 +86,7 @@ class Subscription extends Model
         );
     }
 
+    /** @return \Illuminate\Database\Eloquent\Collection<int, self> */
     public static function findByEmail(string $email): Collection
     {
         return self::query()->where('email', '=', strtolower(trim($email)))->get();
