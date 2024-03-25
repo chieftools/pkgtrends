@@ -1,12 +1,11 @@
 import * as Sentry from "@sentry/browser";
-import { Feedback } from "@sentry-internal/feedback";
 
 if (window.SENTRY !== undefined && window.SENTRY !== null && window.SENTRY.DSN) {
     const isAuthenticated = window.USER !== undefined && window.USER !== null;
     const enableSentryTracing = window.SENTRY.TRACES_SAMPLE_RATE && window.SENTRY.TRACES_SAMPLE_RATE > 0;
     const firstPartyHostMatcher = new RegExp("https://(?:[\\w.]+\\.)?" + window.BASE.replaceAll(".", "\\."));
 
-    const feedback = (window.SENTRY_FEEDBACK = new Feedback({
+    const feedback = (window.SENTRY_FEEDBACK = new Sentry.Feedback({
         showName: !isAuthenticated,
         showEmail: !isAuthenticated,
         autoInject: true,
