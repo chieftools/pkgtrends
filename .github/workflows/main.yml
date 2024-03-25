@@ -23,7 +23,7 @@ jobs:
           extensions: zip
           key: php83-cache
       - name: Cache PHP extensions
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: ${{ steps.php-ext-cache.outputs.dir }}
           key: ${{ steps.php-ext-cache.outputs.key }}
@@ -36,7 +36,7 @@ jobs:
           coverage: none
 
       - name: Cache Composer dependencies
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         id: composer-cache
         with:
           path: vendor
@@ -66,7 +66,7 @@ jobs:
           extensions: zip
           key: php83-cache
       - name: Cache PHP extensions
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: ${{ steps.php-ext-cache.outputs.dir }}
           key: ${{ steps.php-ext-cache.outputs.key }}
@@ -79,7 +79,7 @@ jobs:
           coverage: none
 
       - name: Cache Composer dependencies
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         id: composer-cache
         with:
           path: vendor
@@ -105,7 +105,7 @@ jobs:
           extensions: zip
           key: php83-cache
       - name: Cache PHP extensions
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: ${{ steps.php-ext-cache.outputs.dir }}
           key: ${{ steps.php-ext-cache.outputs.key }}
@@ -117,7 +117,7 @@ jobs:
           extensions: zip
           coverage: none
       - name: Cache Composer dependencies
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         id: composer-cache
         with:
           path: vendor
@@ -150,7 +150,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Cache Yarn dependencies
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         id: yarn-cache
         with:
           path: node_modules
@@ -170,7 +170,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Cache Yarn dependencies
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         id: yarn-cache
         with:
           path: node_modules
