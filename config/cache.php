@@ -58,6 +58,6 @@ return [
     |
     */
 
-    'prefix' => 'cache',
+    'prefix' => 'cache:',
 
 ];
