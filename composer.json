@@ -18,7 +18,7 @@
         "google/cloud-bigquery": "1.30.*",
         "guzzlehttp/guzzle": "7.8.*",
         "laracasts/utilities": "3.2.*",
-        "laravel/framework": "11.1.*",
+        "laravel/framework": "11.6.*",
         "laravel/helpers": "1.7.*",
         "laravel/horizon": "5.23.*",
         "laravel/tinker": "2.9.*",
