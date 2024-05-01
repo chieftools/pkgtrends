@@ -20,7 +20,7 @@
         "laracasts/utilities": "3.2.*",
         "laravel/framework": "11.1.*",
         "laravel/helpers": "1.7.*",
-        "laravel/horizon": "5.23.*",
+        "laravel/horizon": "5.24.*",
         "laravel/tinker": "2.9.*",
         "sentry/sentry-laravel": "4.4.*",
         "statview/satellite": "1.3.*",
