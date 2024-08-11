@@ -1,7 +1,6 @@
 import Chart from "chart.js";
 import { Tooltip } from "bootstrap";
 
-require("jquery-ui/ui/core");
 require("jquery-ui/ui/widgets/sortable");
 import "@selectize/selectize";
 
