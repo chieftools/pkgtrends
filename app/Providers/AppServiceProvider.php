@@ -13,9 +13,8 @@ class AppServiceProvider extends ServiceProvider
             $keyFile = json_decode(config('services.google.credentials'), true);
 
             return new BigQueryClient([
-                'projectId'   => 'package-trends',
-                'keyFile'     => $keyFile,
-                'keyFilePath' => storage_path('creds/google-bigquery.json'),
+                'projectId' => $keyFile['project_id'],
+                'keyFile'   => $keyFile,
             ]);
         });
     }
