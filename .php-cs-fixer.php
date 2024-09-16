@@ -13,6 +13,7 @@ $finder = PhpCsFixer\Finder::create()
 $config = new PhpCsFixer\Config;
 
 $config
+    ->setParallelConfig(PhpCsFixer\Runner\Parallel\ParallelConfigFactory::detect())
     ->setRules([
         '@Symfony' => true,
 

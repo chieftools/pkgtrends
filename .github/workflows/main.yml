@@ -124,12 +124,22 @@ jobs:
           key: ${{ runner.os }}-composer-${{ hashFiles('composer.lock') }}
           restore-keys: ${{ runner.os }}-composer-
 
+      - name: Cache PHPStan cache
+        uses: actions/cache@v4
+        id: phpstan-cache
+        with:
+          path: storage/tmp/phpstan
+          key: ${{ runner.os }}-phpstan-${{ github.ref }}-${{ hashFiles('phpstan.neon') }}
+          restore-keys: |
+            ${{ runner.os }}-phpstan-${{ github.ref }}-
+            ${{ runner.os }}-phpstan-
       - name: Run PHPStan
         run: |
           cp .env.testing.template .env.testing
           composer phpstan:ci
         env:
           APP_ENV: 'testing'
+        timeout-minutes: 15
 
   security:
     name: security

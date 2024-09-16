@@ -8,7 +8,7 @@
         "hot": "mix watch --hot",
         "prod": "npm run production",
         "production": "mix --production",
-        "prettier": "prettier --write 'resources/assets/{**/*,*}.{js,vue,css,less,scss,gql,graphql}'",
+        "prettier": "prettier --cache --write 'resources/assets/{**/*,*}.{js,vue,css,less,scss,gql,graphql}'",
         "prettier:ci": "prettier --check 'resources/assets/{**/*,*}.{js,vue,css,less,scss,gql,graphql}'"
     },
     "devDependencies": {

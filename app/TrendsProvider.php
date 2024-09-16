@@ -29,7 +29,7 @@ class TrendsProvider
      *
      * @var \Illuminate\Support\Collection|null
      */
-    private ?Collection $data;
+    private ?Collection $data = null;
 
     /**
      * TrendsQuery constructor.
