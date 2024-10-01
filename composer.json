@@ -20,7 +20,7 @@
         "laracasts/utilities": "3.2.*",
         "laravel/framework": "11.23.*",
         "laravel/helpers": "1.7.*",
-        "laravel/horizon": "5.28.*",
+        "laravel/horizon": "5.29.*",
         "laravel/tinker": "2.9.*",
         "sentry/sentry-laravel": "4.8.*",
         "stayallive/laravel-eloquent-uuid": "1.0.*"
