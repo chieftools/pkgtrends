@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "721096486ffd5d3dbf1b05b920e2ac7e",
+    "content-hash": "2b6b013ab6437700545b7c63985b743e",
     "packages": [
         {
             "name": "aws/aws-crt-php",
@@ -4495,6 +4495,59 @@
                 }
             ],
             "time": "2024-09-19T12:58:53+00:00"
+        },
+        {
+            "name": "statview/satellite",
+            "version": "1.3.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/statview-app/satellite.git",
+                "reference": "1a3fbcac7e0236760b23b1122f7d10b6fb4b6e7c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/statview-app/satellite/zipball/1a3fbcac7e0236760b23b1122f7d10b6fb4b6e7c",
+                "reference": "1a3fbcac7e0236760b23b1122f7d10b6fb4b6e7c",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/contracts": "^9.0 || ^10.0 || ^11.0"
+            },
+            "require-dev": {
+                "orchestra/testbench": "^8.0.10",
+                "pestphp/pest": "^2.9",
+                "pestphp/pest-plugin-laravel": "^2.0",
+                "spatie/laravel-ray": "^1.32.4"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Statview\\Satellite\\SatelliteServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "files": [
+                    "src/functions.php"
+                ],
+                "psr-4": {
+                    "Statview\\Satellite\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "authors": [
+                {
+                    "name": "Sebastiaan",
+                    "email": "skloos@pm.me"
+                }
+            ],
+            "description": "Satellite package for Statview",
+            "support": {
+                "issues": "https://github.com/statview-app/satellite/issues",
+                "source": "https://github.com/statview-app/satellite/tree/1.3.0"
+            },
+            "time": "2024-03-31T20:13:18+00:00"
         },
         {
             "name": "stayallive/laravel-eloquent-uuid",

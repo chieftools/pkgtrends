@@ -4,6 +4,7 @@ namespace ChiefTools\Pkgtrends\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Google\Cloud\BigQuery\BigQueryClient;
+use Illuminate\Foundation\Http\Middleware\PreventRequestsDuringMaintenance;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -25,5 +26,9 @@ class AppServiceProvider extends ServiceProvider
         foreach ((array)config('app.sources') as $provider) {
             $this->app->singleton($provider, static fn () => new $provider);
         }
+
+        PreventRequestsDuringMaintenance::except([
+            'statview/*',
+        ]);
     }
 }
