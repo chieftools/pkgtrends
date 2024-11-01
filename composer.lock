@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "2b6b013ab6437700545b7c63985b743e",
+    "content-hash": "0b4d1d46f2b7a83e91c5158333d6e6e1",
     "packages": [
         {
             "name": "aws/aws-crt-php",
@@ -1866,16 +1866,16 @@
         },
         {
             "name": "laravel/framework",
-            "version": "v11.29.0",
+            "version": "v11.30.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "425054512c362835ba9c0307561973c8eeac7385"
+                "reference": "dff716442d9c229d716be82ccc9a7de52eb97193"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/425054512c362835ba9c0307561973c8eeac7385",
-                "reference": "425054512c362835ba9c0307561973c8eeac7385",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/dff716442d9c229d716be82ccc9a7de52eb97193",
+                "reference": "dff716442d9c229d716be82ccc9a7de52eb97193",
                 "shasum": ""
             },
             "require": {
@@ -2071,7 +2071,7 @@
                 "issues": "https://github.com/laravel/framework/issues",
                 "source": "https://github.com/laravel/framework"
             },
-            "time": "2024-10-22T14:13:31+00:00"
+            "time": "2024-10-30T15:00:34+00:00"
         },
         {
             "name": "laravel/helpers",
@@ -9640,13 +9640,13 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": {},
+    "stability-flags": [],
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
         "php": "^8.3"
     },
-    "platform-dev": {},
+    "platform-dev": [],
     "platform-overrides": {
         "php": "8.3.0"
     },
