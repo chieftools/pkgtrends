@@ -4498,20 +4498,21 @@
         },
         {
             "name": "statview/satellite",
-            "version": "1.3.0",
+            "version": "1.3.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/statview-app/satellite.git",
-                "reference": "1a3fbcac7e0236760b23b1122f7d10b6fb4b6e7c"
+                "reference": "422d1a5949c43e218e9c48b235b4852a6b530def"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/statview-app/satellite/zipball/1a3fbcac7e0236760b23b1122f7d10b6fb4b6e7c",
-                "reference": "1a3fbcac7e0236760b23b1122f7d10b6fb4b6e7c",
+                "url": "https://api.github.com/repos/statview-app/satellite/zipball/422d1a5949c43e218e9c48b235b4852a6b530def",
+                "reference": "422d1a5949c43e218e9c48b235b4852a6b530def",
                 "shasum": ""
             },
             "require": {
-                "illuminate/contracts": "^9.0 || ^10.0 || ^11.0"
+                "illuminate/contracts": "^9.0 || ^10.0 || ^11.0",
+                "symfony/process": "^6.0 || ^7.1.5"
             },
             "require-dev": {
                 "orchestra/testbench": "^8.0.10",
@@ -4545,9 +4546,9 @@
             "description": "Satellite package for Statview",
             "support": {
                 "issues": "https://github.com/statview-app/satellite/issues",
-                "source": "https://github.com/statview-app/satellite/tree/1.3.0"
+                "source": "https://github.com/statview-app/satellite/tree/1.3.2"
             },
-            "time": "2024-03-31T20:13:18+00:00"
+            "time": "2024-10-29T20:45:50+00:00"
         },
         {
             "name": "stayallive/laravel-eloquent-uuid",
@@ -9640,13 +9641,13 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": {},
+    "stability-flags": [],
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
         "php": "^8.3"
     },
-    "platform-dev": {},
+    "platform-dev": [],
     "platform-overrides": {
         "php": "8.3.0"
     },
