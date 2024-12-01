@@ -30,7 +30,7 @@
         "barryvdh/laravel-debugbar": "3.14.*",
         "barryvdh/laravel-ide-helper": "3.2.*",
         "friendsofphp/php-cs-fixer": "3.64.*",
-        "larastan/larastan": "2.9.*",
+        "larastan/larastan": "3.0.*",
         "nunomaduro/collision": "8.5.*",
         "wnx/laravel-stats": "2.13.*"
     },
