@@ -30,6 +30,7 @@ class Report extends Model
         return new TrendsProvider($this->packages);
     }
 
+    /** @return \Illuminate\Database\Eloquent\Relations\HasMany<\ChiefTools\Pkgtrends\Models\Subscription, $this> */
     public function subscriptions(): HasMany
     {
         return $this->hasMany(Subscription::class);

@@ -60,6 +60,7 @@ class Subscription extends Model
         });
     }
 
+    /** @return \Illuminate\Database\Eloquent\Relations\BelongsTo<\ChiefTools\Pkgtrends\Models\Report, $this> */
     public function report(): BelongsTo
     {
         return $this->belongsTo(Report::class);
