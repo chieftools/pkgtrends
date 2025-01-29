@@ -18,21 +18,21 @@
         "google/cloud-bigquery": "1.31.*",
         "guzzlehttp/guzzle": "7.9.*",
         "laracasts/utilities": "3.2.*",
-        "laravel/framework": "11.30.*",
+        "laravel/framework": "11.41.*",
         "laravel/helpers": "1.7.*",
-        "laravel/horizon": "5.29.*",
+        "laravel/horizon": "5.30.*",
         "laravel/tinker": "2.10.*",
-        "sentry/sentry-laravel": "4.9.*",
+        "sentry/sentry-laravel": "4.11.*",
         "statview/satellite": "1.3.*",
         "stayallive/laravel-eloquent-uuid": "1.0.*"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "3.14.*",
-        "barryvdh/laravel-ide-helper": "3.2.*",
-        "friendsofphp/php-cs-fixer": "3.64.*",
-        "larastan/larastan": "2.9.*",
-        "nunomaduro/collision": "8.5.*",
-        "wnx/laravel-stats": "2.13.*"
+        "barryvdh/laravel-ide-helper": "3.5.*",
+        "friendsofphp/php-cs-fixer": "3.68.*",
+        "larastan/larastan": "3.0.*",
+        "nunomaduro/collision": "8.6.*",
+        "wnx/laravel-stats": "2.14.*"
     },
     "replace": {
         "symfony/polyfill-php70": "*",
