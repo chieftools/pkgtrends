@@ -32,7 +32,7 @@
         "friendsofphp/php-cs-fixer": "3.68.*",
         "larastan/larastan": "3.0.*",
         "nunomaduro/collision": "8.6.*",
-        "wnx/laravel-stats": "2.14.*"
+        "wnx/laravel-stats": "2.15.*"
     },
     "replace": {
         "symfony/polyfill-php70": "*",
