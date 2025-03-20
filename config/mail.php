@@ -37,6 +37,18 @@ return [
 
     'mailers' => [
 
+        'lettermint' => [
+            'transport'    => 'smtp',
+            'url'          => env('MAIL_LETTERMINT_URL'),
+            'host'         => env('MAIL_LETTERMINT_HOST', 'smtp.lettermint.co'),
+            'port'         => env('MAIL_LETTERMINT_PORT', 465),
+            'encryption'   => env('MAIL_LETTERMINT_ENCRYPTION', 'tls'),
+            'username'     => env('MAIL_LETTERMINT_USERNAME'),
+            'password'     => env('MAIL_LETTERMINT_PASSWORD'),
+            'timeout'      => 10,
+            'local_domain' => env('MAIL_LETTERMINT_EHLO_DOMAIN', parse_url(env('APP_URL', 'https://pkgtrends.app'), PHP_URL_HOST)),
+        ],
+
         'postmark' => [
             'transport'    => 'smtp',
             'url'          => env('MAIL_POSTMARK_URL'),
@@ -73,6 +85,7 @@ return [
         'failover' => [
             'transport' => 'failover',
             'mailers'   => [
+                'lettermint',
                 'scaleway',
                 'postmark',
                 'log',
@@ -82,6 +95,7 @@ return [
         'roundrobin' => [
             'transport' => 'roundrobin',
             'mailers'   => [
+                'lettermint',
                 'scaleway',
                 'postmark',
             ],

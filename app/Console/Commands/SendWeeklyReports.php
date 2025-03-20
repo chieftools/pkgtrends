@@ -5,6 +5,7 @@ namespace ChiefTools\Pkgtrends\Console\Commands;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Mail;
 use ChiefTools\Pkgtrends\Models\Report;
+use Illuminate\Database\Eloquent\Builder;
 use ChiefTools\Pkgtrends\Mail\WeeklyReport;
 use Illuminate\Database\Eloquent\Collection;
 use ChiefTools\Pkgtrends\Models\Subscription;
@@ -16,7 +17,7 @@ class SendWeeklyReports extends Command
 
     public function handle(): void
     {
-        Report::query()->whereHas('subscriptions', function ($query) {
+        Report::query()->whereHas('subscriptions', function (Builder $query) {
             $query->confirmed();
 
             if (!$this->option('force')) {
