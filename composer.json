@@ -13,12 +13,12 @@
     "license": "proprietary",
     "type": "project",
     "require": {
-        "php": "^8.3",
+        "php": "^8.4",
         "aws/aws-sdk-php": "^3.324",
         "google/cloud-bigquery": "1.31.*",
         "guzzlehttp/guzzle": "7.9.*",
         "laracasts/utilities": "3.2.*",
-        "laravel/framework": "12.3.*",
+        "laravel/framework": "12.9.*",
         "laravel/helpers": "1.7.*",
         "laravel/horizon": "5.31.*",
         "laravel/tinker": "2.10.*",
@@ -29,9 +29,9 @@
     "require-dev": {
         "barryvdh/laravel-debugbar": "3.15.*",
         "barryvdh/laravel-ide-helper": "3.5.*",
-        "friendsofphp/php-cs-fixer": "3.73.*",
-        "larastan/larastan": "3.2.*",
-        "nunomaduro/collision": "8.7.*"
+        "friendsofphp/php-cs-fixer": "3.75.*",
+        "larastan/larastan": "3.3.*",
+        "nunomaduro/collision": "8.8.*"
     },
     "replace": {
         "symfony/polyfill-php70": "*",
@@ -42,7 +42,8 @@
         "symfony/polyfill-php80": "*",
         "symfony/polyfill-php81": "*",
         "symfony/polyfill-php82": "*",
-        "symfony/polyfill-php83": "*"
+        "symfony/polyfill-php83": "*",
+        "symfony/polyfill-php84": "*"
     },
     "autoload": {
         "psr-4": {
@@ -81,7 +82,7 @@
     },
     "config": {
         "platform": {
-            "php": "8.3.0"
+            "php": "8.4.2"
         },
         "allow-plugins": {
             "php-http/discovery": false,
