@@ -23,9 +23,9 @@ jobs:
         uses: shivammathur/cache-extensions@v1
         id: php-ext-cache
         with:
-          php-version: '8.3'
+          php-version: '8.4'
           extensions: zip
-          key: php83-cache
+          key: php84-cache
       - name: Cache PHP extensions
         uses: actions/cache@v4
         with:
@@ -35,7 +35,7 @@ jobs:
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: '8.3'
+          php-version: '8.4'
           extensions: zip
           coverage: none
 
@@ -66,9 +66,9 @@ jobs:
         uses: shivammathur/cache-extensions@v1
         id: php-ext-cache
         with:
-          php-version: '8.3'
+          php-version: '8.4'
           extensions: zip
-          key: php83-cache
+          key: php84-cache
       - name: Cache PHP extensions
         uses: actions/cache@v4
         with:
@@ -78,7 +78,7 @@ jobs:
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: '8.3'
+          php-version: '8.4'
           extensions: zip
           coverage: none
 
@@ -105,9 +105,9 @@ jobs:
         uses: shivammathur/cache-extensions@v1
         id: php-ext-cache
         with:
-          php-version: '8.3'
+          php-version: '8.4'
           extensions: zip
-          key: php83-cache
+          key: php84-cache
       - name: Cache PHP extensions
         uses: actions/cache@v4
         with:
@@ -117,7 +117,7 @@ jobs:
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: '8.3'
+          php-version: '8.4'
           extensions: zip
           coverage: none
       - name: Cache Composer dependencies
