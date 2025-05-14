@@ -43,11 +43,10 @@ class NpmRepository extends ExternalPackageRepository
                 ],
             ]);
 
-            return collect(json_decode($response->getBody()->getContents(), true)['objects'] ?? [])->map(function ($result) {
-                return $result['package'];
-            })->map(function ($package) {
-                return $this->formatNpmPackage($package);
-            })->all();
+            return collect(json_decode($response->getBody()->getContents(), true)['objects'] ?? [])
+                ->pluck('package')
+                ->map($this->formatNpmPackage(...))
+                ->all();
         }, []);
     }
 
@@ -65,13 +64,11 @@ class NpmRepository extends ExternalPackageRepository
     public function getPackageStats(string $name, Carbon $start, Carbon $end): ?array
     {
         return rescue(function () use ($name, $start, $end) {
-            $response = $this->http->get('downloads/range/' . $start->format('Y-m-d') . ':' . $end->format('Y-m-d') . '/' . $name);
+            $response = $this->http->get("downloads/range/{$start->format('Y-m-d')}:{$end->format('Y-m-d')}/{$name}");
 
-            $downloads = collect(json_decode($response->getBody()->getContents(), true)['downloads'] ?? []);
-
-            return $downloads->isEmpty() ? null : $downloads->keyBy('day')->map(function ($data) {
-                return $data['downloads'];
-            })->all();
+            return collect(json_decode($response->getBody()->getContents(), true)['downloads'] ?? [])
+                ->pluck('downloads', 'day')
+                ->all();
         });
     }
 
