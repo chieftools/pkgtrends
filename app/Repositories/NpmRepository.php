@@ -30,6 +30,11 @@ class NpmRepository extends ExternalPackageRepository
 
     public function searchPackage(string $query): array
     {
+        // The 'text' parameter must be between 2 and 64 characters
+        if (strlen($query) < 2 || strlen($query) > 64) {
+            return [];
+        }
+
         return rescue(function () use ($query) {
             $response = $this->searchHttp->get('search', [
                 'query' => [
