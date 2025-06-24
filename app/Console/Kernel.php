@@ -82,6 +82,10 @@ class Kernel extends ConsoleKernel
 
     private function scheduleSubscriptions(Schedule $schedule): void
     {
+        if (!config('app.schedule_subscriptions')) {
+            return;
+        }
+
         // Every monday we send the weekly reports to our subscribers
         $schedule->command(Commands\SendWeeklyReports::class)
                  ->mondays()->at('08:00')
