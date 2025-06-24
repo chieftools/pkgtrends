@@ -44,6 +44,8 @@ return [
 
     'cron' => env('APP_CRON', true),
 
+    'schedule_subscriptions' => env('APP_SCHEDULE_SUBSCRIPTIONS', true),
+
     'ping' => [
 
         'queue'               => env('PING_QUEUE'),
