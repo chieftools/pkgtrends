@@ -26,7 +26,7 @@
         "stayallive/laravel-eloquent-uuid": "1.0.*"
     },
     "require-dev": {
-        "barryvdh/laravel-debugbar": "3.15.*",
+        "barryvdh/laravel-debugbar": "3.16.*",
         "barryvdh/laravel-ide-helper": "3.5.*",
         "friendsofphp/php-cs-fixer": "3.75.*",
         "larastan/larastan": "3.5.*",
