@@ -87,7 +87,7 @@ class Subscription extends Model
         );
     }
 
-    /** @return \Illuminate\Database\Eloquent\Collection<int, $this> */
+    /** @return \Illuminate\Database\Eloquent\Collection<int, \ChiefTools\Pkgtrends\Models\Subscription> */
     public static function findByEmail(string $email): Collection
     {
         return self::query()->where('email', '=', strtolower(trim($email)))->get();
