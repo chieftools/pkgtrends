@@ -14,22 +14,22 @@
     "type": "project",
     "require": {
         "php": "^8.4",
-        "google/cloud-bigquery": "1.32.*",
-        "guzzlehttp/guzzle": "7.9.*",
+        "google/cloud-bigquery": "1.34.*",
+        "guzzlehttp/guzzle": "7.10.*",
         "laracasts/utilities": "3.2.*",
-        "laravel/framework": "12.19.*",
-        "laravel/helpers": "1.7.*",
-        "laravel/horizon": "5.33.*",
+        "laravel/framework": "12.32.*",
+        "laravel/helpers": "1.8.*",
+        "laravel/horizon": "5.34.*",
         "laravel/tinker": "2.10.*",
-        "sentry/sentry-laravel": "4.15.*",
+        "sentry/sentry-laravel": "4.16.*",
         "statview/satellite": "1.4.*",
         "stayallive/laravel-eloquent-uuid": "1.0.*"
     },
     "require-dev": {
-        "barryvdh/laravel-debugbar": "3.15.*",
-        "barryvdh/laravel-ide-helper": "3.5.*",
-        "friendsofphp/php-cs-fixer": "3.75.*",
-        "larastan/larastan": "3.5.*",
+        "barryvdh/laravel-debugbar": "3.16.*",
+        "barryvdh/laravel-ide-helper": "3.6.*",
+        "friendsofphp/php-cs-fixer": "3.88.*",
+        "larastan/larastan": "3.7.*",
         "nunomaduro/collision": "8.8.*"
     },
     "replace": {
