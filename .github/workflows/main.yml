@@ -17,7 +17,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout sources
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Setup PHP cache
         uses: shivammathur/cache-extensions@v1
@@ -60,7 +60,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout sources
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Setup PHP cache
         uses: shivammathur/cache-extensions@v1
@@ -101,7 +101,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout sources
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Setup PHP cache
         uses: shivammathur/cache-extensions@v1
@@ -153,7 +153,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout sources
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Check for security issues in dependencies
         uses: symfonycorp/security-checker-action@v5
@@ -163,7 +163,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout sources
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Cache Yarn dependencies
         uses: actions/cache@v4
@@ -183,7 +183,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout sources
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Cache Yarn dependencies
         uses: actions/cache@v4
@@ -202,10 +202,10 @@ jobs:
     needs: [ phpstan, security, yarn ]
     runs-on: ubuntu-latest
     steps:
-      - name: Trigger Deploy Chief production
-        run: curl -s "$DEPLOYCHIEF?commit=$GITHUB_SHA" > /dev/null
+      - name: Trigger Ploi Cloud deployment
+        run: curl -s "$PLOI_CLOUD?commit=$GITHUB_SHA" > /dev/null
         env:
-          DEPLOYCHIEF: ${{ secrets.DEPLOYCHIEF_PRODUCTION }}
+          PLOI_CLOUD: ${{ secrets.PLOI_CLOUD_PRODUCTION }}
 
   sentry:
     if: github.ref == 'refs/heads/master'
@@ -214,7 +214,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout sources
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Notify Sentry
         uses: docker://stayallive/sentry:release
