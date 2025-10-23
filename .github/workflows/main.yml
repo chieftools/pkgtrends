@@ -202,10 +202,10 @@ jobs:
     needs: [ phpstan, security, yarn ]
     runs-on: ubuntu-latest
     steps:
-      - name: Trigger Deploy Chief production
-        run: curl -s "$DEPLOYCHIEF?commit=$GITHUB_SHA" > /dev/null
+      - name: Trigger Ploi Cloud deployment
+        run: curl -s "$PLOI_CLOUD?commit=$GITHUB_SHA" > /dev/null
         env:
-          DEPLOYCHIEF: ${{ secrets.DEPLOYCHIEF_PRODUCTION }}
+          PLOI_CLOUD: ${{ secrets.PLOI_CLOUD_PRODUCTION }}
 
   sentry:
     if: github.ref == 'refs/heads/master'
