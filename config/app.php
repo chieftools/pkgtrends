@@ -265,7 +265,6 @@ return [
          * Application Service Providers...
          */
         ChiefTools\Pkgtrends\Providers\AppServiceProvider::class,
-        ChiefTools\Pkgtrends\Providers\HorizonServiceProvider::class,
         ChiefTools\Pkgtrends\Providers\RouteServiceProvider::class,
 
     ],

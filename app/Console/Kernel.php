@@ -3,7 +3,6 @@
 namespace ChiefTools\Pkgtrends\Console;
 
 use Illuminate\Console\Scheduling\Schedule;
-use Laravel\Horizon\Console\SnapshotCommand;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
 class Kernel extends ConsoleKernel
@@ -70,12 +69,6 @@ class Kernel extends ConsoleKernel
         // Dispatches a job calling a ping hook so we know the queue is active
         $schedule->command(Commands\QueueHealthCheck::class)
                  ->everyMinute()
-                 ->withoutOverlapping()->runInBackground()->onOneServer()
-                 ->appendOutputTo($this->scheduleLogPath());
-
-        // See: https://laravel.com/docs/9.x/horizon#metrics
-        $schedule->command(SnapshotCommand::class)
-                 ->everyFiveMinutes()
                  ->withoutOverlapping()->runInBackground()->onOneServer()
                  ->appendOutputTo($this->scheduleLogPath());
     }
