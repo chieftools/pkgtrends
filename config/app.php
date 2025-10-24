@@ -20,7 +20,7 @@ return [
         ? trim(file_get_contents($versionPath))
         : env('APP_VERSION', '@dev'),
 
-    'versionString' => env('APP_VERSION_STRING', '2025.4.0'),
+    'versionString' => env('APP_VERSION_STRING', '2025.4.1'),
 
     /*
     |--------------------------------------------------------------------------
@@ -265,7 +265,6 @@ return [
          * Application Service Providers...
          */
         ChiefTools\Pkgtrends\Providers\AppServiceProvider::class,
-        ChiefTools\Pkgtrends\Providers\HorizonServiceProvider::class,
         ChiefTools\Pkgtrends\Providers\RouteServiceProvider::class,
 
     ],
