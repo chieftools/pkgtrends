@@ -1,14 +1,13 @@
 <?php
 
 $finder = PhpCsFixer\Finder::create()
-                           ->in(__DIR__ . '/app')
-                           ->in(__DIR__ . '/config')
-                           ->in(__DIR__ . '/routes')
-                           ->in(__DIR__ . '/config')
-                           ->in(__DIR__ . '/database')
-                           ->name('*.php')
-                           ->ignoreDotFiles(true)
-                           ->ignoreVCS(true);
+    ->in(__DIR__ . '/app')
+    ->in(__DIR__ . '/config')
+    ->in(__DIR__ . '/routes')
+    ->in(__DIR__ . '/database')
+    ->name('*.php')
+    ->ignoreDotFiles(true)
+    ->ignoreVCS(true);
 
 $config = new PhpCsFixer\Config;
 
@@ -25,9 +24,11 @@ $config
         'single_line_throw'                                => false,
         'single_line_empty_body'                           => true,
         'single_blank_line_at_eof'                         => true,
+        'stringable_for_to_string'                         => false,
         'no_superfluous_phpdoc_tags'                       => false,
-        'linebreak_after_opening_tag'                      => true,
         'class_attributes_separation'                      => false,
+        'linebreak_after_opening_tag'                      => true,
+        'method_chaining_indentation'                      => true,
         'blank_line_between_import_groups'                 => false,
         'not_operator_with_successor_space'                => false,
         'single_trait_insert_per_statement'                => false,
@@ -115,6 +116,9 @@ $config
         ],
         'fully_qualified_strict_types' => [
             'phpdoc_tags' => [],
+        ],
+        'no_alternative_syntax'        => [
+            'fix_non_monolithic_code' => false,
         ],
     ])
     ->setFinder($finder);

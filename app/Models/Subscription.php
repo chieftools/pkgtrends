@@ -48,7 +48,7 @@ class Subscription extends Model
     {
         $query->where(function (Builder $query) use ($days) {
             $query->whereNull('last_notified_at')
-                  ->orWhere('last_notified_at', '<', now()->subDays($days));
+                ->orWhere('last_notified_at', '<', now()->subDays($days));
         });
     }
 
@@ -56,7 +56,7 @@ class Subscription extends Model
     {
         $query->where(function (Builder $query) use ($hours) {
             $query->whereNull('confirmed_at')
-                  ->where('created_at', '<', now()->subHours($hours));
+                ->where('created_at', '<', now()->subHours($hours));
         });
     }
 
