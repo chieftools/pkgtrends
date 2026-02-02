@@ -21,7 +21,7 @@
         "jquery": "^3.5.1",
         "jquery-ui": "^1.13.1",
         "laravel-mix": "^6.0.6",
-        "lodash": "^4.17.4",
+        "lodash": "^4.17.23",
         "prettier": "^2.5.1",
         "resolve-url-loader": "^5.0.0",
         "sass": "^1.49.9",
