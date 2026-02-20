@@ -29,7 +29,7 @@
         "barryvdh/laravel-ide-helper": "3.6.*",
         "friendsofphp/php-cs-fixer": "3.93.*",
         "larastan/larastan": "3.9.*",
-        "nunomaduro/collision": "8.8.*"
+        "nunomaduro/collision": "8.9.*"
     },
     "replace": {
         "symfony/polyfill-php80": "*",
