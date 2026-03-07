@@ -17,19 +17,19 @@
         "google/cloud-bigquery": "1.35.*",
         "guzzlehttp/guzzle": "7.10.*",
         "laracasts/utilities": "3.2.*",
-        "laravel/framework": "12.49.*",
+        "laravel/framework": "12.53.*",
         "laravel/helpers": "1.8.*",
         "laravel/tinker": "2.11.*",
-        "sentry/sentry-laravel": "4.20.*",
+        "sentry/sentry-laravel": "4.21.*",
         "statview/satellite": "1.4.*",
         "stayallive/laravel-eloquent-uuid": "1.0.*"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "4.0.*",
         "barryvdh/laravel-ide-helper": "3.6.*",
-        "friendsofphp/php-cs-fixer": "3.93.*",
+        "friendsofphp/php-cs-fixer": "3.94.*",
         "larastan/larastan": "3.9.*",
-        "nunomaduro/collision": "8.8.*"
+        "nunomaduro/collision": "8.9.*"
     },
     "replace": {
         "symfony/polyfill-php80": "*",
