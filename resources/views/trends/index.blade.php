@@ -23,7 +23,7 @@
 
                     $dataMapper = function ($dependency) use (&$colors) {
                         return [
-                            'label' => $dependency['info']['name'],
+                            'label' => $dependency['info']['name_formatted'],
                             'data' => $dependency['stats'],
                             'borderColor' => array_pop($colors),
                             'backgroundColor' => 'rgba(0,0,0,0)',
