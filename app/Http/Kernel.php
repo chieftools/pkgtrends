@@ -13,9 +13,10 @@ use Illuminate\Foundation\Http\Middleware as LaravelMiddleware;
 class Kernel extends HttpKernel
 {
     protected $middleware = [
+        HttpMiddleware\TrustProxies::class,
+        HttpMiddleware\HandleCors::class,
         LaravelMiddleware\PreventRequestsDuringMaintenance::class,
         LaravelMiddleware\ValidatePostSize::class,
-        HttpMiddleware\HandleCors::class,
         Middleware\TrimStrings::class,
         LaravelMiddleware\ConvertEmptyStringsToNull::class,
     ];
