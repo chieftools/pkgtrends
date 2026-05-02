@@ -19,7 +19,7 @@
         </div>
         <div class="row justify-content-center">
             <div class="col-auto px-0">
-                <div class="mt-2 cf-turnstile" data-sitekey="{{ config('services.turnstile.key') }}" data-theme="light"></div>
+                <div class="mt-2 cf-turnstile" data-sitekey="{{ config('services.turnstile.key') }}" data-theme="auto"></div>
                 <button type="submit" class="btn btn-primary form-control">Subscribe</button>
                 @if($error)
                     <div>&nbsp;</div>

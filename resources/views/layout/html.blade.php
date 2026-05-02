@@ -29,12 +29,25 @@
     <link rel="icon" href="{{ static_asset('icons/pkgtrends_favicon.svg') }}" type="image/svg+xml">
     <link rel="alternate icon" href="{{ static_asset('icons/pkgtrends_favicon.ico') }}" sizes="32x32">
 
+    <script>
+        (function () {
+            try {
+                var stored = localStorage.getItem('theme');
+                var theme = (stored === 'light' || stored === 'dark' || stored === 'system') ? stored : 'system';
+                var resolved = theme === 'system'
+                    ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light')
+                    : theme;
+                document.documentElement.setAttribute('data-bs-theme', resolved);
+            } catch (e) {}
+        })();
+    </script>
+
     <link media="all" type="text/css" rel="stylesheet" href="{{ mix('build/app.css') }}">
     @stack('head.style')
 
     @include('layout.partial.jsvars')
 </head>
-<body class="{{ $bodyClass or '' }}">
+<body class="{{ $bodyClass ?? '' }}">
     @yield('body')
 
     @stack('body.before_script')

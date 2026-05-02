@@ -1,9 +1,9 @@
-@extends('layout.html', ['bodyClass' => 'bg-light'])
+@extends('layout.html')
 
 @section('body')
     <div class="container">
         <div class="py-5 text-center">
-            <h1><i class="fas fa-chart-line" style="color: #2c3e50;"></i> {{ config('app.name') }}</h1>
+            <h1><i class="fas fa-chart-line text-body-emphasis"></i> {{ config('app.name') }}</h1>
             <p class="lead">{!! nl2br(trim(str_replace('.', ".\n", config('app.description')))) !!}</p>
         </div>
 
@@ -12,12 +12,23 @@
         @yield('content')
 
         <footer class="my-5 pt-5 text-muted text-center text-small">
+            <div class="btn-group btn-group-sm mb-4" role="group" aria-label="Theme">
+                <button type="button" class="btn btn-outline-secondary" data-theme-value="light" aria-label="Light theme" data-toggle="tooltip" title="Light">
+                    <i class="fas fa-sun"></i>
+                </button>
+                <button type="button" class="btn btn-outline-secondary" data-theme-value="system" aria-label="Use system theme" data-toggle="tooltip" title="System">
+                    <i class="fas fa-desktop"></i>
+                </button>
+                <button type="button" class="btn btn-outline-secondary" data-theme-value="dark" aria-label="Dark theme" data-toggle="tooltip" title="Dark">
+                    <i class="fas fa-moon"></i>
+                </button>
+            </div>
             <p class="mb-3">
                 Data sourced from
                 <br>
                 <small>
                     @foreach(config('app.sources') as $source)
-                        <i class="{{ $source::getIcon() }}" style="color: #2c3e50;"></i> {!! collect($source::getSources())->map(function ($url, $name) {
+                        <i class="{{ $source::getIcon() }} text-body-emphasis"></i> {!! collect($source::getSources())->map(function ($url, $name) {
                             return '<a href="' . e($url) . '" target="_blank" rel="noopener">' . e($name) . '</a>';
                         })->implode(' & ') !!}{!! $loop->last ? '' : '&nbsp;&nbsp;&middot;&nbsp;&nbsp;' !!}
                     @endforeach

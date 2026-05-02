@@ -7,6 +7,19 @@
 // Bootstrap
 @import "~bootstrap/scss/bootstrap";
 
+// Pin literal colors only for the selectize import — Bootstrap 5.3 turned these into
+// `var(--bs-*)` CSS vars, which the vendored selectize SCSS can't pass through Sass
+// color functions like mix()/darken(). Setting them here (after Bootstrap, before
+// selectize) keeps Bootstrap's own .form-control/.dropdown rules adaptive while still
+// letting selectize compile.
+$input-bg: #fff;
+$input-border-color: #ced4da;
+$dropdown-bg: #fff;
+$dropdown-border-color: rgba(0, 0, 0, 0.15);
+$dropdown-link-color: #212529;
+$dropdown-link-hover-color: #1e2125;
+$dropdown-link-hover-bg: #e9ecef;
+
 // Selectize
 @import "vendor/selectize/selectize.bootstrap5";
 
@@ -31,7 +44,18 @@
     }
 
     .selectize-input {
-        background-color: white;
+        background-color: var(--bs-body-bg);
+        color: var(--bs-body-color);
+
+        input {
+            color: inherit;
+            caret-color: var(--bs-body-color);
+
+            &::placeholder {
+                color: var(--bs-secondary-color);
+                opacity: 1;
+            }
+        }
 
         i {
             margin: 0 6px 0 3px;
@@ -39,15 +63,32 @@
 
         .selected-item {
             .remove {
-                color: $text-color;
+                color: var(--bs-body-color);
                 margin: 0 3px 0 6px;
                 text-decoration: none;
             }
 
             &.active .remove {
-                color: white;
+                color: var(--bs-light);
             }
         }
+    }
+
+    &.multi .selectize-input > div {
+        background-color: var(--bs-tertiary-bg);
+        color: var(--bs-body-color);
+        border-color: var(--bs-border-color);
+
+        &.active {
+            background-color: var(--bs-secondary-bg);
+            color: var(--bs-body-color);
+            border-color: var(--bs-border-color);
+        }
+    }
+
+    .selectize-dropdown .highlight {
+        background-color: rgba(var(--bs-primary-rgb), 0.25);
+        border-radius: 2px;
     }
 
     .selectize-dropdown {
@@ -72,6 +113,27 @@
 
         i {
             margin: 0 6px 0 3px;
+        }
+    }
+}
+
+[data-bs-theme="dark"] {
+    .selectize-control {
+        .selectize-input {
+            background-color: var(--bs-body-bg);
+            color: var(--bs-body-color);
+            border-color: var(--bs-border-color);
+        }
+
+        .selectize-dropdown {
+            background-color: var(--bs-body-bg);
+            color: var(--bs-body-color);
+            border-color: var(--bs-border-color);
+
+            .active {
+                background-color: var(--bs-primary);
+                color: var(--bs-light);
+            }
         }
     }
 }
