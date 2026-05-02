@@ -9,7 +9,7 @@ if (window.SENTRY !== undefined && window.SENTRY !== null && window.SENTRY.DSN) 
         showName: !isAuthenticated,
         showEmail: !isAuthenticated,
         autoInject: true,
-        colorScheme: "light",
+        colorScheme: "system",
         useSentryUser: {
             name: "name",
             email: "email",

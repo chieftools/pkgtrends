@@ -3,15 +3,35 @@ import { Tooltip } from "bootstrap";
 
 require("jquery-ui/ui/widgets/sortable");
 import "@selectize/selectize";
+import "./theme";
 
 window.$ = window.jQuery = require("jquery");
 
 document.querySelectorAll('[data-toggle*="tooltip"]').forEach((el) => new Tooltip(el));
 
+function applyChartTheme() {
+    const dark = document.documentElement.getAttribute("data-bs-theme") === "dark";
+    Chart.defaults.global.defaultFontColor = dark ? "#dee2e6" : "#666";
+    Chart.defaults.scale.gridLines.color = dark ? "rgba(255,255,255,0.1)" : "rgba(0,0,0,0.1)";
+    Chart.defaults.scale.gridLines.zeroLineColor = dark ? "rgba(255,255,255,0.25)" : "rgba(0,0,0,0.25)";
+}
+
+applyChartTheme();
+
 (function () {
+    let activeChart = null;
+
     window.chart_init = function chart_init(ctx, chart) {
-        return new Chart(ctx, chart);
+        activeChart = new Chart(ctx, chart);
+        return activeChart;
     };
+
+    document.addEventListener("themechange", () => {
+        applyChartTheme();
+        if (activeChart) {
+            activeChart.update();
+        }
+    });
 
     function getIconForVendor(vendor) {
         if (window.pkgtrends.vendors !== undefined) {
