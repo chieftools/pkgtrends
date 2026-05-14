@@ -11,7 +11,13 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         $this->app->singleton(BigQueryClient::class, static function () {
-            $keyFile = json_decode(config('services.google.credentials'), true);
+            $credentials = config('services.google.credentials');
+
+            if (str_starts_with($credentials, 'base64:')) {
+                $credentials = base64_decode(substr($credentials, 7));
+            }
+
+            $keyFile = json_decode($credentials, true);
 
             return new BigQueryClient([
                 'projectId' => $keyFile['project_id'],
