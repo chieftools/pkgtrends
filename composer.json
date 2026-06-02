@@ -27,7 +27,7 @@
         "barryvdh/laravel-debugbar": "4.2.*",
         "barryvdh/laravel-ide-helper": "3.7.*",
         "friendsofphp/php-cs-fixer": "3.95.*",
-        "larastan/larastan": "3.9.*",
+        "larastan/larastan": "3.10.*",
         "nunomaduro/collision": "8.9.*"
     },
     "replace": {
