@@ -7,19 +7,13 @@ use RuntimeException;
 
 abstract class PackageRepository
 {
-    /**
-     * The package repository key.
-     */
+    /** The package repository key. */
     protected static string $key;
 
-    /**
-     * The font awesome icon for this repository.
-     */
+    /** The font awesome icon for this repository. */
     protected static string $icon;
 
-    /**
-     * The source used for this repository.
-     */
+    /** The source used for this repository. */
     protected static array $sources;
 
     /**

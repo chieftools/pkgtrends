@@ -16,9 +16,7 @@ class NpmRepository extends ExternalPackageRepository
     protected string $baseUri       = 'https://api.npmjs.org/';
     protected string $searchBaseUri = 'https://registry.npmjs.org/-/v1/';
 
-    /**
-     * A Guzzle HTTP client instance used for retrieving package information.
-     */
+    /** A Guzzle HTTP client instance used for retrieving package information. */
     protected Client $searchHttp;
 
     public function __construct()

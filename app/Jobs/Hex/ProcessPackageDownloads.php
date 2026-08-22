@@ -14,14 +14,10 @@ class ProcessPackageDownloads implements ShouldQueue
 {
     use InteractsWithQueue, Queueable, LogsMessages;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     protected string $date;
 
-    /**
-     * @var int
-     */
+    /** @var int */
     protected int $page;
 
     public function __construct($date, $page = 1)

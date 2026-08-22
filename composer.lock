@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "4d5646894e8442545021a94d23ff865d",
+    "content-hash": "0cd3ee7f4e62fe399edbb0551873bb74",
     "packages": [
         {
             "name": "brick/math",
@@ -7412,6 +7412,52 @@
                 "source": "https://github.com/barryvdh/ReflectionDocBlock/tree/v2.4.1"
             },
             "time": "2026-03-05T20:09:01+00:00"
+        },
+        {
+            "name": "chieftools/php-cs-fixer",
+            "version": "v1.1.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/chieftools/php-cs-fixer.git",
+                "reference": "02cecb3ad1385e531c63128a845a4b4b083652ea"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/chieftools/php-cs-fixer/zipball/02cecb3ad1385e531c63128a845a4b4b083652ea",
+                "reference": "02cecb3ad1385e531c63128a845a4b4b083652ea",
+                "shasum": ""
+            },
+            "require": {
+                "composer-plugin-api": "^2.6",
+                "friendsofphp/php-cs-fixer": "^3.95",
+                "php": "^8.2"
+            },
+            "require-dev": {
+                "composer/composer": "^2.8",
+                "phpstan/phpstan": "^2.1",
+                "phpunit/phpunit": "^11.5|^12.0"
+            },
+            "type": "composer-plugin",
+            "extra": {
+                "class": "ChiefTools\\PhpCsFixer\\Composer\\Plugin",
+                "plugin-optional": true
+            },
+            "autoload": {
+                "psr-4": {
+                    "ChiefTools\\PhpCsFixer\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "Opinionated PHP CS Fixer configuration for Chief Tools projects.",
+            "homepage": "https://chief.app",
+            "support": {
+                "issues": "https://github.com/chieftools/php-cs-fixer/issues",
+                "source": "https://github.com/chieftools/php-cs-fixer/tree/v1.1.3"
+            },
+            "time": "2026-08-05T15:45:08+00:00"
         },
         {
             "name": "clue/ndjson-react",
