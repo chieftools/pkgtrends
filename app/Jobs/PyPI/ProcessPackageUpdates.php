@@ -33,6 +33,8 @@ class ProcessPackageUpdates implements ShouldQueue
 
         $this->logMessage("Processing PyPI packages page:{$this->page}...");
 
+        $packagesByProject = $packages->keyBy('project');
+
         // The HTTP client we are going to use to retrieve package information
         $client = http('https://pypi.org/pypi/');
 
@@ -49,7 +51,7 @@ class ProcessPackageUpdates implements ShouldQueue
         // Loop over the results
         foreach ($results as $package => $result) {
             /** @var \ChiefTools\Pkgtrends\Models\Packages\PyPI $localPackage */
-            $localPackage = $packages->find($package);
+            $localPackage = $packagesByProject->get($package);
 
             // Make sure the response was fullfilled and the response code is good
             if ($result['state'] === 'fulfilled' && ($response = $result['value'] ?? null) !== null && $response->getStatusCode() === 200) {

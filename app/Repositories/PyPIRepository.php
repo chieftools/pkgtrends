@@ -35,7 +35,13 @@ class PyPIRepository extends PackageRepository
     public function getPackageStats(string $name, Carbon $start, Carbon $end): ?array
     {
         return rescue(function () use ($name, $start, $end) {
-            $stats = Stats\PyPI::query()->where('project', '=', $name)->whereBetween('date', [$start->format('Y-m-d'), $end->format('Y-m-d')])->get();
+            $packageId = Packages\PyPI::query()->where('project', '=', $name)->value('id');
+
+            if ($packageId === null) {
+                return null;
+            }
+
+            $stats = Stats\PyPI::query()->where('package_id', '=', $packageId)->whereBetween('date', [$start->format('Y-m-d'), $end->format('Y-m-d')])->get();
 
             return $stats->isEmpty() ? null : $stats->keyBy('date')->map(function (Stats\PyPI $stat) {
                 return $stat->downloads;

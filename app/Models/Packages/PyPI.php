@@ -5,6 +5,7 @@ namespace ChiefTools\Pkgtrends\Models\Packages;
 use Illuminate\Database\Eloquent\Model;
 
 /**
+ * @property int            $id
  * @property string         $project
  * @property string|null    $description
  * @property \Carbon\Carbon $created_at
@@ -12,12 +13,8 @@ use Illuminate\Database\Eloquent\Model;
  */
 class PyPI extends Model
 {
-    public $incrementing = false;
-
-    protected $table      = 'packages_pypi';
-    protected $keyType    = 'string';
-    protected $primaryKey = 'project';
-    protected $fillable   = [
+    protected $table    = 'packages_pypi';
+    protected $fillable = [
         'project',
         'description',
     ];

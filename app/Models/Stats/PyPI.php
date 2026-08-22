@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * @property string $date
- * @property string $project
+ * @property int    $package_id
  * @property int    $downloads
  */
 class PyPI extends Model
@@ -16,7 +16,7 @@ class PyPI extends Model
     protected $table    = 'stats_pypi';
     protected $fillable = [
         'date',
-        'project',
+        'package_id',
         'downloads',
     ];
 }
