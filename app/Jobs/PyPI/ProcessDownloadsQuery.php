@@ -38,7 +38,7 @@ class ProcessDownloadsQuery implements ShouldQueue
         $now           = now();
 
         $packagesToInsert = [];
-        $statsToInsert    = [];
+        $downloadRows     = [];
         $projectKeys      = [];
 
         $queryResults = $bigQueryJob->queryResults([
@@ -49,16 +49,18 @@ class ProcessDownloadsQuery implements ShouldQueue
         foreach ($queryResults->rows() as $row) {
             $processedRows++;
 
-            $packagesToInsert[] = [
+            $projectKey = strtolower($row['project']);
+
+            $packagesToInsert[$projectKey] = [
                 'project'    => $row['project'],
                 'created_at' => $now,
                 'updated_at' => $now,
             ];
 
-            $statsToInsert[] = [
-                'date'      => $row['yyyymmdd'],
-                'project'   => $row['project'],
-                'downloads' => $row['downloads'],
+            $downloadRows[] = [
+                'date'        => $row['yyyymmdd'],
+                'project_key' => $projectKey,
+                'downloads'   => $row['downloads'],
             ];
 
             $projectKeys[] = $row['project'];
@@ -78,8 +80,36 @@ class ProcessDownloadsQuery implements ShouldQueue
             return;
         }
 
-        // Insert all missing packages
-        PyPIPackage::query()->insertOrIgnore($packagesToInsert);
+        $existingPackageKeys = PyPIPackage::query()
+            ->whereIn('project', $projectKeys)
+            ->pluck('project')
+            ->mapWithKeys(static fn (string $project) => [strtolower($project) => true])
+            ->all();
+
+        $missingPackages = array_diff_key($packagesToInsert, $existingPackageKeys);
+
+        if (!empty($missingPackages)) {
+            PyPIPackage::query()->insertOrIgnore(array_values($missingPackages));
+        }
+
+        $packageIds = PyPIPackage::query()
+            ->whereIn('project', $projectKeys)
+            ->get(['id', 'project'])
+            ->mapWithKeys(static fn (PyPIPackage $package) => [strtolower($package->project) => $package->id]);
+
+        $statsToInsert = array_map(static function (array $row) use ($packageIds): array {
+            $packageId = $packageIds->get($row['project_key']);
+
+            if ($packageId === null) {
+                throw new RuntimeException("Could not resolve package ID for {$row['project_key']}.");
+            }
+
+            return [
+                'date'       => $row['date'],
+                'package_id' => $packageId,
+                'downloads'  => $row['downloads'],
+            ];
+        }, $downloadRows);
 
         // Insert all missing stats
         PyPIStat::query()->insertOrIgnore($statsToInsert);
