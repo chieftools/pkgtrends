@@ -16,9 +16,7 @@ class RouteServiceProvider extends ServiceProvider
      */
     protected $namespace = 'ChiefTools\Pkgtrends\Http\Controllers';
 
-    /**
-     * Define the routes for the application.
-     */
+    /** Define the routes for the application. */
     public function map(): void
     {
         $this->mapWebRoutes();

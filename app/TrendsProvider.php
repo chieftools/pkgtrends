@@ -88,9 +88,7 @@ class TrendsProvider
         return collect($this->getPeriod())->chunk(7)->map(fn ($dates) => $dates->first()->format('d M Y'));
     }
 
-    /**
-     * Clear the trends cache for the query.
-     */
+    /** Clear the trends cache for the query. */
     public function clearTrendsCache(): void
     {
         collect(explode('-vs-', $this->query))->take(16)->each(function ($dependency) {
