@@ -3,12 +3,8 @@
 namespace ChiefTools\Pkgtrends\Console\Commands;
 
 use Illuminate\Console\Command;
-use Illuminate\Support\Facades\Mail;
-use ChiefTools\Pkgtrends\Models\Report;
-use Illuminate\Database\Eloquent\Builder;
-use ChiefTools\Pkgtrends\Mail\WeeklyReport;
-use Illuminate\Database\Eloquent\Collection;
 use ChiefTools\Pkgtrends\Models\Subscription;
+use ChiefTools\Pkgtrends\Jobs\Subscriptions\SendWeeklyReport;
 
 class SendWeeklyReports extends Command
 {
@@ -17,34 +13,25 @@ class SendWeeklyReports extends Command
 
     public function handle(): void
     {
-        Report::query()->whereHas('subscriptions', function (Builder $query) {
-            $query->confirmed();
+        $force  = (bool)$this->option('force');
+        $queued = 0;
 
-            if (!$this->option('force')) {
-                $query->notNotifiedInLastDays();
-            }
-        })->chunk(50, function (Collection $reports) {
-            $reports->each(function (Report $report) {
-                $trends = $report->getTrends();
+        $subscriptions = Subscription::query()->confirmed();
 
-                if ($trends->hasData()) {
-                    $report->subscriptions->each(function (Subscription $subscription) use ($trends, $report) {
-                        $this->info("Sending weekly report:{$report->id} to subscription:{$subscription->id}");
+        if (!$force) {
+            $subscriptions->notNotifiedInLastDays();
+        }
 
-                        Mail::to($subscription)->send(
-                            new WeeklyReport(
-                                $trends->getFormattedTitle(),
-                                $report->permalink,
-                                $trends->getData(),
-                                $subscription,
-                            ),
-                        );
+        $subscriptions
+            ->select('report_id')
+            ->distinct()
+            ->eachById(function (Subscription $subscription) use ($force, &$queued) {
+                dispatch(new SendWeeklyReport($subscription->report_id, $force));
 
-                        $subscription->markNotified();
-                    });
-                }
-            });
-        });
+                $queued++;
+            }, 100, 'report_id', 'report_id');
+
+        $this->info("Queued {$queued} weekly report jobs.");
 
         if (!empty(config('app.ping.weekly'))) {
             retry(3, static fn () => file_get_contents(config('app.ping.weekly')), 15);
