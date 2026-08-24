@@ -1,13 +1,2 @@
 parameters:
-	ignoreErrors:
-		-
-			rawMessage: 'Call to an undefined method Illuminate\Database\Eloquent\Builder<Illuminate\Database\Eloquent\Model>::confirmed().'
-			identifier: method.notFound
-			count: 1
-			path: app/Console/Commands/SendWeeklyReports.php
-
-		-
-			rawMessage: 'Call to an undefined method Illuminate\Database\Eloquent\Builder<Illuminate\Database\Eloquent\Model>::notNotifiedInLastDays().'
-			identifier: method.notFound
-			count: 1
-			path: app/Console/Commands/SendWeeklyReports.php
+	ignoreErrors: []
