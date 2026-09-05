@@ -9,11 +9,12 @@ use Google\Cloud\BigQuery\BigQueryClient;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use ChiefTools\Pkgtrends\Jobs\Concerns\LogsMessages;
 use ChiefTools\Pkgtrends\Models\Stats\PyPI as PyPIStat;
+use ChiefTools\Pkgtrends\Jobs\Concerns\RetriesWithBackoff;
 use ChiefTools\Pkgtrends\Models\Packages\PyPI as PyPIPackage;
 
 class ProcessDownloadsQuery implements ShouldQueue
 {
-    use InteractsWithQueue, Queueable, LogsMessages;
+    use InteractsWithQueue, Queueable, LogsMessages, RetriesWithBackoff;
 
     private static int $maxRows = 1000;
 

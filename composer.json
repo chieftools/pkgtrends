@@ -17,7 +17,7 @@
         "google/cloud-bigquery": "1.39.*",
         "guzzlehttp/guzzle": "7.15.*",
         "laracasts/utilities": "3.2.*",
-        "laravel/framework": "13.26.*",
+        "laravel/framework": "13.30.*",
         "laravel/helpers": "1.8.*",
         "laravel/tinker": "3.0.*",
         "sentry/sentry-laravel": "4.27.*",
@@ -27,7 +27,7 @@
         "barryvdh/laravel-debugbar": "4.4.*",
         "barryvdh/laravel-ide-helper": "3.7.*",
         "chieftools/php-cs-fixer": "1.1.*",
-        "larastan/larastan": "3.10.*",
+        "larastan/larastan": "3.11.*",
         "nunomaduro/collision": "8.9.*"
     },
     "replace": {
