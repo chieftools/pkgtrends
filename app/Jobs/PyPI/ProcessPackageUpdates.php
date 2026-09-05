@@ -8,10 +8,11 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use ChiefTools\Pkgtrends\Models\Packages\PyPI;
 use ChiefTools\Pkgtrends\Jobs\Concerns\LogsMessages;
+use ChiefTools\Pkgtrends\Jobs\Concerns\RetriesWithBackoff;
 
 class ProcessPackageUpdates implements ShouldQueue
 {
-    use InteractsWithQueue, Queueable, LogsMessages;
+    use InteractsWithQueue, Queueable, LogsMessages, RetriesWithBackoff;
 
     protected static int $perPage = 50;
 

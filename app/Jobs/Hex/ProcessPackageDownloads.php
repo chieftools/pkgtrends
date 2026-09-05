@@ -3,16 +3,17 @@
 namespace ChiefTools\Pkgtrends\Jobs\Hex;
 
 use Illuminate\Bus\Queueable;
-use Illuminate\Database\QueryException;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use ChiefTools\Pkgtrends\Jobs\Concerns\LogsMessages;
 use ChiefTools\Pkgtrends\Models\Stats\Hex as HexStats;
+use ChiefTools\Pkgtrends\Jobs\Concerns\RetriesWithBackoff;
 use ChiefTools\Pkgtrends\Models\Packages\Hex as HexPackage;
+use Illuminate\Database\UniqueConstraintViolationException;
 
 class ProcessPackageDownloads implements ShouldQueue
 {
-    use InteractsWithQueue, Queueable, LogsMessages;
+    use InteractsWithQueue, Queueable, LogsMessages, RetriesWithBackoff;
 
     /** @var string */
     protected string $date;
@@ -68,7 +69,7 @@ class ProcessPackageDownloads implements ShouldQueue
                         'package'   => $name,
                         'downloads' => array_get($package, 'downloads.day', 0),
                     ])->save();
-                } catch (QueryException) {
+                } catch (UniqueConstraintViolationException) {
                     // Ignore possible duplicates
                 }
             }
