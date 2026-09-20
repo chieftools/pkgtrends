@@ -74,11 +74,13 @@ class ProcessPackageUpdates implements ShouldQueue
             $project     = $row['project'] ?? null;
             $description = $row['summary'] ?? null;
 
-            if (!is_string($project) || $project === '') {
-                continue;
+            if (is_string($project) && $project !== '') {
+                $descriptions[$project] = is_string($description) && $description !== 'UNKNOWN' ? $description : null;
             }
 
-            $descriptions[$project] = is_string($description) && $description !== 'UNKNOWN' ? $description : null;
+            if ($processedRows >= self::MAX_ROWS) {
+                break;
+            }
         }
 
         if ($processedRows === 0) {
