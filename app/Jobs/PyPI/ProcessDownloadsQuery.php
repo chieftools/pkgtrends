@@ -16,7 +16,7 @@ class ProcessDownloadsQuery implements ShouldQueue
 {
     use InteractsWithQueue, Queueable, LogsMessages, RetriesWithBackoff;
 
-    private static int $maxRows = 1000;
+    private const int MAX_ROWS = 1000;
 
     public function __construct(
         private string $jobId,
@@ -43,7 +43,7 @@ class ProcessDownloadsQuery implements ShouldQueue
         $projectKeys      = [];
 
         $queryResults = $bigQueryJob->queryResults([
-            'maxResults' => self::$maxRows,
+            'maxResults' => self::MAX_ROWS,
             'startIndex' => $this->offset,
         ]);
 
@@ -67,7 +67,7 @@ class ProcessDownloadsQuery implements ShouldQueue
             $projectKeys[] = $row['project'];
 
             // To prevent timeouts we bail out once we processed 1 page of data
-            if ($processedRows >= self::$maxRows) {
+            if ($processedRows >= self::MAX_ROWS) {
                 break;
             }
         }

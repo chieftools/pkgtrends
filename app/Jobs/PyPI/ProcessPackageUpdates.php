@@ -2,9 +2,11 @@
 
 namespace ChiefTools\Pkgtrends\Jobs\PyPI;
 
-use GuzzleHttp\Promise\Utils;
+use Throwable;
+use RuntimeException;
 use Illuminate\Bus\Queueable;
 use Illuminate\Queue\InteractsWithQueue;
+use Google\Cloud\BigQuery\BigQueryClient;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use ChiefTools\Pkgtrends\Models\Packages\PyPI;
 use ChiefTools\Pkgtrends\Jobs\Concerns\LogsMessages;
@@ -14,65 +16,122 @@ class ProcessPackageUpdates implements ShouldQueue
 {
     use InteractsWithQueue, Queueable, LogsMessages, RetriesWithBackoff;
 
-    protected static int $perPage = 50;
+    private const int MAX_ROWS = 1000;
 
+    private ?string $jobId;
+    private ?string $runId;
+    private int     $offset;
+    private ?int    $page;
+
+    // The final argument keeps pre-deployment queue payloads compatible.
     public function __construct(
-        private int $page = 1,
-    ) {}
+        ?string $jobId = null,
+        ?string $runId = null,
+        int $offset = 0,
+        ?int $page = null,
+    ) {
+        $this->jobId  = $jobId;
+        $this->runId  = $runId;
+        $this->offset = $offset;
+        $this->page   = $page;
+    }
 
-    public function handle(): void
+    public function handle(BigQueryClient $bigQuery): void
     {
-        $packages = PyPI::query()->orderBy('project')->skip(($this->page - 1) * self::$perPage)->take(self::$perPage)->get();
+        if ($this->jobId === null || $this->runId === null) {
+            $page = $this->page === null ? '' : " page:{$this->page}";
 
-        if ($packages->isEmpty()) {
-            $this->logMessage('Finished processing all pages!');
-
-            $this->pingForCompletion();
+            $this->logMessage("Skipping legacy PyPI package update job{$page}.");
 
             return;
         }
 
-        $this->logMessage("Processing PyPI packages page:{$this->page}...");
+        if (!StartPackageUpdatesQuery::isRunActive($this->runId)) {
+            $this->logMessage("Skipping stale PyPI package update run:{$this->runId}.");
 
-        $packagesByProject = $packages->keyBy('project');
-
-        // The HTTP client we are going to use to retrieve package information
-        $client = http('https://pypi.org/pypi/');
-
-        $promises = [];
-
-        // Fire of a API request for each package
-        $packages->each(function (PyPI $package) use (&$promises, $client) {
-            $promises[$package->project] = $client->getAsync("{$package->project}/json");
-        });
-
-        // Wait for all requests to finish
-        $results = Utils::settle($promises)->wait();
-
-        // Loop over the results
-        foreach ($results as $package => $result) {
-            /** @var \ChiefTools\Pkgtrends\Models\Packages\PyPI $localPackage */
-            $localPackage = $packagesByProject->get($package);
-
-            // Make sure the response was fullfilled and the response code is good
-            if ($result['state'] === 'fulfilled' && ($response = $result['value'] ?? null) !== null && $response->getStatusCode() === 200) {
-                // Retrieve and decode the package info
-                $info = rescue(fn () => json_decode($response->getBody()->getContents(), true) ?? [], []);
-
-                // Get the description from the response or use the old summary
-                $description = array_get($info, 'info.summary', $localPackage->description);
-
-                // Guard against inserting "UNKNOWN"
-                $localPackage->description = $description === 'UNKNOWN' ? null : $description;
-
-                // Persist changes if any
-                $localPackage->save();
-            }
+            return;
         }
 
-        $this->logMessage("Processed PyPI packages page:{$this->page}!");
+        $bigQueryJob = $bigQuery->job($this->jobId);
 
-        dispatch(new self($this->page + 1));
+        if (!$bigQueryJob->isComplete()) {
+            throw new RuntimeException('The BigQuery package metadata job is not completed yet!');
+        }
+
+        $this->logMessage("Processing BigQuery package metadata job:{$this->jobId} with offset:{$this->offset}...");
+
+        $processedRows = 0;
+        $descriptions  = [];
+
+        $queryResults = $bigQueryJob->queryResults([
+            'maxResults' => self::MAX_ROWS,
+            'startIndex' => $this->offset,
+        ]);
+
+        foreach ($queryResults->rows() as $row) {
+            $processedRows++;
+
+            $project     = $row['project'] ?? null;
+            $description = $row['summary'] ?? null;
+
+            if (!is_string($project) || $project === '') {
+                continue;
+            }
+
+            $descriptions[$project] = is_string($description) && $description !== 'UNKNOWN' ? $description : null;
+        }
+
+        if ($processedRows === 0) {
+            $this->logMessage('Finished processing all PyPI package metadata!');
+
+            $this->pingForCompletion();
+
+            StartPackageUpdatesQuery::releaseRun($this->runId);
+
+            return;
+        }
+
+        $updatedPackages = 0;
+        $packages        = PyPI::query()
+            ->whereIn('project', array_keys($descriptions))
+            ->get(['id', 'project', 'description']);
+
+        foreach ($packages as $package) {
+            $project = $this->normalizeProject($package->project);
+
+            if (!array_key_exists($project, $descriptions)) {
+                continue;
+            }
+
+            $package->description = $descriptions[$project];
+
+            if (!$package->isDirty('description')) {
+                continue;
+            }
+
+            $package->timestamps = false;
+            $package->save();
+
+            $updatedPackages++;
+        }
+
+        $this->logMessage("Processed {$processedRows} metadata rows and updated {$updatedPackages} packages for job:{$this->jobId} with offset:{$this->offset}.");
+
+        if (StartPackageUpdatesQuery::isRunActive($this->runId)) {
+            dispatch(new self($this->jobId, $this->runId, $this->offset + $processedRows));
+        }
+    }
+
+    public function failed(?Throwable $exception): void
+    {
+        if ($this->runId !== null) {
+            StartPackageUpdatesQuery::releaseRun($this->runId);
+        }
+    }
+
+    private function normalizeProject(string $project): string
+    {
+        return strtolower(preg_replace('/[-_.]+/', '-', $project));
     }
 
     private function pingForCompletion(): void
