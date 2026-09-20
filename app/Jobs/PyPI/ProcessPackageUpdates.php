@@ -94,8 +94,12 @@ class ProcessPackageUpdates implements ShouldQueue
         }
 
         $updatedPackages = 0;
+        $projectKeys     = array_map(
+            static fn (int|string $project): string => (string)$project,
+            array_keys($descriptions),
+        );
         $packages        = PyPI::query()
-            ->whereIn('project', array_keys($descriptions))
+            ->whereIn('project', $projectKeys)
             ->get(['id', 'project', 'description']);
 
         foreach ($packages as $package) {
