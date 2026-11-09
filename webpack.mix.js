@@ -39,6 +39,7 @@ mix
         },
     })
     .version()
+    .disableNotifications()
 
     .js('resources/assets/js/app.js', 'public/build')
     .sass('resources/assets/sass/app.scss', 'public/build')
