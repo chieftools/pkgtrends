@@ -15,19 +15,19 @@
     "require": {
         "php": "^8.4",
         "google/cloud-bigquery": "1.39.*",
-        "guzzlehttp/guzzle": "8.2.*",
+        "guzzlehttp/guzzle": "8.3.*",
         "laracasts/utilities": "3.2.*",
-        "laravel/framework": "13.32.*",
+        "laravel/framework": "13.40.*",
         "laravel/helpers": "1.8.*",
         "laravel/tinker": "3.0.*",
-        "sentry/sentry-laravel": "4.27.*",
+        "sentry/sentry-laravel": "4.29.*",
         "stayallive/laravel-eloquent-uuid": "1.0.*"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "4.4.*",
-        "barryvdh/laravel-ide-helper": "3.7.*",
+        "barryvdh/laravel-ide-helper": "3.8.*",
         "chieftools/php-cs-fixer": "1.1.*",
-        "larastan/larastan": "3.12.*",
+        "larastan/larastan": "3.14.*",
         "nunomaduro/collision": "8.9.*"
     },
     "replace": {
